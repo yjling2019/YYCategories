@@ -1,5 +1,5 @@
 //
-//  NSKeyedUnarchiver+YYAdd.h
+//  NSKeyedUnarchiver+KTHelp.h
 //  YYCategories <https://github.com/ibireme/YYCategories>
 //
 //  Created by ibireme on 13/8/4.
@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Provides extensions for `NSKeyedUnarchiver`.
  */
-@interface NSKeyedUnarchiver (YYAdd)
+@interface NSKeyedUnarchiver (KTHelp)
 
 /**
  Same as unarchiveObjectWithData:, except it returns the exception by reference.
@@ -26,8 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
  @param exception  Pointer which will, upon return, if an exception occurred and
  said pointer is not NULL, point to said NSException.
  */
-+ (nullable id)unarchiveObjectWithData:(NSData *)data
-                             exception:(NSException *_Nullable *_Nullable)exception;
++ (nullable id)kt_unarchiveObjectWithData:(NSData *)data
+								exception:(NSException *_Nullable *_Nullable)exception;
 
 /**
  Same as unarchiveObjectWithFile:, except it returns the exception by reference.
@@ -37,8 +37,8 @@ NS_ASSUME_NONNULL_BEGIN
  @param exception  Pointer which will, upon return, if an exception occurred and
  said  pointer is not NULL, point to said NSException.
  */
-+ (nullable id)unarchiveObjectWithFile:(NSString *)path
-                             exception:(NSException *_Nullable *_Nullable)exception;
++ (nullable id)kt_unarchiveObjectWithFile:(NSString *)path
+								exception:(NSException *_Nullable *_Nullable)exception;
 
 @end
 

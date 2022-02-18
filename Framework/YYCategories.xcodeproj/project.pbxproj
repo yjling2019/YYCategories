@@ -25,10 +25,10 @@
 		D9D584B31F055E6A00CBBB61 /* NSDate+KTHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D584731F055E6A00CBBB61 /* NSDate+KTHelp.m */; };
 		D9D584B41F055E6A00CBBB61 /* NSDictionary+KTHelp.h in Headers */ = {isa = PBXBuildFile; fileRef = D9D584741F055E6A00CBBB61 /* NSDictionary+KTHelp.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D9D584B51F055E6A00CBBB61 /* NSDictionary+KTHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D584751F055E6A00CBBB61 /* NSDictionary+KTHelp.m */; };
-		D9D584B61F055E6A00CBBB61 /* NSKeyedUnarchiver+YYAdd.h in Headers */ = {isa = PBXBuildFile; fileRef = D9D584761F055E6A00CBBB61 /* NSKeyedUnarchiver+YYAdd.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D9D584B71F055E6A00CBBB61 /* NSKeyedUnarchiver+YYAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D584771F055E6A00CBBB61 /* NSKeyedUnarchiver+YYAdd.m */; };
-		D9D584B81F055E6A00CBBB61 /* NSNotificationCenter+YYAdd.h in Headers */ = {isa = PBXBuildFile; fileRef = D9D584781F055E6A00CBBB61 /* NSNotificationCenter+YYAdd.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D9D584B91F055E6A00CBBB61 /* NSNotificationCenter+YYAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D584791F055E6A00CBBB61 /* NSNotificationCenter+YYAdd.m */; };
+		D9D584B61F055E6A00CBBB61 /* NSKeyedUnarchiver+KTHelp.h in Headers */ = {isa = PBXBuildFile; fileRef = D9D584761F055E6A00CBBB61 /* NSKeyedUnarchiver+KTHelp.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D9D584B71F055E6A00CBBB61 /* NSKeyedUnarchiver+KTHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D584771F055E6A00CBBB61 /* NSKeyedUnarchiver+KTHelp.m */; };
+		D9D584B81F055E6A00CBBB61 /* NSNotificationCenter+KTHelp.h in Headers */ = {isa = PBXBuildFile; fileRef = D9D584781F055E6A00CBBB61 /* NSNotificationCenter+KTHelp.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D9D584B91F055E6A00CBBB61 /* NSNotificationCenter+KTHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D584791F055E6A00CBBB61 /* NSNotificationCenter+KTHelp.m */; };
 		D9D584BA1F055E6A00CBBB61 /* NSNumber+YYAdd.h in Headers */ = {isa = PBXBuildFile; fileRef = D9D5847A1F055E6A00CBBB61 /* NSNumber+YYAdd.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D9D584BB1F055E6A00CBBB61 /* NSNumber+YYAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D5847B1F055E6A00CBBB61 /* NSNumber+YYAdd.m */; };
 		D9D584BC1F055E6A00CBBB61 /* NSObject+YYAdd.h in Headers */ = {isa = PBXBuildFile; fileRef = D9D5847C1F055E6A00CBBB61 /* NSObject+YYAdd.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -92,10 +92,10 @@
 		D9D584731F055E6A00CBBB61 /* NSDate+KTHelp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+KTHelp.m"; sourceTree = "<group>"; };
 		D9D584741F055E6A00CBBB61 /* NSDictionary+KTHelp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+KTHelp.h"; sourceTree = "<group>"; };
 		D9D584751F055E6A00CBBB61 /* NSDictionary+KTHelp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+KTHelp.m"; sourceTree = "<group>"; };
-		D9D584761F055E6A00CBBB61 /* NSKeyedUnarchiver+YYAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSKeyedUnarchiver+YYAdd.h"; sourceTree = "<group>"; };
-		D9D584771F055E6A00CBBB61 /* NSKeyedUnarchiver+YYAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSKeyedUnarchiver+YYAdd.m"; sourceTree = "<group>"; };
-		D9D584781F055E6A00CBBB61 /* NSNotificationCenter+YYAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+YYAdd.h"; sourceTree = "<group>"; };
-		D9D584791F055E6A00CBBB61 /* NSNotificationCenter+YYAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNotificationCenter+YYAdd.m"; sourceTree = "<group>"; };
+		D9D584761F055E6A00CBBB61 /* NSKeyedUnarchiver+KTHelp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSKeyedUnarchiver+KTHelp.h"; sourceTree = "<group>"; };
+		D9D584771F055E6A00CBBB61 /* NSKeyedUnarchiver+KTHelp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSKeyedUnarchiver+KTHelp.m"; sourceTree = "<group>"; };
+		D9D584781F055E6A00CBBB61 /* NSNotificationCenter+KTHelp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+KTHelp.h"; sourceTree = "<group>"; };
+		D9D584791F055E6A00CBBB61 /* NSNotificationCenter+KTHelp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNotificationCenter+KTHelp.m"; sourceTree = "<group>"; };
 		D9D5847A1F055E6A00CBBB61 /* NSNumber+YYAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+YYAdd.h"; sourceTree = "<group>"; };
 		D9D5847B1F055E6A00CBBB61 /* NSNumber+YYAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+YYAdd.m"; sourceTree = "<group>"; };
 		D9D5847C1F055E6A00CBBB61 /* NSObject+YYAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+YYAdd.h"; sourceTree = "<group>"; };
@@ -216,10 +216,10 @@
 				D9D584731F055E6A00CBBB61 /* NSDate+KTHelp.m */,
 				D9D584741F055E6A00CBBB61 /* NSDictionary+KTHelp.h */,
 				D9D584751F055E6A00CBBB61 /* NSDictionary+KTHelp.m */,
-				D9D584761F055E6A00CBBB61 /* NSKeyedUnarchiver+YYAdd.h */,
-				D9D584771F055E6A00CBBB61 /* NSKeyedUnarchiver+YYAdd.m */,
-				D9D584781F055E6A00CBBB61 /* NSNotificationCenter+YYAdd.h */,
-				D9D584791F055E6A00CBBB61 /* NSNotificationCenter+YYAdd.m */,
+				D9D584761F055E6A00CBBB61 /* NSKeyedUnarchiver+KTHelp.h */,
+				D9D584771F055E6A00CBBB61 /* NSKeyedUnarchiver+KTHelp.m */,
+				D9D584781F055E6A00CBBB61 /* NSNotificationCenter+KTHelp.h */,
+				D9D584791F055E6A00CBBB61 /* NSNotificationCenter+KTHelp.m */,
 				D9D5847A1F055E6A00CBBB61 /* NSNumber+YYAdd.h */,
 				D9D5847B1F055E6A00CBBB61 /* NSNumber+YYAdd.m */,
 				D9D5847C1F055E6A00CBBB61 /* NSObject+YYAdd.h */,
@@ -322,7 +322,7 @@
 				D9D584C21F055E6A00CBBB61 /* NSString+YYAdd.h in Headers */,
 				D9D584E81F055E6A00CBBB61 /* YYCategories.h in Headers */,
 				D9D584E61F055E6A00CBBB61 /* UIView+YYAdd.h in Headers */,
-				D9D584B81F055E6A00CBBB61 /* NSNotificationCenter+YYAdd.h in Headers */,
+				D9D584B81F055E6A00CBBB61 /* NSNotificationCenter+KTHelp.h in Headers */,
 				D9D584B01F055E6A00CBBB61 /* NSData+KTHelp.h in Headers */,
 				D9D584D01F055E6A00CBBB61 /* UIBezierPath+YYAdd.h in Headers */,
 				D9D584E21F055E6A00CBBB61 /* UITableView+YYAdd.h in Headers */,
@@ -337,7 +337,7 @@
 				D9D584DA1F055E6A00CBBB61 /* UIGestureRecognizer+YYAdd.h in Headers */,
 				D9D584DE1F055E6A00CBBB61 /* UIScreen+YYAdd.h in Headers */,
 				D9D584CE1F055E6A00CBBB61 /* UIBarButtonItem+YYAdd.h in Headers */,
-				D9D584B61F055E6A00CBBB61 /* NSKeyedUnarchiver+YYAdd.h in Headers */,
+				D9D584B61F055E6A00CBBB61 /* NSKeyedUnarchiver+KTHelp.h in Headers */,
 				D9D584C41F055E6A00CBBB61 /* NSThread+YYAdd.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -425,7 +425,7 @@
 				D9D584D31F055E6A00CBBB61 /* UIColor+YYAdd.m in Sources */,
 				D9D584BF1F055E6A00CBBB61 /* NSObject+YYAddForARC.m in Sources */,
 				D9D584C71F055E6A00CBBB61 /* NSTimer+YYAdd.m in Sources */,
-				D9D584B71F055E6A00CBBB61 /* NSKeyedUnarchiver+YYAdd.m in Sources */,
+				D9D584B71F055E6A00CBBB61 /* NSKeyedUnarchiver+KTHelp.m in Sources */,
 				D9D584C31F055E6A00CBBB61 /* NSString+YYAdd.m in Sources */,
 				D9D584C51F055E6A00CBBB61 /* NSThread+YYAdd.m in Sources */,
 				D9D584E31F055E6A00CBBB61 /* UITableView+YYAdd.m in Sources */,
@@ -433,7 +433,7 @@
 				D9D584BB1F055E6A00CBBB61 /* NSNumber+YYAdd.m in Sources */,
 				D9D584AD1F055E6A00CBBB61 /* NSArray+KTHelp.m in Sources */,
 				D9D584DB1F055E6A00CBBB61 /* UIGestureRecognizer+YYAdd.m in Sources */,
-				D9D584B91F055E6A00CBBB61 /* NSNotificationCenter+YYAdd.m in Sources */,
+				D9D584B91F055E6A00CBBB61 /* NSNotificationCenter+KTHelp.m in Sources */,
 				D9D584B31F055E6A00CBBB61 /* NSDate+KTHelp.m in Sources */,
 				D9D584D11F055E6A00CBBB61 /* UIBezierPath+YYAdd.m in Sources */,
 				D9D584BD1F055E6A00CBBB61 /* NSObject+YYAdd.m in Sources */,

@@ -1,5 +1,5 @@
 //
-//  NSKeyedUnarchiver+YYAdd.m
+//  NSKeyedUnarchiver+KTHelp.m
 //  YYCategories <https://github.com/ibireme/YYCategories>
 //
 //  Created by ibireme on 13/8/4.
@@ -9,15 +9,13 @@
 //  LICENSE file in the root directory of this source tree.
 //
 
-#import "NSKeyedUnarchiver+YYAdd.h"
+#import "NSKeyedUnarchiver+KTHelp.h"
 #import "YYCategoriesMacro.h"
 
-YYSYNTH_DUMMY_CLASS(NSKeyedUnarchiver_YYAdd)
+@implementation NSKeyedUnarchiver (KTHelp)
 
-
-@implementation NSKeyedUnarchiver (YYAdd)
-
-+ (id)unarchiveObjectWithData:(NSData *)data exception:(__autoreleasing NSException **)exception {
++ (id)kt_unarchiveObjectWithData:(NSData *)data
+					   exception:(__autoreleasing NSException **)exception {
     id object = nil;
     @try {
         object = [NSKeyedUnarchiver unarchiveObjectWithData:data];
@@ -32,7 +30,8 @@ YYSYNTH_DUMMY_CLASS(NSKeyedUnarchiver_YYAdd)
     return object;
 }
 
-+ (id)unarchiveObjectWithFile:(NSString *)path exception:(__autoreleasing NSException **)exception {
++ (id)kt_unarchiveObjectWithFile:(NSString *)path
+					   exception:(__autoreleasing NSException **)exception {
     id object = nil;
     
     @try {
