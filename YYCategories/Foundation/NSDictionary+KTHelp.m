@@ -1,5 +1,5 @@
 //
-//  NSDictionary+YYAdd.m
+//  NSDictionary+KTHelp.m
 //  YYCategories <https://github.com/ibireme/YYCategories>
 //
 //  Created by ibireme on 13/4/4.
@@ -9,14 +9,11 @@
 //  LICENSE file in the root directory of this source tree.
 //
 
-#import "NSDictionary+YYAdd.h"
+#import "NSDictionary+KTHelp.h"
 #import "NSString+YYAdd.h"
 #import "NSData+KTHelp.h"
 #import "YYCategoriesMacro.h"
 #import "NSArray+KTHelp.h"
-
-YYSYNTH_DUMMY_CLASS(NSDictionary_YYAdd)
-
 
 @interface _YYXMLDictionaryParser : NSObject <NSXMLParserDelegate>
 @end
@@ -160,37 +157,37 @@ YYSYNTH_DUMMY_CLASS(NSDictionary_YYAdd)
 @end
 
 
-@implementation NSDictionary (YYAdd)
+@implementation NSDictionary (KTHelp)
 
-+ (NSDictionary *)dictionaryWithPlistData:(NSData *)plist {
++ (NSDictionary *)kt_dictionaryWithPlistData:(NSData *)plist {
     if (!plist) return nil;
     NSDictionary *dictionary = [NSPropertyListSerialization propertyListWithData:plist options:NSPropertyListImmutable format:NULL error:NULL];
     if ([dictionary isKindOfClass:[NSDictionary class]]) return dictionary;
     return nil;
 }
 
-+ (NSDictionary *)dictionaryWithPlistString:(NSString *)plist {
++ (NSDictionary *)kt_dictionaryWithPlistString:(NSString *)plist {
     if (!plist) return nil;
     NSData* data = [plist dataUsingEncoding:NSUTF8StringEncoding];
-    return [self dictionaryWithPlistData:data];
+    return [self kt_dictionaryWithPlistData:data];
 }
 
-- (NSData *)plistData {
+- (NSData *)kt_plistData {
     return [NSPropertyListSerialization dataWithPropertyList:self format:NSPropertyListBinaryFormat_v1_0 options:kNilOptions error:NULL];
 }
 
-- (NSString *)plistString {
+- (NSString *)kt_plistString {
     NSData *xmlData = [NSPropertyListSerialization dataWithPropertyList:self format:NSPropertyListXMLFormat_v1_0 options:kNilOptions error:NULL];
     if (xmlData) return xmlData.kt_utf8String;
     return nil;
 }
 
-- (NSArray *)allKeysSorted {
+- (NSArray *)kt_allKeysSorted {
     return [[self allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 }
 
-- (NSArray *)allValuesSortedByKeys {
-    NSArray *sortedKeys = [self allKeysSorted];
+- (NSArray *)kt_allValuesSortedByKeys {
+    NSArray *sortedKeys = [self kt_allKeysSorted];
     NSMutableArray *arr = [[NSMutableArray alloc] init];
     for (id key in sortedKeys) {
         [arr addObject:self[key]];
@@ -198,12 +195,12 @@ YYSYNTH_DUMMY_CLASS(NSDictionary_YYAdd)
     return arr;
 }
 
-- (BOOL)containsObjectForKey:(id)key {
+- (BOOL)kt_containsObjectForKey:(id)key {
     if (!key) return NO;
     return self[key] != nil;
 }
 
-- (NSDictionary *)entriesForKeys:(NSArray *)keys {
+- (NSDictionary *)kt_entriesForKeys:(NSArray *)keys {
     NSMutableDictionary *dic = [NSMutableDictionary new];
     for (id key in keys) {
         id value = self[key];
@@ -212,7 +209,7 @@ YYSYNTH_DUMMY_CLASS(NSDictionary_YYAdd)
     return dic;
 }
 
-- (NSString *)jsonStringEncoded {
+- (NSString *)kt_jsonStringEncoded {
     if ([NSJSONSerialization isValidJSONObject:self]) {
         NSError *error;
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self options:0 error:&error];
@@ -222,7 +219,7 @@ YYSYNTH_DUMMY_CLASS(NSDictionary_YYAdd)
     return nil;
 }
 
-- (NSString *)jsonPrettyStringEncoded {
+- (NSString *)kt_jsonPrettyStringEncoded {
     if ([NSJSONSerialization isValidJSONObject:self]) {
         NSError *error;
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:&error];
@@ -232,7 +229,7 @@ YYSYNTH_DUMMY_CLASS(NSDictionary_YYAdd)
     return nil;
 }
 
-+ (NSDictionary *)dictionaryWithXML:(id)xml {
++ (NSDictionary *)kt_dictionaryWithXML:(id)xml {
     _YYXMLDictionaryParser *parser = nil;
     if ([xml isKindOfClass:[NSString class]]) {
         parser = [[_YYXMLDictionaryParser alloc] initWithString:xml];
@@ -274,67 +271,90 @@ if ([value isKindOfClass:[NSNumber class]]) return ((NSNumber *)value)._type_;  
 if ([value isKindOfClass:[NSString class]]) return NSNumberFromID(value)._type_; \
 return def;
 
-- (BOOL)boolValueForKey:(NSString *)key default:(BOOL)def {
+- (nullable id)kt_objectForKey:(nonnull NSString *)key verifyClass:(nullable Class)theClass {
+	id object = [self objectForKey:key];
+	if (!theClass) {
+		return object;
+	}
+
+	if (![theClass isSubclassOfClass:[NSObject class]]) {
+#if DEBUG
+		NSAssert(NO, @"theClass must be subClass of NSObject");
+#endif
+		return nil;
+	}
+		
+	if ([object isKindOfClass:theClass]) {
+		return object;
+	}
+	return nil;
+}
+
+- (BOOL)kt_boolValueForKey:(NSString *)key withDefault:(BOOL)def {
     RETURN_VALUE(boolValue);
 }
 
-- (char)charValueForKey:(NSString *)key default:(char)def {
+- (char)kt_charValueForKey:(NSString *)key withDefault:(char)def {
     RETURN_VALUE(charValue);
 }
 
-- (unsigned char)unsignedCharValueForKey:(NSString *)key default:(unsigned char)def {
+- (unsigned char)kt_unsignedCharValueForKey:(NSString *)key withDefault:(unsigned char)def {
     RETURN_VALUE(unsignedCharValue);
 }
 
-- (short)shortValueForKey:(NSString *)key default:(short)def {
+- (short)kt_shortValueForKey:(NSString *)key withDefault:(short)def {
     RETURN_VALUE(shortValue);
 }
 
-- (unsigned short)unsignedShortValueForKey:(NSString *)key default:(unsigned short)def {
+- (unsigned short)kt_unsignedShortValueForKey:(NSString *)key withDefault:(unsigned short)def {
     RETURN_VALUE(unsignedShortValue);
 }
 
-- (int)intValueForKey:(NSString *)key default:(int)def {
+- (int)kt_intValueForKey:(NSString *)key withDefault:(int)def {
     RETURN_VALUE(intValue);
 }
 
-- (unsigned int)unsignedIntValueForKey:(NSString *)key default:(unsigned int)def {
+- (unsigned int)kt_unsignedIntValueForKey:(NSString *)key withDefault:(unsigned int)def {
     RETURN_VALUE(unsignedIntValue);
 }
 
-- (long)longValueForKey:(NSString *)key default:(long)def {
+- (long)kt_longValueForKey:(NSString *)key withDefault:(long)def {
     RETURN_VALUE(longValue);
 }
 
-- (unsigned long)unsignedLongValueForKey:(NSString *)key default:(unsigned long)def {
+- (unsigned long)kt_unsignedLongValueForKey:(NSString *)key withDefault:(unsigned long)def {
     RETURN_VALUE(unsignedLongValue);
 }
 
-- (long long)longLongValueForKey:(NSString *)key default:(long long)def {
+- (long long)kt_longLongValueForKey:(NSString *)key withDefault:(long long)def {
     RETURN_VALUE(longLongValue);
 }
 
-- (unsigned long long)unsignedLongLongValueForKey:(NSString *)key default:(unsigned long long)def {
+- (unsigned long long)kt_unsignedLongLongValueForKey:(NSString *)key withDefault:(unsigned long long)def {
     RETURN_VALUE(unsignedLongLongValue);
 }
 
-- (float)floatValueForKey:(NSString *)key default:(float)def {
+- (float)kt_floatValueForKey:(NSString *)key withDefault:(float)def {
     RETURN_VALUE(floatValue);
 }
 
-- (double)doubleValueForKey:(NSString *)key default:(double)def {
+- (double)kt_doubleValueForKey:(NSString *)key withDefault:(double)def {
     RETURN_VALUE(doubleValue);
 }
 
-- (NSInteger)integerValueForKey:(NSString *)key default:(NSInteger)def {
+- (NSInteger)kt_integerValueForKey:(NSString *)key withDefault:(NSInteger)def {
     RETURN_VALUE(integerValue);
 }
 
-- (NSUInteger)unsignedIntegerValueForKey:(NSString *)key default:(NSUInteger)def {
+- (NSUInteger)kt_unsignedIntegerValueForKey:(NSString *)key withDefault:(NSUInteger)def {
     RETURN_VALUE(unsignedIntegerValue);
 }
 
-- (NSNumber *)numberValueForKey:(NSString *)key default:(NSNumber *)def {
+- (NSNumber *)kt_numberForKey:(NSString *)key {
+	return [self kt_numberForKey:key withDefault:nil];
+}
+
+- (NSNumber *)kt_numberForKey:(NSString *)key withDefault:(NSNumber *)def {
     if (!key) return def;
     id value = self[key];
     if (!value || value == [NSNull null]) return def;
@@ -343,7 +363,11 @@ return def;
     return def;
 }
 
-- (NSString *)stringValueForKey:(NSString *)key default:(NSString *)def {
+- (nullable NSString *)kt_stringForKey:(NSString *)key {
+	return [self kt_stringForKey:key withDefault:nil];
+}
+
+- (NSString *)kt_stringForKey:(NSString *)key withDefault:(NSString *)def {
     if (!key) return def;
     id value = self[key];
     if (!value || value == [NSNull null]) return def;
@@ -352,32 +376,222 @@ return def;
     return def;
 }
 
+- (nullable NSArray *)kt_arrayForKey:(nonnull NSString *)key {
+	return [self kt_arrayForKey:key withDefault:nil];
+}
+
+- (nullable NSArray *)kt_arrayForKey:(nonnull NSString *)key withDefault:(nullable NSArray *)def {
+	if (!key) return def;
+	id value = self[key];
+	if (!value || value == [NSNull null]) return def;
+	if ([value isKindOfClass:[NSArray class]]) return value;
+	return def;
+}
+
+- (nullable NSDictionary *)kt_dictionaryForKey:(nonnull NSString *)key {
+	return [self kt_dictionaryForKey:key withDefault:nil];
+}
+
+- (nullable NSDictionary *)kt_dictionaryForKey:(nonnull NSString *)key withDefault:(nullable NSDictionary *)def {
+	if (!key) return def;
+	id value = self[key];
+	if (!value || value == [NSNull null]) return def;
+	if ([value isKindOfClass:[NSDictionary class]]) return value;
+	return def;
+}
+
+- (BOOL)kt_boolForKeyPath:(nonnull NSString *)keyPath
+{
+  NSArray *keys = [keyPath componentsSeparatedByString:@"."];
+  NSDictionary *dic = self;
+  BOOL value = NO;
+  
+  for (NSInteger i = 0; i < keys.count; i++) {
+	  NSString *key = keys[i];
+	  if (i == keys.count - 1) {
+		  value = [dic kt_boolValueForKey:key withDefault:NO];
+	  } else {
+		  dic = [dic kt_dictionaryForKey:key];
+		  if (!dic) {
+			  break;
+		  }
+	  }
+  }
+  
+  return value;
+}
+
+- (float)kt_floatForKeyPath:(nonnull NSString *)keyPath
+{
+	NSArray *keys = [keyPath componentsSeparatedByString:@"."];
+	NSDictionary *dic = self;
+	float value = 0.f;
+	
+	for (NSInteger i = 0; i < keys.count; i++) {
+		NSString *key = keys[i];
+		if (i == keys.count - 1) {
+			value = [dic kt_floatValueForKey:key withDefault:0.f];
+		} else {
+			dic = [dic kt_dictionaryForKey:key];
+			if (!dic) {
+				break;
+			}
+		}
+	}
+	
+	return value;
+}
+
+- (double)kt_doubleForKeyPath:(nonnull NSString *)keyPath
+{
+   NSArray *keys = [keyPath componentsSeparatedByString:@"."];
+   NSDictionary *dic = self;
+   double value = 0.f;
+   
+   for (NSInteger i = 0; i < keys.count; i++) {
+	   NSString *key = keys[i];
+	   if (i == keys.count - 1) {
+		   value = [dic kt_doubleValueForKey:key withDefault:0.f];
+	   } else {
+		   dic = [dic kt_dictionaryForKey:key];
+		   if (!dic) {
+			   break;
+		   }
+	   }
+   }
+   
+   return value;
+}
+
+- (NSInteger)kt_integerForKeyPath:(nonnull NSString *)keyPath
+{
+	NSArray *keys = [keyPath componentsSeparatedByString:@"."];
+	NSDictionary *dic = self;
+	NSInteger value = 0;
+	
+	for (NSInteger i = 0; i < keys.count; i++) {
+		NSString *key = keys[i];
+		if (i == keys.count - 1) {
+			value = [dic kt_integerValueForKey:key withDefault:0];
+		} else {
+			dic = [dic kt_dictionaryForKey:key];
+			if (!dic) {
+				break;
+			}
+		}
+	}
+	
+	return value;
+}
+
+- (nullable NSNumber *)kt_numberForKeyPath:(nonnull NSString *)keyPath
+{
+	NSArray *keys = [keyPath componentsSeparatedByString:@"."];
+	NSDictionary *dic = self;
+	NSNumber *number = nil;
+	
+	for (NSInteger i = 0; i < keys.count; i++) {
+		NSString *key = keys[i];
+		if (i == keys.count - 1) {
+			number = [dic kt_numberForKey:key];
+		} else {
+			dic = [dic kt_dictionaryForKey:key];
+			if (!dic) {
+				break;
+			}
+		}
+	}
+	
+	return number;
+}
+
+- (nullable NSString *)kt_stringForKeyPath:(nonnull NSString *)keyPath
+{
+	NSArray *keys = [keyPath componentsSeparatedByString:@"."];
+	NSDictionary *dic = self;
+	NSString *string = nil;
+	
+	for (NSInteger i = 0; i < keys.count; i++) {
+		NSString *key = keys[i];
+		if (i == keys.count - 1) {
+			string = [dic kt_stringForKey:key];
+		} else {
+			dic = [dic kt_dictionaryForKey:key];
+			if (!dic) {
+				break;
+			}
+		}
+	}
+	
+	return string;
+}
+
+- (nullable NSArray *)kt_arrayForKeyPath:(nonnull NSString *)keyPath
+{
+	NSArray *keys = [keyPath componentsSeparatedByString:@"."];
+	NSDictionary *dic = self;
+	NSArray *array = nil;
+	
+	for (NSInteger i = 0; i < keys.count; i++) {
+		NSString *key = keys[i];
+		if (i == keys.count - 1) {
+			array = [dic kt_arrayForKey:key];
+			if (!dic) {
+				break;
+			}
+		} else {
+			dic = [dic kt_dictionaryForKey:key];
+			if (!dic) {
+				break;
+			}
+		}
+	}
+	
+	return array;
+}
+
+-  (nullable NSDictionary *)kt_dictionaryForKeyPath:(nonnull NSString *)keyPath
+{
+	NSArray *keys = [keyPath componentsSeparatedByString:@"."];
+	NSDictionary *dic = self;
+	
+	for (NSInteger i = 0; i < keys.count; i++) {
+		NSString *key = keys[i];
+		dic = [dic kt_dictionaryForKey:key];
+		if (!dic) {
+			break;
+		}
+	}
+	
+	return dic;
+}
+
 @end
 
 
-@implementation NSMutableDictionary (YYAdd)
+@implementation NSMutableDictionary (KTHelp)
 
-+ (NSMutableDictionary *)dictionaryWithPlistData:(NSData *)plist {
++ (NSMutableDictionary *)kt_dictionaryWithPlistData:(NSData *)plist {
     if (!plist) return nil;
     NSMutableDictionary *dictionary = [NSPropertyListSerialization propertyListWithData:plist options:NSPropertyListMutableContainersAndLeaves format:NULL error:NULL];
     if ([dictionary isKindOfClass:[NSMutableDictionary class]]) return dictionary;
     return nil;
 }
 
-+ (NSMutableDictionary *)dictionaryWithPlistString:(NSString *)plist {
++ (NSMutableDictionary *)kt_dictionaryWithPlistString:(NSString *)plist {
     if (!plist) return nil;
     NSData* data = [plist dataUsingEncoding:NSUTF8StringEncoding];
-    return [self dictionaryWithPlistData:data];
+    return [self kt_dictionaryWithPlistData:data];
 }
 
-- (id)popObjectForKey:(id)aKey {
+- (id)kt_popObjectForKey:(id)aKey {
     if (!aKey) return nil;
     id value = self[aKey];
     [self removeObjectForKey:aKey];
     return value;
 }
 
-- (NSDictionary *)popEntriesForKeys:(NSArray *)keys {
+- (NSDictionary *)kt_popEntriesForKeys:(NSArray *)keys {
     NSMutableDictionary *dic = [NSMutableDictionary new];
     for (id key in keys) {
         id value = self[key];

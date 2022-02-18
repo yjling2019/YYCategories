@@ -1,5 +1,5 @@
 //
-//  NSDictionary+YYAdd.h
+//  NSDictionary+KTHelp.h
 //  YYCategories <https://github.com/ibireme/YYCategories>
 //
 //  Created by ibireme on 13/4/4.
@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Provide some some common method for `NSDictionary`.
  */
-@interface NSDictionary (YYAdd)
+@interface NSDictionary (KTHelp)
 
 #pragma mark - Dictionary Convertor
 ///=============================================================================
@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param plist   A property list data whose root object is a dictionary.
  @return A new dictionary created from the plist data, or nil if an error occurs.
  */
-+ (nullable NSDictionary *)dictionaryWithPlistData:(NSData *)plist;
++ (nullable NSDictionary *)kt_dictionaryWithPlistData:(NSData *)plist;
 
 /**
  Creates and returns a dictionary from a specified property list xml string.
@@ -39,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
  
  @discussion Apple has implemented this method, but did not make it public.
  */
-+ (nullable NSDictionary *)dictionaryWithPlistString:(NSString *)plist;
++ (nullable NSDictionary *)kt_dictionaryWithPlistString:(NSString *)plist;
 
 /**
  Serialize the dictionary to a binary property list data.
@@ -48,14 +48,14 @@ NS_ASSUME_NONNULL_BEGIN
  
  @discussion Apple has implemented this method, but did not make it public.
  */
-- (nullable NSData *)plistData;
+- (nullable NSData *)kt_plistData;
 
 /**
  Serialize the dictionary to a xml property list string.
  
  @return A plist xml string, or nil if an error occurs.
  */
-- (nullable NSString *)plistString;
+- (nullable NSString *)kt_plistString;
 
 /**
  Returns a new array containing the dictionary's keys sorted.
@@ -64,7 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return A new array containing the dictionary's keys,
  or an empty array if the dictionary has no entries.
  */
-- (NSArray *)allKeysSorted;
+- (NSArray *)kt_allKeysSorted;
 
 /**
  Returns a new array containing the dictionary's values sorted by keys.
@@ -75,14 +75,14 @@ NS_ASSUME_NONNULL_BEGIN
  @return A new array containing the dictionary's values sorted by keys,
  or an empty array if the dictionary has no entries.
  */
-- (NSArray *)allValuesSortedByKeys;
+- (NSArray *)kt_allValuesSortedByKeys;
 
 /**
  Returns a BOOL value tells if the dictionary has an object for key.
  
  @param key The key.
  */
-- (BOOL)containsObjectForKey:(id)key;
+- (BOOL)kt_containsObjectForKey:(id)key;
 
 /**
  Returns a new dictionary containing the entries for keys.
@@ -91,17 +91,17 @@ NS_ASSUME_NONNULL_BEGIN
  @param keys The keys.
  @return The entries for the keys.
  */
-- (NSDictionary *)entriesForKeys:(NSArray *)keys;
+- (NSDictionary *)kt_entriesForKeys:(NSArray *)keys;
 
 /**
  Convert dictionary to json string. return nil if an error occurs.
  */
-- (nullable NSString *)jsonStringEncoded;
+- (nullable NSString *)kt_jsonStringEncoded;
 
 /**
  Convert dictionary to json string formatted. return nil if an error occurs.
  */
-- (nullable NSString *)jsonPrettyStringEncoded;
+- (nullable NSString *)kt_jsonPrettyStringEncoded;
 
 /**
  Try to parse an XML and wrap it into a dictionary.
@@ -113,38 +113,63 @@ NS_ASSUME_NONNULL_BEGIN
  @param xmlDataOrString XML in NSData or NSString format.
  @return Return a new dictionary, or nil if an error occurs.
  */
-+ (nullable NSDictionary *)dictionaryWithXML:(id)xmlDataOrString;
++ (nullable NSDictionary *)kt_dictionaryWithXML:(id)xmlDataOrString;
 
 #pragma mark - Dictionary Value Getter
 ///=============================================================================
 /// @name Dictionary Value Getter
 ///=============================================================================
 
-- (BOOL)boolValueForKey:(NSString *)key default:(BOOL)def;
+/// 根据key获取元素值，并对元素类型进行判断
+/// @param key key
+/// @param theClass 进行判定的类
+- (nullable id)kt_objectForKey:(nonnull NSString *)key verifyClass:(nullable Class)theClass;
 
-- (char)charValueForKey:(NSString *)key default:(char)def;
-- (unsigned char)unsignedCharValueForKey:(NSString *)key default:(unsigned char)def;
+- (BOOL)kt_boolValueForKey:(NSString *)key withDefault:(BOOL)def;
 
-- (short)shortValueForKey:(NSString *)key default:(short)def;
-- (unsigned short)unsignedShortValueForKey:(NSString *)key default:(unsigned short)def;
+- (char)kt_charValueForKey:(NSString *)key withDefault:(char)def;
+- (unsigned char)kt_unsignedCharValueForKey:(NSString *)key withDefault:(unsigned char)def;
 
-- (int)intValueForKey:(NSString *)key default:(int)def;
-- (unsigned int)unsignedIntValueForKey:(NSString *)key default:(unsigned int)def;
+- (short)kt_shortValueForKey:(NSString *)key withDefault:(short)def;
+- (unsigned short)kt_unsignedShortValueForKey:(NSString *)key withDefault:(unsigned short)def;
 
-- (long)longValueForKey:(NSString *)key default:(long)def;
-- (unsigned long)unsignedLongValueForKey:(NSString *)key default:(unsigned long)def;
+- (int)kt_intValueForKey:(NSString *)key withDefault:(int)def;
+- (unsigned int)kt_unsignedIntValueForKey:(NSString *)key withDefault:(unsigned int)def;
 
-- (long long)longLongValueForKey:(NSString *)key default:(long long)def;
-- (unsigned long long)unsignedLongLongValueForKey:(NSString *)key default:(unsigned long long)def;
+- (long)kt_longValueForKey:(NSString *)key withDefault:(long)def;
+- (unsigned long)kt_unsignedLongValueForKey:(NSString *)key withDefault:(unsigned long)def;
 
-- (float)floatValueForKey:(NSString *)key default:(float)def;
-- (double)doubleValueForKey:(NSString *)key default:(double)def;
+- (long long)kt_longLongValueForKey:(NSString *)key withDefault:(long long)def;
+- (unsigned long long)kt_unsignedLongLongValueForKey:(NSString *)key withDefault:(unsigned long long)def;
 
-- (NSInteger)integerValueForKey:(NSString *)key default:(NSInteger)def;
-- (NSUInteger)unsignedIntegerValueForKey:(NSString *)key default:(NSUInteger)def;
+- (float)kt_floatValueForKey:(NSString *)key withDefault:(float)def;
+- (double)kt_doubleValueForKey:(NSString *)key withDefault:(double)def;
 
-- (nullable NSNumber *)numberValueForKey:(NSString *)key default:(nullable NSNumber *)def;
-- (nullable NSString *)stringValueForKey:(NSString *)key default:(nullable NSString *)def;
+- (NSInteger)kt_integerValueForKey:(NSString *)key withDefault:(NSInteger)def;
+- (NSUInteger)kt_unsignedIntegerValueForKey:(NSString *)key withDefault:(NSUInteger)def;
+
+- (nullable NSNumber *)kt_numberForKey:(NSString *)key;
+- (nullable NSNumber *)kt_numberForKey:(NSString *)key withDefault:(nullable NSNumber *)def;
+- (nullable NSString *)kt_stringForKey:(NSString *)key;
+- (nullable NSString *)kt_stringForKey:(NSString *)key withDefault:(nullable NSString *)def;
+- (nullable NSArray *)kt_arrayForKey:(nonnull NSString *)key;
+- (nullable NSArray *)kt_arrayForKey:(nonnull NSString *)key withDefault:(nullable NSArray *)def;
+- (nullable NSDictionary *)kt_dictionaryForKey:(nonnull NSString *)key;
+- (nullable NSDictionary *)kt_dictionaryForKey:(nonnull NSString *)key withDefault:(nullable NSDictionary *)def;
+
+
+- (BOOL)kt_boolForKeyPath:(nonnull NSString *)keyPath;
+/// 存在精度问题，可以通过限定位数，NSDecimalNumber 实现更高的精度
+/// @param keyPath keyPath
+- (float)kt_floatForKeyPath:(nonnull NSString *)keyPath;
+/// 存在精度问题，可以通过限定位数，NSDecimalNumber 实现更高的精度
+/// @param keyPath keyPath
+- (double)kt_doubleForKeyPath:(nonnull NSString *)keyPath;
+- (NSInteger)kt_integerForKeyPath:(nonnull NSString *)keyPath;
+- (nullable NSNumber *)kt_numberForKeyPath:(nonnull NSString *)keyPath;
+- (nullable NSString *)kt_stringForKeyPath:(nonnull NSString *)keyPath;
+- (nullable NSArray *)kt_arrayForKeyPath:(nonnull NSString *)keyPath;
+- (nullable NSDictionary *)kt_dictionaryForKeyPath:(nonnull NSString *)keyPath;
 
 @end
 
@@ -153,7 +178,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Provide some some common method for `NSMutableDictionary`.
  */
-@interface NSMutableDictionary (YYAdd)
+@interface NSMutableDictionary (KTHelp)
 
 /**
  Creates and returns a dictionary from a specified property list data.
@@ -163,7 +188,7 @@ NS_ASSUME_NONNULL_BEGIN
  
  @discussion Apple has implemented this method, but did not make it public.
  */
-+ (nullable NSMutableDictionary *)dictionaryWithPlistData:(NSData *)plist;
++ (nullable NSMutableDictionary *)kt_dictionaryWithPlistData:(NSData *)plist;
 
 /**
  Creates and returns a dictionary from a specified property list xml string.
@@ -171,7 +196,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param plist   A property list xml string whose root object is a dictionary.
  @return A new dictionary created from the plist string, or nil if an error occurs.
  */
-+ (nullable NSMutableDictionary *)dictionaryWithPlistString:(NSString *)plist;
++ (nullable NSMutableDictionary *)kt_dictionaryWithPlistString:(NSString *)plist;
 
 
 /**
@@ -180,7 +205,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param aKey The key for which to return and remove the corresponding value.
  @return The value associated with aKey, or nil if no value is associated with aKey.
  */
-- (nullable id)popObjectForKey:(id)aKey;
+- (nullable id)kt_popObjectForKey:(id)aKey;
 
 /**
  Returns a new dictionary containing the entries for keys, and remove these
@@ -190,7 +215,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param keys The keys.
  @return The entries for the keys.
  */
-- (NSDictionary *)popEntriesForKeys:(NSArray *)keys;
+- (NSDictionary *)kt_popEntriesForKeys:(NSArray *)keys;
 
 @end
 
