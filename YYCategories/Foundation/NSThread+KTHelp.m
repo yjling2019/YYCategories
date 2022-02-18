@@ -1,5 +1,5 @@
 //
-//  NSThread+YYAdd.h
+//  NSThread+KTHelp.h
 //  YYCategories <https://github.com/ibireme/YYCategories>
 //
 //  Created by ibireme on 15/7/3.
@@ -90,7 +90,7 @@ static void KTRunloopAutoreleasePoolSetup() {
     CFRelease(popObserver);
 }
 
-@implementation NSThread (YYAdd)
+@implementation NSThread (KTHelp)
 
 + (void)kt_addAutoreleasePoolToCurrentRunloop {
     if ([NSThread isMainThread]) return; // The main thread already has autorelease pool.

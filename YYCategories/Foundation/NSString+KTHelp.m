@@ -1,5 +1,5 @@
 //
-//  NSString+YYAdd.m
+//  NSString+KTHelp.m
 //  YYCategories <https://github.com/ibireme/YYCategories>
 //
 //  Created by ibireme on 13/4/3.
@@ -12,7 +12,7 @@
 #import "NSString+KTHelp.h"
 #import "NSData+KTHelp.h"
 #import "NSNumber+KTHelp.h"
-#import "UIDevice+YYAdd.h"
+#import "UIDevice+KTHelp.h"
 #import "YYCategoriesMacro.h"
 
 @implementation NSString (KTHelp)
