@@ -1,5 +1,5 @@
 //
-//  NSObject+YYAdd.h
+//  NSObject+KTHelp.h
 //  YYCategories <https://github.com/ibireme/YYCategories>
 //
 //  Created by ibireme on 14/10/8.
@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Common tasks for NSObject.
  */
-@interface NSObject (YYAdd)
+@interface NSObject (KTHelp)
 
 
 #pragma mark - Sending messages with variable parameters
@@ -59,7 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
      NSValue *frameValue = [view performSelectorWithArgs:@selector(frame)];
      CGRect frame = frameValue.CGRectValue;
  */
-- (nullable id)performSelectorWithArgs:(SEL)sel, ...;
+- (nullable id)kt_performSelectorWithArgs:(SEL)sel, ...;
 
 /**
  Invokes a method of the receiver on the current thread using the default mode after a delay.
@@ -86,7 +86,7 @@ NS_ASSUME_NONNULL_BEGIN
      // variable arg is not object
      [view performSelectorWithArgs:@selector(setCenter:), afterDelay:0, CGPointMake(0, 0)];
  */
-- (void)performSelectorWithArgs:(SEL)sel afterDelay:(NSTimeInterval)delay, ...;
+- (void)kt_performSelectorWithArgs:(SEL)sel afterDelay:(NSTimeInterval)delay, ...;
 
 /**
  Invokes a method of the receiver on the main thread using the default mode.
@@ -118,7 +118,7 @@ NS_ASSUME_NONNULL_BEGIN
      // variable arg is not object
      [view performSelectorWithArgsOnMainThread:@selector(setCenter:), waitUntilDone:NO, CGPointMake(0, 0)];
  */
-- (nullable id)performSelectorWithArgsOnMainThread:(SEL)sel waitUntilDone:(BOOL)wait, ...;
+- (nullable id)kt_performSelectorWithArgsOnMainThread:(SEL)sel waitUntilDone:(BOOL)wait, ...;
 
 /**
  Invokes a method of the receiver on the specified thread using the default mode.
@@ -154,7 +154,7 @@ NS_ASSUME_NONNULL_BEGIN
          return [num2 compare:num2];
      }];
  */
-- (nullable id)performSelectorWithArgs:(SEL)sel onThread:(NSThread *)thread waitUntilDone:(BOOL)wait, ...;
+- (nullable id)kt_performSelectorWithArgs:(SEL)sel onThread:(NSThread *)thread waitUntilDone:(BOOL)wait, ...;
 
 /**
  Invokes a method of the receiver on a new background thread.
@@ -178,7 +178,7 @@ NS_ASSUME_NONNULL_BEGIN
         return [num2 compare:num2];
      }];
  */
-- (void)performSelectorWithArgsInBackground:(SEL)sel, ...;
+- (void)kt_performSelectorWithArgsInBackground:(SEL)sel, ...;
 
 /**
  Invokes a method of the receiver on the current thread after a delay.
@@ -203,7 +203,7 @@ NS_ASSUME_NONNULL_BEGIN
               in the default mode; otherwise, the timer waits until the run loop
               is in the default mode.
  */
-- (void)performSelector:(SEL)sel afterDelay:(NSTimeInterval)delay;
+- (void)kt_performSelector:(SEL)sel afterDelay:(NSTimeInterval)delay;
 
 
 #pragma mark - Swap method (Swizzling)
@@ -218,7 +218,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param newSel        Selector 2.
  @return              YES if swizzling succeed; otherwise, NO.
  */
-+ (BOOL)swizzleInstanceMethod:(SEL)originalSel with:(SEL)newSel;
++ (BOOL)kt_swizzleInstanceMethod:(SEL)originalSel with:(SEL)newSel;
 
 /**
  Swap two class method's implementation in one class. Dangerous, be careful.
@@ -227,7 +227,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param newSel        Selector 2.
  @return              YES if swizzling succeed; otherwise, NO.
  */
-+ (BOOL)swizzleClassMethod:(SEL)originalSel with:(SEL)newSel;
++ (BOOL)kt_swizzleClassMethod:(SEL)originalSel with:(SEL)newSel;
 
 
 #pragma mark - Associate value
@@ -241,7 +241,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param value   The object to associate.
  @param key     The pointer to get value from `self`.
  */
-- (void)setAssociateValue:(nullable id)value withKey:(void *)key;
+- (void)kt_setAssociateValue:(nullable id)value withKey:(void *)key;
 
 /**
  Associate one object to `self`, as if it was a weak property (week, nonatomic).
@@ -249,19 +249,19 @@ NS_ASSUME_NONNULL_BEGIN
  @param value  The object to associate.
  @param key    The pointer to get value from `self`.
  */
-- (void)setAssociateWeakValue:(nullable id)value withKey:(void *)key;
+- (void)kt_setAssociateWeakValue:(nullable id)value withKey:(void *)key;
 
 /**
  Get the associated value from `self`.
  
  @param key The pointer to get value from `self`.
  */
-- (nullable id)getAssociatedValueForKey:(void *)key;
+- (nullable id)kt_getAssociatedValueForKey:(void *)key;
 
 /**
  Remove all associated values.
  */
-- (void)removeAssociatedValues;
+- (void)kt_removeAssociatedValues;
 
 
 #pragma mark - Others
@@ -272,7 +272,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Returns the class name in NSString.
  */
-+ (NSString *)className;
++ (NSString *)kt_className;
 
 /**
  Returns the class name in NSString.
@@ -280,13 +280,13 @@ NS_ASSUME_NONNULL_BEGIN
  @discussion Apple has implemented this method in NSObject(NSLayoutConstraintCallsThis),
  but did not make it public.
  */
-- (NSString *)className;
+- (NSString *)kt_className;
 
 /**
  Returns a copy of the instance with `NSKeyedArchiver` and ``NSKeyedUnarchiver``.
  Returns nil if an error occurs.
  */
-- (nullable id)deepCopy;
+- (nullable id)kt_deepCopy;
 
 /**
  Returns a copy of the instance use archiver and unarchiver.
@@ -295,7 +295,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param archiver   NSKeyedArchiver class or any class inherited.
  @param unarchiver NSKeyedUnarchiver clsas or any class inherited.
  */
-- (nullable id)deepCopyWithArchiver:(Class)archiver unarchiver:(Class)unarchiver;
+- (nullable id)kt_deepCopyWithArchiver:(Class)archiver unarchiver:(Class)unarchiver;
 
 @end
 

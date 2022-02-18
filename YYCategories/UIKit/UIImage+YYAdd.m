@@ -11,7 +11,7 @@
 
 #import "UIImage+YYAdd.h"
 #import "UIDevice+YYAdd.h"
-#import "NSString+YYAdd.h"
+#import "NSString+KTHelp.h"
 #import "YYCategoriesMacro.h"
 #import "YYCGUtilities.h"
 #import <ImageIO/ImageIO.h>

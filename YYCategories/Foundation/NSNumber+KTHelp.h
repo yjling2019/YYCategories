@@ -1,5 +1,5 @@
 //
-//  NSNumber+YYAdd.h
+//  NSNumber+KTHelp.h
 //  YYCategories <https://github.com/ibireme/YYCategories>
 //
 //  Created by ibireme on 13/8/24.
@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Provide a method to parse `NSString` for `NSNumber`.
  */
-@interface NSNumber (YYAdd)
+@interface NSNumber (KTHelp)
 
 /**
  Creates and returns an NSNumber object from a string.
@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
  
  @return an NSNumber when parse succeed, or nil if an error occurs.
  */
-+ (nullable NSNumber *)numberWithString:(NSString *)string;
++ (nullable NSNumber *)kt_numberWithString:(NSString *)string;
 
 @end
 

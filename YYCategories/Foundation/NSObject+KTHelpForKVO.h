@@ -1,5 +1,5 @@
 //
-//  NSObject+YYAddForKVO.h
+//  NSObject+KTHelpForKVO.h
 //  YYCategories <https://github.com/ibireme/YYCategories>
 //
 //  Created by ibireme on 14/10/15.
@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Observer with block (KVO).
  */
-@interface NSObject (YYAddForKVO)
+@interface NSObject (KTHelpForKVO)
 
 /**
  Registers a block to receive KVO notifications for the specified key-path 
@@ -30,8 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
  
  @param block   The block to register for KVO notifications.
  */
-- (void)addObserverBlockForKeyPath:(NSString*)keyPath
-                             block:(void (^)(id _Nonnull obj, id _Nonnull oldVal, id _Nonnull newVal))block;
+- (void)kt_addObserverBlockForKeyPath:(NSString*)keyPath
+								block:(void (^)(id _Nonnull obj, id _Nonnull oldVal, id _Nonnull newVal))block;
 
 /**
  Stops all blocks (associated by `addObserverBlockForKeyPath:block:`) from
@@ -41,13 +41,13 @@ NS_ASSUME_NONNULL_BEGIN
  @param keyPath A key-path, relative to the receiver, for which blocks is 
  registered to receive KVO change notifications.
  */
-- (void)removeObserverBlocksForKeyPath:(NSString*)keyPath;
+- (void)kt_removeObserverBlocksForKeyPath:(NSString*)keyPath;
 
 /**
  Stops all blocks (associated by `addObserverBlockForKeyPath:block:`) from
  receiving change notifications, and release these blocks.
  */
-- (void)removeObserverBlocks;
+- (void)kt_removeObserverBlocks;
 
 @end
 

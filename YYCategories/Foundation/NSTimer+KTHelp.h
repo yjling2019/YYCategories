@@ -1,5 +1,5 @@
 //
-//  NSTimer+YYAdd.h
+//  NSTimer+KTHelp.h
 //  YYCategories <https://github.com/ibireme/YYCategories>
 //
 //  Created by ibireme on 14/15/11.
@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Provides extensions for `NSTimer`.
  */
-@interface NSTimer (YYAdd)
+@interface NSTimer (KTHelp)
 
 /**
  Creates and returns a new NSTimer object and schedules it on the current run 
@@ -37,7 +37,9 @@ NS_ASSUME_NONNULL_BEGIN
  
  @return A new NSTimer object, configured according to the specified parameters.
  */
-+ (NSTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)seconds block:(void (^)(NSTimer *timer))block repeats:(BOOL)repeats;
++ (NSTimer *)kt_scheduledTimerWithTimeInterval:(NSTimeInterval)seconds
+										 block:(void (^)(NSTimer *timer))block
+									   repeats:(BOOL)repeats;
 
 /**
  Creates and returns a new NSTimer object initialized with the specified block.
@@ -59,7 +61,9 @@ NS_ASSUME_NONNULL_BEGIN
  
  @return A new NSTimer object, configured according to the specified parameters.
  */
-+ (NSTimer *)timerWithTimeInterval:(NSTimeInterval)seconds block:(void (^)(NSTimer *timer))block repeats:(BOOL)repeats;
++ (NSTimer *)kt_timerWithTimeInterval:(NSTimeInterval)seconds
+								block:(void (^)(NSTimer *timer))block
+							  repeats:(BOOL)repeats;
 
 @end
 

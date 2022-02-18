@@ -1,5 +1,5 @@
 //
-//  NSThread+YYAdd.h
+//  NSThread+KTHelp.h
 //  YYCategories <https://github.com/ibireme/YYCategories>
 //
 //  Created by ibireme on 15/7/3.
@@ -11,7 +11,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSThread (YYAdd)
+@interface NSThread (KTHelp)
 
 /**
  Add an autorelease pool to current runloop for current thread.
@@ -20,6 +20,6 @@
  runloop to manage your task, you may use this method to add an autorelease pool
  to the runloop. Its behavior is the same as the main thread's autorelease pool.
  */
-+ (void)addAutoreleasePoolToCurrentRunloop;
++ (void)kt_addAutoreleasePoolToCurrentRunloop;
 
 @end

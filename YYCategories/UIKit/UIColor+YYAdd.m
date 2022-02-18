@@ -10,7 +10,7 @@
 //
 
 #import "UIColor+YYAdd.h"
-#import "NSString+YYAdd.h"
+#import "NSString+KTHelp.h"
 #import "YYCategoriesMacro.h"
 
 YYSYNTH_DUMMY_CLASS(UIColor_YYAdd)

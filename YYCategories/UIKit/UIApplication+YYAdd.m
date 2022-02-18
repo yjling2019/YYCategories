@@ -11,7 +11,7 @@
 
 #import "UIApplication+YYAdd.h"
 #import "NSArray+KTHelp.h"
-#import "NSObject+YYAdd.h"
+#import "NSObject+KTHelp.h"
 #import "YYCategoriesMacro.h"
 #import "UIDevice+YYAdd.h"
 #import <sys/sysctl.h>

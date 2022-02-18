@@ -1,5 +1,5 @@
 //
-//  NSObject+YYAddForKVO.m
+//  NSObject+KTHelpForKVO.m
 //  YYCategories <https://github.com/ibireme/YYCategories>
 //
 //  Created by ibireme on 14/10/15.
@@ -9,15 +9,10 @@
 //  LICENSE file in the root directory of this source tree.
 //
 
-#import "NSObject+YYAddForKVO.h"
+#import "NSObject+KTHelpForKVO.h"
 #import "YYCategoriesMacro.h"
 #import <objc/objc.h>
 #import <objc/runtime.h>
-
-YYSYNTH_DUMMY_CLASS(NSObject_YYAddForKVO)
-
-
-
 
 static const int block_key;
 
@@ -61,9 +56,9 @@ static const int block_key;
 
 
 
-@implementation NSObject (YYAddForKVO)
+@implementation NSObject (KTHelpForKVO)
 
-- (void)addObserverBlockForKeyPath:(NSString *)keyPath block:(void (^)(__weak id obj, id oldVal, id newVal))block {
+- (void)kt_addObserverBlockForKeyPath:(NSString *)keyPath block:(void (^)(__weak id obj, id oldVal, id newVal))block {
     if (!keyPath || !block) return;
     _YYNSObjectKVOBlockTarget *target = [[_YYNSObjectKVOBlockTarget alloc] initWithBlock:block];
     NSMutableDictionary *dic = [self _yy_allNSObjectObserverBlocks];
@@ -76,7 +71,7 @@ static const int block_key;
     [self addObserver:target forKeyPath:keyPath options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
 }
 
-- (void)removeObserverBlocksForKeyPath:(NSString *)keyPath {
+- (void)kt_removeObserverBlocksForKeyPath:(NSString *)keyPath {
     if (!keyPath) return;
     NSMutableDictionary *dic = [self _yy_allNSObjectObserverBlocks];
     NSMutableArray *arr = dic[keyPath];
@@ -87,7 +82,7 @@ static const int block_key;
     [dic removeObjectForKey:keyPath];
 }
 
-- (void)removeObserverBlocks {
+- (void)kt_removeObserverBlocks {
     NSMutableDictionary *dic = [self _yy_allNSObjectObserverBlocks];
     [dic enumerateKeysAndObjectsUsingBlock: ^(NSString *key, NSArray *arr, BOOL *stop) {
         [arr enumerateObjectsUsingBlock: ^(id obj, NSUInteger idx, BOOL *stop) {

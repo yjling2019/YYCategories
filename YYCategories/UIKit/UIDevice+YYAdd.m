@@ -18,7 +18,7 @@
 #include <arpa/inet.h>
 #include <ifaddrs.h>
 #import "YYCategoriesMacro.h"
-#import "NSString+YYAdd.h"
+#import "NSString+KTHelp.h"
 
 YYSYNTH_DUMMY_CLASS(UIDevice_YYAdd)
 

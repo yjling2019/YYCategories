@@ -1,5 +1,5 @@
 //
-//  NSObject+YYAddForARC.m
+//  NSObject+KTHelpForARC.m
 //  YYCategories <https://github.com/ibireme/YYCategories>
 //
 //  Created by ibireme on 13/12/15.
@@ -9,31 +9,27 @@
 //  LICENSE file in the root directory of this source tree.
 //
 
-#import "NSObject+YYAddForARC.h"
-
-@interface NSObject_YYAddForARC : NSObject @end
-@implementation NSObject_YYAddForARC @end
+#import "NSObject+KTHelpForARC.h"
 
 #if __has_feature(objc_arc)
 #error This file must be compiled without ARC. Specify the -fno-objc-arc flag to this file.
 #endif
 
+@implementation NSObject (KTHelpForARC)
 
-@implementation NSObject (YYAddForARC)
-
-- (instancetype)arcDebugRetain {
+- (instancetype)kt_arcDebugRetain {
     return [self retain];
 }
 
-- (oneway void)arcDebugRelease {
+- (oneway void)kt_arcDebugRelease {
     [self release];
 }
 
-- (instancetype)arcDebugAutorelease {
+- (instancetype)kt_arcDebugAutorelease {
     return [self autorelease];
 }
 
-- (NSUInteger)arcDebugRetainCount {
+- (NSUInteger)kt_arcDebugRetainCount {
     return [self retainCount];
 }
 

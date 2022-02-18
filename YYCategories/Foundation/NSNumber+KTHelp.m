@@ -1,5 +1,5 @@
 //
-//  NSNumber+YYAdd.m
+//  NSNumber+KTHelp.m
 //  YYCategories <https://github.com/ibireme/YYCategories>
 //
 //  Created by ibireme on 13/8/24.
@@ -9,16 +9,13 @@
 //  LICENSE file in the root directory of this source tree.
 //
 
-#import "NSNumber+YYAdd.h"
-#import "NSString+YYAdd.h"
+#import "NSNumber+KTHelp.h"
+#import "NSString+KTHelp.h"
 #import "YYCategoriesMacro.h"
 
-YYSYNTH_DUMMY_CLASS(NSNumber_YYAdd)
+@implementation NSNumber (KTHelp)
 
-
-@implementation NSNumber (YYAdd)
-
-+ (NSNumber *)numberWithString:(NSString *)string {
++ (NSNumber *)kt_numberWithString:(NSString *)string {
     NSString *str = [[string stringByTrim] lowercaseString];
     if (!str || !str.length) {
         return nil;

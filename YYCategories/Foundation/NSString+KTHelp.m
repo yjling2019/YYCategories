@@ -9,16 +9,13 @@
 //  LICENSE file in the root directory of this source tree.
 //
 
-#import "NSString+YYAdd.h"
+#import "NSString+KTHelp.h"
 #import "NSData+KTHelp.h"
-#import "NSNumber+YYAdd.h"
+#import "NSNumber+KTHelp.h"
 #import "UIDevice+YYAdd.h"
 #import "YYCategoriesMacro.h"
 
-YYSYNTH_DUMMY_CLASS(NSString_YYAdd)
-
-
-@implementation NSString (YYAdd)
+@implementation NSString (KTHelp)
 
 - (NSString *)kt_md2String {
     return [[self dataUsingEncoding:NSUTF8StringEncoding] kt_md2String];
@@ -386,7 +383,7 @@ YYSYNTH_DUMMY_CLASS(NSString_YYAdd)
 }
 
 - (NSNumber *)numberValue {
-    return [NSNumber numberWithString:self];
+    return [NSNumber kt_numberWithString:self];
 }
 
 - (NSData *)dataValue {

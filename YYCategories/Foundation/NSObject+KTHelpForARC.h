@@ -1,5 +1,5 @@
 //
-//  NSObject+YYAddForARC.h
+//  NSObject+KTHelpForARC.h
 //  YYCategories <https://github.com/ibireme/YYCategories>
 //
 //  Created by ibireme on 13/12/15.
@@ -14,18 +14,18 @@
 /**
  Debug method for NSObject when using ARC.
  */
-@interface NSObject (YYAddForARC)
+@interface NSObject (KTHelpForARC)
 
 /// Same as `retain`
-- (instancetype)arcDebugRetain;
+- (instancetype)kt_arcDebugRetain;
 
 /// Same as `release`
-- (oneway void)arcDebugRelease;
+- (oneway void)kt_arcDebugRelease;
 
 /// Same as `autorelease`
-- (instancetype)arcDebugAutorelease;
+- (instancetype)kt_arcDebugAutorelease;
 
 /// Same as `retainCount`
-- (NSUInteger)arcDebugRetainCount;
+- (NSUInteger)kt_arcDebugRetainCount;
 
 @end

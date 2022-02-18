@@ -10,7 +10,7 @@
 //
 
 #import "NSDictionary+KTHelp.h"
-#import "NSString+YYAdd.h"
+#import "NSString+KTHelp.h"
 #import "NSData+KTHelp.h"
 #import "YYCategoriesMacro.h"
 #import "NSArray+KTHelp.h"

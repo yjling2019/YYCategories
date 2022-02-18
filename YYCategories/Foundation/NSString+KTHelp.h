@@ -1,5 +1,5 @@
 //
-//  NSString+YYAdd.h
+//  NSString+KTHelp.h
 //  YYCategories <https://github.com/ibireme/YYCategories>
 //
 //  Created by ibireme on 13/4/3.
@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Provide hash, encrypt, encode and some common method for 'NSString'.
  */
-@interface NSString (YYAdd)
+@interface NSString (KTHelp)
 
 #pragma mark - Hash
 ///=============================================================================

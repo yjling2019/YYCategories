@@ -10,7 +10,7 @@
 //
 
 #import "NSBundle+KTHelp.h"
-#import "NSString+YYAdd.h"
+#import "NSString+KTHelp.h"
 
 @implementation NSBundle (KTHelp)
 

@@ -1,5 +1,5 @@
 //
-//  NSObject+YYAdd.m
+//  NSObject+KTHelp.m
 //  YYCategories <https://github.com/ibireme/YYCategories>
 //
 //  Created by ibireme on 14/10/8.
@@ -9,15 +9,12 @@
 //  LICENSE file in the root directory of this source tree.
 //
 
-#import "NSObject+YYAdd.h"
+#import "NSObject+KTHelp.h"
 #import "YYCategoriesMacro.h"
 #import <objc/objc.h>
 #import <objc/runtime.h>
 
-YYSYNTH_DUMMY_CLASS(NSObject_YYAdd)
-
-
-@implementation NSObject (YYAdd)
+@implementation NSObject (KTHelp)
 
 /*
  NSInvocation is much slower than objc_msgSend()...
@@ -36,19 +33,19 @@ va_start(args, _last_arg_); \
 [NSObject setInv:inv withSig:sig andArgs:args]; \
 va_end(args);
 
-- (id)performSelectorWithArgs:(SEL)sel, ...{
+- (id)kt_performSelectorWithArgs:(SEL)sel, ...{
     INIT_INV(sel, nil);
     [inv invoke];
     return [NSObject getReturnFromInv:inv withSig:sig];
 }
 
-- (void)performSelectorWithArgs:(SEL)sel afterDelay:(NSTimeInterval)delay, ...{
+- (void)kt_performSelectorWithArgs:(SEL)sel afterDelay:(NSTimeInterval)delay, ...{
     INIT_INV(delay, );
     [inv retainArguments];
     [inv performSelector:@selector(invoke) withObject:nil afterDelay:delay];
 }
 
-- (id)performSelectorWithArgsOnMainThread:(SEL)sel waitUntilDone:(BOOL)wait, ...{
+- (id)kt_performSelectorWithArgsOnMainThread:(SEL)sel waitUntilDone:(BOOL)wait, ...{
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wvarargs"
     INIT_INV(wait, nil);
@@ -58,7 +55,7 @@ va_end(args);
     return wait ? [NSObject getReturnFromInv:inv withSig:sig] : nil;
 }
 
-- (id)performSelectorWithArgs:(SEL)sel onThread:(NSThread *)thr waitUntilDone:(BOOL)wait, ...{
+- (id)kt_performSelectorWithArgs:(SEL)sel onThread:(NSThread *)thr waitUntilDone:(BOOL)wait, ...{
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wvarargs"
     INIT_INV(wait, nil);
@@ -68,7 +65,7 @@ va_end(args);
     return wait ? [NSObject getReturnFromInv:inv withSig:sig] : nil;
 }
 
-- (void)performSelectorWithArgsInBackground:(SEL)sel, ...{
+- (void)kt_performSelectorWithArgsInBackground:(SEL)sel, ...{
     INIT_INV(sel, );
     [inv retainArguments];
     [inv performSelectorInBackground:@selector(invoke) withObject:nil];
@@ -321,11 +318,11 @@ else if (size <= 4 * _size_ ) { \
     }
 }
 
-- (void)performSelector:(SEL)selector afterDelay:(NSTimeInterval)delay {
+- (void)kt_performSelector:(SEL)selector afterDelay:(NSTimeInterval)delay {
     [self performSelector:selector withObject:nil afterDelay:delay];
 }
 
-+ (BOOL)swizzleInstanceMethod:(SEL)originalSel with:(SEL)newSel {
++ (BOOL)kt_swizzleInstanceMethod:(SEL)originalSel with:(SEL)newSel {
     Method originalMethod = class_getInstanceMethod(self, originalSel);
     Method newMethod = class_getInstanceMethod(self, newSel);
     if (!originalMethod || !newMethod) return NO;
@@ -344,7 +341,7 @@ else if (size <= 4 * _size_ ) { \
     return YES;
 }
 
-+ (BOOL)swizzleClassMethod:(SEL)originalSel with:(SEL)newSel {
++ (BOOL)kt_swizzleClassMethod:(SEL)originalSel with:(SEL)newSel {
     Class class = object_getClass(self);
     Method originalMethod = class_getInstanceMethod(class, originalSel);
     Method newMethod = class_getInstanceMethod(class, newSel);
@@ -353,31 +350,31 @@ else if (size <= 4 * _size_ ) { \
     return YES;
 }
 
-- (void)setAssociateValue:(id)value withKey:(void *)key {
+- (void)kt_setAssociateValue:(id)value withKey:(void *)key {
     objc_setAssociatedObject(self, key, value, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (void)setAssociateWeakValue:(id)value withKey:(void *)key {
+- (void)kt_setAssociateWeakValue:(id)value withKey:(void *)key {
     objc_setAssociatedObject(self, key, value, OBJC_ASSOCIATION_ASSIGN);
 }
 
-- (void)removeAssociatedValues {
+- (void)kt_removeAssociatedValues {
     objc_removeAssociatedObjects(self);
 }
 
-- (id)getAssociatedValueForKey:(void *)key {
+- (id)kt_getAssociatedValueForKey:(void *)key {
     return objc_getAssociatedObject(self, key);
 }
 
-+ (NSString *)className {
++ (NSString *)kt_className {
     return NSStringFromClass(self);
 }
 
-- (NSString *)className {
+- (NSString *)kt_className {
     return [NSString stringWithUTF8String:class_getName([self class])];
 }
 
-- (id)deepCopy {
+- (id)kt_deepCopy {
     id obj = nil;
     @try {
         obj = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:self]];
@@ -388,7 +385,7 @@ else if (size <= 4 * _size_ ) { \
     return obj;
 }
 
-- (id)deepCopyWithArchiver:(Class)archiver unarchiver:(Class)unarchiver {
+- (id)kt_deepCopyWithArchiver:(Class)archiver unarchiver:(Class)unarchiver {
     id obj = nil;
     @try {
         obj = [unarchiver unarchiveObjectWithData:[archiver archivedDataWithRootObject:self]];
