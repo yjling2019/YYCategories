@@ -54,7 +54,7 @@ static inline void YYAutoreleasePoolPush() {
 static inline void YYAutoreleasePoolPop() {
     NSMutableDictionary *dic =  [NSThread currentThread].threadDictionary;
     NSMutableArray *poolStack = dic[YYNSThreadAutoleasePoolStackKey];
-    [poolStack removeLastObject]; // pop
+    [poolStack kt_removeLastObject]; // pop
 }
 
 static void YYRunLoopAutoreleasePoolObserverCallBack(CFRunLoopObserverRef observer, CFRunLoopActivity activity, void *info) {

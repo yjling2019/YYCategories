@@ -93,7 +93,7 @@ YYSYNTH_DUMMY_CLASS(NSDictionary_YYAdd)
     [self textEnd];
     
     NSMutableDictionary *top = _stack.lastObject;
-    [_stack removeLastObject];
+    [_stack kt_removeLastObject];
     
     NSMutableDictionary *left = top.mutableCopy;
     [left removeObjectsForKeys:@[XMLText, XMLName]];

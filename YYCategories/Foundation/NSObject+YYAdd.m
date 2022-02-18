@@ -120,7 +120,7 @@ return @(ret); \
         };
             
         case '@': { // id
-            id ret = nil;
+			__autoreleasing id ret = nil;
             [inv getReturnValue:&ret];
             return ret;
         };
