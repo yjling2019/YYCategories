@@ -63,7 +63,7 @@ NS_ASSUME_NONNULL_BEGIN
  
  @param index The object located at index.
  */
-- (nullable id)kt_objectOrNilAtIndex:(NSUInteger)index;
+- (nullable id)kt_objectAtIndex:(NSUInteger)index;
 
 - (nullable id)kt_objectAtIndex:(NSInteger)index verifyClass:(nullable Class)theClass;
 
@@ -107,11 +107,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable NSDate *)kt_dateAtIndex:(NSInteger)index format:(nonnull NSString *)dateFormat;
 
-/**
- /// 获取数组元素中key对应的value的集合组成的数据，返回的数组内的元素是可以相同的
- @param key key
- @return key对应的value组成的数组
- */
+/// 获取数组元素中key对应的value的集合组成的数据，返回的数组内的元素是可以相同的
+/// @param key key
 - (nullable NSMutableArray *)kt_valueArrayWithKey:(nonnull NSString *)key;
 
 /// 获取数组元素中key对应的value的集合组成的数据，返回的数组内的元素是不相同

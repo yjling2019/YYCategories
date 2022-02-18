@@ -44,12 +44,12 @@
     return nil;
 }
 
-- (id)kt_objectOrNilAtIndex:(NSUInteger)index {
+- (id)kt_objectAtIndex:(NSUInteger)index {
     return index < self.count ? self[index] : nil;
 }
 
 - (nullable id)kt_objectAtIndex:(NSInteger)index verifyClass:(nullable Class)theClass {
-	id object = [self kt_objectOrNilAtIndex:index];
+	id object = [self kt_objectAtIndex:index];
 	if (!theClass) {
 		return object;
 	}
@@ -57,7 +57,7 @@
 }
 
 - (nullable NSString *)kt_stringAtIndex:(NSInteger)index {
-	id value = [self kt_objectOrNilAtIndex:index];
+	id value = [self kt_objectAtIndex:index];
 	if ([value isKindOfClass:[NSString class]]) {
 		return (NSString *)value;
 	}
@@ -68,7 +68,7 @@
 }
 
 - (nullable NSNumber *)kt_numberAtIndex:(NSInteger)index {
-	id value = [self kt_objectOrNilAtIndex:index];
+	id value = [self kt_objectAtIndex:index];
 	if ([value isKindOfClass:[NSNumber class]]) {
 		return (NSNumber *)value;
 	}
@@ -81,7 +81,7 @@
 }
 
 - (nullable NSDecimalNumber *)kt_decimalNumberAtIndex:(NSInteger)index {
-	id value = [self kt_objectOrNilAtIndex:index];
+	id value = [self kt_objectAtIndex:index];
 	if ([value isKindOfClass:[NSDecimalNumber class]]) {
 		return value;
 	}
@@ -97,7 +97,7 @@
 }
 
 - (nullable NSArray *)kt_arrayAtIndex:(NSInteger)index {
-	id value = [self kt_objectOrNilAtIndex:index];
+	id value = [self kt_objectAtIndex:index];
 	if ([value isKindOfClass:[NSArray class]]) {
 		return value;
 	}
@@ -105,7 +105,7 @@
 }
 
 - (nullable NSDictionary *)kt_dictionaryAtIndex:(NSInteger)index {
-	id value = [self kt_objectOrNilAtIndex:index];
+	id value = [self kt_objectAtIndex:index];
 	if ([value isKindOfClass:[NSDictionary class]]) {
 		return value;
 	}
@@ -113,7 +113,7 @@
 }
 
 - (NSInteger)kt_integerAtIndex:(NSInteger)index {
-	id value = [self kt_objectOrNilAtIndex:index];
+	id value = [self kt_objectAtIndex:index];
 	if ([value isKindOfClass:[NSString class]] ||
 		[value isKindOfClass:[NSNumber class]]) {
 		return [value integerValue];
@@ -122,7 +122,7 @@
 }
 
 - (NSUInteger)kt_unsignedIntegerAtIndex:(NSInteger)index {
-	id value = [self kt_objectOrNilAtIndex:index];
+	id value = [self kt_objectAtIndex:index];
 	if ([value isKindOfClass:[NSString class]] ||
 		[value isKindOfClass:[NSNumber class]]) {
 		return [value unsignedIntegerValue];
@@ -131,7 +131,7 @@
 }
 
 - (BOOL)kt_boolAtIndex:(NSInteger)index {
-	id value = [self kt_objectOrNilAtIndex:index];
+	id value = [self kt_objectAtIndex:index];
 	if ([value isKindOfClass:[NSNumber class]] ||
 		[value isKindOfClass:[NSString class]]) {
 		return [value boolValue];
@@ -140,7 +140,7 @@
 }
 
 - (int16_t)kt_int16AtIndex:(NSInteger)index {
-	id value = [self kt_objectOrNilAtIndex:index];
+	id value = [self kt_objectAtIndex:index];
 	if ([value isKindOfClass:[NSNumber class]]) {
 		return [(NSNumber *)value shortValue];
 	} else if ([value isKindOfClass:[NSString class]]) {
@@ -151,7 +151,7 @@
 }
 
 - (int32_t)kt_int32AtIndex:(NSInteger)index {
-	id value = [self kt_objectOrNilAtIndex:index];
+	id value = [self kt_objectAtIndex:index];
 	if ([value isKindOfClass:[NSNumber class]] ||
 		[value isKindOfClass:[NSString class]]) {
 		return [value intValue];
@@ -160,7 +160,7 @@
 }
 
 - (int64_t)kt_int64AtIndex:(NSInteger)index {
-	id value = [self kt_objectOrNilAtIndex:index];
+	id value = [self kt_objectAtIndex:index];
 	if ([value isKindOfClass:[NSNumber class]] ||
 		[value isKindOfClass:[NSString class]]) {
 		return [value longLongValue];
@@ -169,7 +169,7 @@
 }
 
 - (char)kt_charAtIndex:(NSInteger)index {
-	id value = [self kt_objectOrNilAtIndex:index];
+	id value = [self kt_objectAtIndex:index];
 	if ([value isKindOfClass:[NSNumber class]] ||
 		[value isKindOfClass:[NSString class]]) {
 		return [value charValue];
@@ -178,7 +178,7 @@
 }
 
 - (short)kt_shortAtIndex:(NSInteger)index {
-	id value = [self kt_objectOrNilAtIndex:index];
+	id value = [self kt_objectAtIndex:index];
 	if ([value isKindOfClass:[NSNumber class]]) {
 		return [(NSNumber *)value shortValue];
 	} else if ([value isKindOfClass:[NSString class]]) {
@@ -189,7 +189,7 @@
 }
 
 - (float)kt_floatAtIndex:(NSInteger)index {
-	id value = [self kt_objectOrNilAtIndex:index];
+	id value = [self kt_objectAtIndex:index];
 
 	if ([value isKindOfClass:[NSNumber class]] ||
 		[value isKindOfClass:[NSString class]]) {
@@ -205,7 +205,7 @@
 }
 
 - (double)kt_doubleAtIndex:(NSInteger)index {
-	id value = [self kt_objectOrNilAtIndex:index];
+	id value = [self kt_objectAtIndex:index];
 	
 	if ([value isKindOfClass:[NSNumber class]] ||
 		[value isKindOfClass:[NSString class]]) {
@@ -235,7 +235,7 @@
 
 - (nullable NSDate *)kt_dateAtIndex:(NSInteger)index
 							 format:(nonnull NSString *)dateFormat {
-	id value = [self kt_objectOrNilAtIndex:index];
+	id value = [self kt_objectAtIndex:index];
 	if ([value isKindOfClass:[NSString class]] &&
 		((NSString *)value).length > 0 &&
 		dateFormat) {
