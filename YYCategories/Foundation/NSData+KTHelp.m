@@ -1,5 +1,5 @@
 //
-//  NSData+YYAdd.m
+//  NSData+KTHelp.m
 //  YYCategories <https://github.com/ibireme/YYCategories>
 //
 //  Created by ibireme on 13/4/4.
@@ -9,17 +9,14 @@
 //  LICENSE file in the root directory of this source tree.
 //
 
-#import "NSData+YYAdd.h"
+#import "NSData+KTHelp.h"
 #import "YYCategoriesMacro.h"
 #include <CommonCrypto/CommonCrypto.h>
 #include <zlib.h>
 
-YYSYNTH_DUMMY_CLASS(NSData_YYAdd)
+@implementation NSData (KTHelp)
 
-
-@implementation NSData (YYAdd)
-
-- (NSString *)md2String {
+- (NSString *)kt_md2String {
     unsigned char result[CC_MD2_DIGEST_LENGTH];
     CC_MD2(self.bytes, (CC_LONG)self.length, result);
     return [NSString stringWithFormat:
@@ -31,13 +28,13 @@ YYSYNTH_DUMMY_CLASS(NSData_YYAdd)
             ];
 }
 
-- (NSData *)md2Data {
+- (NSData *)kt_md2Data {
     unsigned char result[CC_MD2_DIGEST_LENGTH];
     CC_MD2(self.bytes, (CC_LONG)self.length, result);
     return [NSData dataWithBytes:result length:CC_MD2_DIGEST_LENGTH];
 }
 
-- (NSString *)md4String {
+- (NSString *)kt_md4String {
     unsigned char result[CC_MD4_DIGEST_LENGTH];
     CC_MD4(self.bytes, (CC_LONG)self.length, result);
     return [NSString stringWithFormat:
@@ -49,13 +46,13 @@ YYSYNTH_DUMMY_CLASS(NSData_YYAdd)
             ];
 }
 
-- (NSData *)md4Data {
+- (NSData *)kt_md4Data {
     unsigned char result[CC_MD4_DIGEST_LENGTH];
     CC_MD4(self.bytes, (CC_LONG)self.length, result);
     return [NSData dataWithBytes:result length:CC_MD4_DIGEST_LENGTH];
 }
 
-- (NSString *)md5String {
+- (NSString *)kt_md5String {
     unsigned char result[CC_MD5_DIGEST_LENGTH];
     CC_MD5(self.bytes, (CC_LONG)self.length, result);
     return [NSString stringWithFormat:
@@ -67,13 +64,13 @@ YYSYNTH_DUMMY_CLASS(NSData_YYAdd)
             ];
 }
 
-- (NSData *)md5Data {
+- (NSData *)kt_md5Data {
     unsigned char result[CC_MD5_DIGEST_LENGTH];
     CC_MD5(self.bytes, (CC_LONG)self.length, result);
     return [NSData dataWithBytes:result length:CC_MD5_DIGEST_LENGTH];
 }
 
-- (NSString *)sha1String {
+- (NSString *)kt_sha1String {
     unsigned char result[CC_SHA1_DIGEST_LENGTH];
     CC_SHA1(self.bytes, (CC_LONG)self.length, result);
     NSMutableString *hash = [NSMutableString
@@ -84,13 +81,13 @@ YYSYNTH_DUMMY_CLASS(NSData_YYAdd)
     return hash;
 }
 
-- (NSData *)sha1Data {
+- (NSData *)kt_sha1Data {
     unsigned char result[CC_SHA1_DIGEST_LENGTH];
     CC_SHA1(self.bytes, (CC_LONG)self.length, result);
     return [NSData dataWithBytes:result length:CC_SHA1_DIGEST_LENGTH];
 }
 
-- (NSString *)sha224String {
+- (NSString *)kt_sha224String {
     unsigned char result[CC_SHA224_DIGEST_LENGTH];
     CC_SHA224(self.bytes, (CC_LONG)self.length, result);
     NSMutableString *hash = [NSMutableString
@@ -101,13 +98,13 @@ YYSYNTH_DUMMY_CLASS(NSData_YYAdd)
     return hash;
 }
 
-- (NSData *)sha224Data {
+- (NSData *)kt_sha224Data {
     unsigned char result[CC_SHA224_DIGEST_LENGTH];
     CC_SHA224(self.bytes, (CC_LONG)self.length, result);
     return [NSData dataWithBytes:result length:CC_SHA224_DIGEST_LENGTH];
 }
 
-- (NSString *)sha256String {
+- (NSString *)kt_sha256String {
     unsigned char result[CC_SHA256_DIGEST_LENGTH];
     CC_SHA256(self.bytes, (CC_LONG)self.length, result);
     NSMutableString *hash = [NSMutableString
@@ -118,13 +115,13 @@ YYSYNTH_DUMMY_CLASS(NSData_YYAdd)
     return hash;
 }
 
-- (NSData *)sha256Data {
+- (NSData *)kt_sha256Data {
     unsigned char result[CC_SHA256_DIGEST_LENGTH];
     CC_SHA256(self.bytes, (CC_LONG)self.length, result);
     return [NSData dataWithBytes:result length:CC_SHA256_DIGEST_LENGTH];
 }
 
-- (NSString *)sha384String {
+- (NSString *)kt_sha384String {
     unsigned char result[CC_SHA384_DIGEST_LENGTH];
     CC_SHA384(self.bytes, (CC_LONG)self.length, result);
     NSMutableString *hash = [NSMutableString
@@ -135,13 +132,13 @@ YYSYNTH_DUMMY_CLASS(NSData_YYAdd)
     return hash;
 }
 
-- (NSData *)sha384Data {
+- (NSData *)kt_sha384Data {
     unsigned char result[CC_SHA384_DIGEST_LENGTH];
     CC_SHA384(self.bytes, (CC_LONG)self.length, result);
     return [NSData dataWithBytes:result length:CC_SHA384_DIGEST_LENGTH];
 }
 
-- (NSString *)sha512String {
+- (NSString *)kt_sha512String {
     unsigned char result[CC_SHA512_DIGEST_LENGTH];
     CC_SHA512(self.bytes, (CC_LONG)self.length, result);
     NSMutableString *hash = [NSMutableString
@@ -152,7 +149,7 @@ YYSYNTH_DUMMY_CLASS(NSData_YYAdd)
     return hash;
 }
 
-- (NSData *)sha512Data {
+- (NSData *)kt_sha512Data {
     unsigned char result[CC_SHA512_DIGEST_LENGTH];
     CC_SHA512(self.bytes, (CC_LONG)self.length, result);
     return [NSData dataWithBytes:result length:CC_SHA512_DIGEST_LENGTH];
@@ -195,65 +192,65 @@ YYSYNTH_DUMMY_CLASS(NSData_YYAdd)
     return [NSData dataWithBytes:result length:size];
 }
 
-- (NSString *)hmacMD5StringWithKey:(NSString *)key {
+- (NSString *)kt_hmacMD5StringWithKey:(NSString *)key {
     return [self hmacStringUsingAlg:kCCHmacAlgMD5 withKey:key];
 }
 
-- (NSData *)hmacMD5DataWithKey:(NSData *)key {
+- (NSData *)kt_hmacMD5DataWithKey:(NSData *)key {
     return [self hmacDataUsingAlg:kCCHmacAlgMD5 withKey:key];
 }
 
-- (NSString *)hmacSHA1StringWithKey:(NSString *)key {
+- (NSString *)kt_hmacSHA1StringWithKey:(NSString *)key {
     return [self hmacStringUsingAlg:kCCHmacAlgSHA1 withKey:key];
 }
 
-- (NSData *)hmacSHA1DataWithKey:(NSData *)key {
+- (NSData *)kt_hmacSHA1DataWithKey:(NSData *)key {
     return [self hmacDataUsingAlg:kCCHmacAlgSHA1 withKey:key];
 }
 
-- (NSString *)hmacSHA224StringWithKey:(NSString *)key {
+- (NSString *)kt_hmacSHA224StringWithKey:(NSString *)key {
     return [self hmacStringUsingAlg:kCCHmacAlgSHA224 withKey:key];
 }
 
-- (NSData *)hmacSHA224DataWithKey:(NSData *)key {
+- (NSData *)kt_hmacSHA224DataWithKey:(NSData *)key {
     return [self hmacDataUsingAlg:kCCHmacAlgSHA224 withKey:key];
 }
 
-- (NSString *)hmacSHA256StringWithKey:(NSString *)key {
+- (NSString *)kt_hmacSHA256StringWithKey:(NSString *)key {
     return [self hmacStringUsingAlg:kCCHmacAlgSHA256 withKey:key];
 }
 
-- (NSData *)hmacSHA256DataWithKey:(NSData *)key {
+- (NSData *)kt_hmacSHA256DataWithKey:(NSData *)key {
     return [self hmacDataUsingAlg:kCCHmacAlgSHA256 withKey:key];
 }
 
-- (NSString *)hmacSHA384StringWithKey:(NSString *)key {
+- (NSString *)kt_hmacSHA384StringWithKey:(NSString *)key {
     return [self hmacStringUsingAlg:kCCHmacAlgSHA384 withKey:key];
 }
 
-- (NSData *)hmacSHA384DataWithKey:(NSData *)key {
+- (NSData *)kt_hmacSHA384DataWithKey:(NSData *)key {
     return [self hmacDataUsingAlg:kCCHmacAlgSHA384 withKey:key];
 }
 
-- (NSString *)hmacSHA512StringWithKey:(NSString *)key {
+- (NSString *)kt_hmacSHA512StringWithKey:(NSString *)key {
     return [self hmacStringUsingAlg:kCCHmacAlgSHA512 withKey:key];
 }
 
-- (NSData *)hmacSHA512DataWithKey:(NSData *)key {
+- (NSData *)kt_hmacSHA512DataWithKey:(NSData *)key {
     return [self hmacDataUsingAlg:kCCHmacAlgSHA512 withKey:key];
 }
 
-- (NSString *)crc32String {
+- (NSString *)kt_crc32String {
     uLong result = crc32(0, self.bytes, (uInt)self.length);
     return [NSString stringWithFormat:@"%08x", (uint32_t)result];
 }
 
-- (uint32_t)crc32 {
+- (uint32_t)kt_crc32 {
     uLong result = crc32(0, self.bytes, (uInt)self.length);
     return (uint32_t)result;
 }
 
-- (NSData *)aes256EncryptWithKey:(NSData *)key iv:(NSData *)iv {
+- (NSData *)kt_aes256EncryptWithKey:(NSData *)key iv:(NSData *)iv {
     if (key.length != 16 && key.length != 24 && key.length != 32) {
         return nil;
     }
@@ -287,7 +284,7 @@ YYSYNTH_DUMMY_CLASS(NSData_YYAdd)
     }
 }
 
-- (NSData *)aes256DecryptWithkey:(NSData *)key iv:(NSData *)iv {
+- (NSData *)kt_aes256DecryptWithkey:(NSData *)key iv:(NSData *)iv {
     if (key.length != 16 && key.length != 24 && key.length != 32) {
         return nil;
     }
@@ -321,14 +318,14 @@ YYSYNTH_DUMMY_CLASS(NSData_YYAdd)
     }
 }
 
-- (NSString *)utf8String {
+- (NSString *)kt_utf8String {
     if (self.length > 0) {
         return [[NSString alloc] initWithData:self encoding:NSUTF8StringEncoding];
     }
     return @"";
 }
 
-- (NSString *)hexString {
+- (NSString *)kt_hexString {
     NSUInteger length = self.length;
     NSMutableString *result = [NSMutableString stringWithCapacity:length * 2];
     const unsigned char *byte = self.bytes;
@@ -338,7 +335,7 @@ YYSYNTH_DUMMY_CLASS(NSData_YYAdd)
     return result;
 }
 
-+ (NSData *)dataWithHexString:(NSString *)hexStr {
++ (NSData *)kt_dataWithHexString:(NSString *)hexStr {
     hexStr = [hexStr stringByReplacingOccurrencesOfString:@" " withString:@""];
     hexStr = [hexStr lowercaseString];
     NSUInteger len = hexStr.length;
@@ -382,7 +379,7 @@ static const short base64DecodingTable[256] = {
     -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2,  -2,  -2, -2, -2
 };
 
-- (NSString *)base64EncodedString {
+- (NSString *)kt_base64EncodedString {
     NSUInteger length = self.length;
     if (length == 0)
         return @"";
@@ -420,7 +417,7 @@ static const short base64DecodingTable[256] = {
     return base64;
 }
 
-+ (NSData *)dataWithBase64EncodedString:(NSString *)base64EncodedString {
++ (NSData *)kt_dataWithBase64EncodedString:(NSString *)base64EncodedString {
     NSInteger length = base64EncodedString.length;
     const char *string = [base64EncodedString cStringUsingEncoding:NSASCIIStringEncoding];
     if (string  == NULL)
@@ -460,7 +457,7 @@ static const short base64DecodingTable[256] = {
     return data;
 }
 
-- (id)jsonValueDecoded {
+- (id)kt_jsonValueDecoded {
     NSError *error = nil;
     id value = [NSJSONSerialization JSONObjectWithData:self options:kNilOptions error:&error];
     if (error) {
@@ -469,7 +466,7 @@ static const short base64DecodingTable[256] = {
     return value;
 }
 
-- (NSData *)gzipInflate {
+- (NSData *)kt_gzipInflate {
     if ([self length] == 0) return self;
     
     unsigned full_length = (unsigned)[self length];
@@ -509,7 +506,7 @@ static const short base64DecodingTable[256] = {
     } else return nil;
 }
 
-- (NSData *)gzipDeflate {
+- (NSData *)kt_gzipDeflate {
     if ([self length] == 0) return self;
     
     z_stream strm;
@@ -551,7 +548,7 @@ static const short base64DecodingTable[256] = {
     return [NSData dataWithData:compressed];
 }
 
-- (NSData *)zlibInflate {
+- (NSData *)kt_zlibInflate {
     if ([self length] == 0) return self;
     
     NSUInteger full_length = [self length];
@@ -592,7 +589,7 @@ static const short base64DecodingTable[256] = {
     } else return nil;
 }
 
-- (NSData *)zlibDeflate {
+- (NSData *)kt_zlibDeflate {
     if ([self length] == 0) return self;
     
     z_stream strm;
@@ -632,7 +629,7 @@ static const short base64DecodingTable[256] = {
     return [NSData dataWithData:compressed];
 }
 
-+ (NSData *)dataNamed:(NSString *)name {
++ (NSData *)kt_dataNamed:(NSString *)name {
     NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:@""];
     if (!path) return nil;
     NSData *data = [NSData dataWithContentsOfFile:path];

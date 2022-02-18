@@ -10,7 +10,7 @@
 //
 
 #import "NSArray+KTHelp.h"
-#import "NSData+YYAdd.h"
+#import "NSData+KTHelp.h"
 
 @implementation NSArray (KTHelp)
 
@@ -33,7 +33,7 @@
 
 - (NSString *)kt_plistString {
     NSData *xmlData = [NSPropertyListSerialization dataWithPropertyList:self format:NSPropertyListXMLFormat_v1_0 options:kNilOptions error:NULL];
-    if (xmlData) return xmlData.utf8String;
+    if (xmlData) return xmlData.kt_utf8String;
     return nil;
 }
 

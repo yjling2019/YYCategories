@@ -11,6 +11,7 @@
 
 #import "NSThread+YYAdd.h"
 #import <CoreFoundation/CoreFoundation.h>
+#import "NSArray+KTHelp.h"
 
 @interface NSThread_YYAdd : NSObject @end
 @implementation NSThread_YYAdd @end

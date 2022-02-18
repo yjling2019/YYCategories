@@ -10,7 +10,7 @@
 //
 
 #import "UIApplication+YYAdd.h"
-#import "NSArray+YYAdd.h"
+#import "NSArray+KTHelp.h"
 #import "NSObject+YYAdd.h"
 #import "YYCategoriesMacro.h"
 #import "UIDevice+YYAdd.h"

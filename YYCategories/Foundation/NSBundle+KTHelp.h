@@ -1,5 +1,5 @@
 //
-//  NSBundle+YYAdd.h
+//  NSBundle+KTHelp.h
 //  YYCategories <https://github.com/ibireme/YYCategories>
 //
 //  Created by ibireme on 14/10/20.
@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
  An array of NSNumber objects, shows the best order for path scale search.
  e.g. iPhone3GS:@[@1,@2,@3] iPhone5:@[@2,@3,@1]  iPhone6 Plus:@[@3,@2,@1]
  */
-+ (NSArray<NSNumber *> *)preferredScales;
++ (NSArray<NSNumber *> *)kt_preferredScales;
 
 /**
  Returns the full pathname for the resource file identified by the specified 
@@ -47,9 +47,9 @@ NS_ASSUME_NONNULL_BEGIN
  located. This method also returns nil if the bundle specified by the bundlePath 
  parameter does not exist or is not a readable directory.
  */
-+ (nullable NSString *)pathForScaledResource:(NSString *)name
-                                      ofType:(nullable nullable NSString *)ext
-                                 inDirectory:(NSString *)bundlePath;
++ (nullable NSString *)kt_pathForScaledResource:(NSString *)name
+										 ofType:(nullable nullable NSString *)ext
+									inDirectory:(NSString *)bundlePath;
 
 /**
  Returns the full pathname for the resource identified by the specified name and 
@@ -65,7 +65,8 @@ NS_ASSUME_NONNULL_BEGIN
  
  @return The full pathname for the resource file or nil if the file could not be located.
  */
-- (nullable NSString *)pathForScaledResource:(NSString *)name ofType:(nullable NSString *)ext;
+- (nullable NSString *)kt_pathForScaledResource:(NSString *)name
+										 ofType:(nullable NSString *)ext;
 
 /**
  Returns the full pathname for the resource identified by the specified name and 
@@ -83,9 +84,9 @@ NS_ASSUME_NONNULL_BEGIN
  
  @return The full pathname for the resource file or nil if the file could not be located.
  */
-- (nullable NSString *)pathForScaledResource:(NSString *)name
-                                      ofType:(nullable NSString *)ext
-                                 inDirectory:(nullable NSString *)subpath;
+- (nullable NSString *)kt_pathForScaledResource:(NSString *)name
+										 ofType:(nullable NSString *)ext
+									inDirectory:(nullable NSString *)subpath;
 
 @end
 

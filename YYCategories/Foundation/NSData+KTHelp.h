@@ -1,5 +1,5 @@
 //
-//  NSData+YYAdd.h
+//  NSData+KTHelp.h
 //  YYCategories <https://github.com/ibireme/YYCategories>
 //
 //  Created by ibireme on 13/4/4.
@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Provide hash, encrypt, encode and some common method for `NSData`.
  */
-@interface NSData (YYAdd)
+@interface NSData (KTHelp)
 
 #pragma mark - Hash
 ///=============================================================================
@@ -26,164 +26,164 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Returns a lowercase NSString for md2 hash.
  */
-- (NSString *)md2String;
+- (NSString *)kt_md2String;
 
 /**
  Returns an NSData for md2 hash.
  */
-- (NSData *)md2Data;
+- (NSData *)kt_md2Data;
 
 /**
  Returns a lowercase NSString for md4 hash.
  */
-- (NSString *)md4String;
+- (NSString *)kt_md4String;
 
 /**
  Returns an NSData for md4 hash.
  */
-- (NSData *)md4Data;
+- (NSData *)kt_md4Data;
 
 /**
  Returns a lowercase NSString for md5 hash.
  */
-- (NSString *)md5String;
+- (NSString *)kt_md5String;
 
 /**
  Returns an NSData for md5 hash.
  */
-- (NSData *)md5Data;
+- (NSData *)kt_md5Data;
 
 /**
  Returns a lowercase NSString for sha1 hash.
  */
-- (NSString *)sha1String;
+- (NSString *)kt_sha1String;
 
 /**
  Returns an NSData for sha1 hash.
  */
-- (NSData *)sha1Data;
+- (NSData *)kt_sha1Data;
 
 /**
  Returns a lowercase NSString for sha224 hash.
  */
-- (NSString *)sha224String;
+- (NSString *)kt_sha224String;
 
 /**
  Returns an NSData for sha224 hash.
  */
-- (NSData *)sha224Data;
+- (NSData *)kt_sha224Data;
 
 /**
  Returns a lowercase NSString for sha256 hash.
  */
-- (NSString *)sha256String;
+- (NSString *)kt_sha256String;
 
 /**
  Returns an NSData for sha256 hash.
  */
-- (NSData *)sha256Data;
+- (NSData *)kt_sha256Data;
 
 /**
  Returns a lowercase NSString for sha384 hash.
  */
-- (NSString *)sha384String;
+- (NSString *)kt_sha384String;
 
 /**
  Returns an NSData for sha384 hash.
  */
-- (NSData *)sha384Data;
+- (NSData *)kt_sha384Data;
 
 /**
  Returns a lowercase NSString for sha512 hash.
  */
-- (NSString *)sha512String;
+- (NSString *)kt_sha512String;
 
 /**
  Returns an NSData for sha512 hash.
  */
-- (NSData *)sha512Data;
+- (NSData *)kt_sha512Data;
 
 /**
  Returns a lowercase NSString for hmac using algorithm md5 with key.
  @param key  The hmac key.
  */
-- (NSString *)hmacMD5StringWithKey:(NSString *)key;
+- (NSString *)kt_hmacMD5StringWithKey:(NSString *)key;
 
 /**
  Returns an NSData for hmac using algorithm md5 with key.
  @param key  The hmac key.
  */
-- (NSData *)hmacMD5DataWithKey:(NSData *)key;
+- (NSData *)kt_hmacMD5DataWithKey:(NSData *)key;
 
 /**
  Returns a lowercase NSString for hmac using algorithm sha1 with key.
  @param key  The hmac key.
  */
-- (NSString *)hmacSHA1StringWithKey:(NSString *)key;
+- (NSString *)kt_hmacSHA1StringWithKey:(NSString *)key;
 
 /**
  Returns an NSData for hmac using algorithm sha1 with key.
  @param key  The hmac key.
  */
-- (NSData *)hmacSHA1DataWithKey:(NSData *)key;
+- (NSData *)kt_hmacSHA1DataWithKey:(NSData *)key;
 
 /**
  Returns a lowercase NSString for hmac using algorithm sha224 with key.
  @param key  The hmac key.
  */
-- (NSString *)hmacSHA224StringWithKey:(NSString *)key;
+- (NSString *)kt_hmacSHA224StringWithKey:(NSString *)key;
 
 /**
  Returns an NSData for hmac using algorithm sha224 with key.
  @param key  The hmac key.
  */
-- (NSData *)hmacSHA224DataWithKey:(NSData *)key;
+- (NSData *)kt_hmacSHA224DataWithKey:(NSData *)key;
 
 /**
  Returns a lowercase NSString for hmac using algorithm sha256 with key.
  @param key  The hmac key.
  */
-- (NSString *)hmacSHA256StringWithKey:(NSString *)key;
+- (NSString *)kt_hmacSHA256StringWithKey:(NSString *)key;
 
 /**
  Returns an NSData for hmac using algorithm sha256 with key.
  @param key  The hmac key.
  */
-- (NSData *)hmacSHA256DataWithKey:(NSData *)key;
+- (NSData *)kt_hmacSHA256DataWithKey:(NSData *)key;
 
 /**
  Returns a lowercase NSString for hmac using algorithm sha384 with key.
  @param key  The hmac key.
  */
-- (NSString *)hmacSHA384StringWithKey:(NSString *)key;
+- (NSString *)kt_hmacSHA384StringWithKey:(NSString *)key;
 
 /**
  Returns an NSData for hmac using algorithm sha384 with key.
  @param key  The hmac key.
  */
-- (NSData *)hmacSHA384DataWithKey:(NSData *)key;
+- (NSData *)kt_hmacSHA384DataWithKey:(NSData *)key;
 
 /**
  Returns a lowercase NSString for hmac using algorithm sha512 with key.
  @param key  The hmac key.
  */
-- (NSString *)hmacSHA512StringWithKey:(NSString *)key;
+- (NSString *)kt_hmacSHA512StringWithKey:(NSString *)key;
 
 /**
  Returns an NSData for hmac using algorithm sha512 with key.
  @param key  The hmac key.
  */
-- (NSData *)hmacSHA512DataWithKey:(NSData *)key;
+- (NSData *)kt_hmacSHA512DataWithKey:(NSData *)key;
 
 /**
  Returns a lowercase NSString for crc32 hash.
  */
-- (NSString *)crc32String;
+- (NSString *)kt_crc32String;
 
 /**
  Returns crc32 hash.
  */
-- (uint32_t)crc32;
+- (uint32_t)kt_crc32;
 
 
 #pragma mark - Encrypt and Decrypt
@@ -201,7 +201,7 @@ NS_ASSUME_NONNULL_BEGIN
  
  @return      An NSData encrypted, or nil if an error occurs.
  */
-- (nullable NSData *)aes256EncryptWithKey:(NSData *)key iv:(nullable NSData *)iv;
+- (nullable NSData *)kt_aes256EncryptWithKey:(NSData *)key iv:(nullable NSData *)iv;
 
 /**
  Returns an decrypted NSData using AES.
@@ -213,7 +213,7 @@ NS_ASSUME_NONNULL_BEGIN
  
  @return      An NSData decrypted, or nil if an error occurs.
  */
-- (nullable NSData *)aes256DecryptWithkey:(NSData *)key iv:(nullable NSData *)iv;
+- (nullable NSData *)kt_aes256DecryptWithkey:(NSData *)key iv:(nullable NSData *)iv;
 
 
 #pragma mark - Encode and decode
@@ -224,12 +224,12 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Returns string decoded in UTF8.
  */
-- (nullable NSString *)utf8String;
+- (nullable NSString *)kt_utf8String;
 
 /**
  Returns a uppercase NSString in HEX.
  */
-- (nullable NSString *)hexString;
+- (nullable NSString *)kt_hexString;
 
 /**
  Returns an NSData from hex string.
@@ -238,12 +238,12 @@ NS_ASSUME_NONNULL_BEGIN
  
  @return a new NSData, or nil if an error occurs.
  */
-+ (nullable NSData *)dataWithHexString:(NSString *)hexString;
++ (nullable NSData *)kt_dataWithHexString:(NSString *)hexString;
 
 /**
  Returns an NSString for base64 encoded.
  */
-- (nullable NSString *)base64EncodedString;
+- (nullable NSString *)kt_base64EncodedString;
 
 /**
  Returns an NSData from base64 encoded string.
@@ -252,13 +252,13 @@ NS_ASSUME_NONNULL_BEGIN
  
  @param base64EncodedString  The encoded string.
  */
-+ (nullable NSData *)dataWithBase64EncodedString:(NSString *)base64EncodedString;
++ (nullable NSData *)kt_dataWithBase64EncodedString:(NSString *)base64EncodedString;
 
 /**
  Returns an NSDictionary or NSArray for decoded self.
  Returns nil if an error occurs.
  */
-- (nullable id)jsonValueDecoded;
+- (nullable id)kt_jsonValueDecoded;
 
 
 #pragma mark - Inflate and deflate
@@ -270,25 +270,25 @@ NS_ASSUME_NONNULL_BEGIN
  Decompress data from gzip data.
  @return Inflated data.
  */
-- (nullable NSData *)gzipInflate;
+- (nullable NSData *)kt_gzipInflate;
 
 /**
  Comperss data to gzip in default compresssion level.
  @return Deflated data.
  */
-- (nullable NSData *)gzipDeflate;
+- (nullable NSData *)kt_gzipDeflate;
 
 /**
  Decompress data from zlib-compressed data.
  @return Inflated data.
  */
-- (nullable NSData *)zlibInflate;
+- (nullable NSData *)kt_zlibInflate;
 
 /**
  Comperss data to zlib-compressed in default compresssion level.
  @return Deflated data.
  */
-- (nullable NSData *)zlibDeflate;
+- (nullable NSData *)kt_zlibDeflate;
 
 
 #pragma mark - Others
@@ -303,7 +303,7 @@ NS_ASSUME_NONNULL_BEGIN
  
  @return A new data create from the file.
  */
-+ (nullable NSData *)dataNamed:(NSString *)name;
++ (nullable NSData *)kt_dataNamed:(NSString *)name;
 
 @end
 

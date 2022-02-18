@@ -1,5 +1,5 @@
 //
-//  NSBundle+YYAdd.m
+//  NSBundle+KTHelp.m
 //  YYCategories <https://github.com/ibireme/YYCategories>
 //
 //  Created by ibireme on 14/10/20.
@@ -9,15 +9,12 @@
 //  LICENSE file in the root directory of this source tree.
 //
 
-#import "NSBundle+YYAdd.h"
+#import "NSBundle+KTHelp.h"
 #import "NSString+YYAdd.h"
-#import "YYCategoriesMacro.h"
 
-YYSYNTH_DUMMY_CLASS(NSBundle_YYAdd)
+@implementation NSBundle (KTHelp)
 
-@implementation NSBundle (YYAdd)
-
-+ (NSArray *)preferredScales {
++ (NSArray *)kt_preferredScales {
     static NSArray *scales;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -33,12 +30,14 @@ YYSYNTH_DUMMY_CLASS(NSBundle_YYAdd)
     return scales;
 }
 
-+ (NSString *)pathForScaledResource:(NSString *)name ofType:(NSString *)ext inDirectory:(NSString *)bundlePath {
++ (NSString *)kt_pathForScaledResource:(NSString *)name
+								ofType:(NSString *)ext
+						   inDirectory:(NSString *)bundlePath {
     if (name.length == 0) return nil;
     if ([name hasSuffix:@"/"]) return [self pathForResource:name ofType:ext inDirectory:bundlePath];
     
     NSString *path = nil;
-    NSArray *scales = [self preferredScales];
+    NSArray *scales = [self kt_preferredScales];
     for (int s = 0; s < scales.count; s++) {
         CGFloat scale = ((NSNumber *)scales[s]).floatValue;
         NSString *scaledName = ext.length ? [name stringByAppendingNameScale:scale]
@@ -50,12 +49,13 @@ YYSYNTH_DUMMY_CLASS(NSBundle_YYAdd)
     return path;
 }
 
-- (NSString *)pathForScaledResource:(NSString *)name ofType:(NSString *)ext {
+- (NSString *)kt_pathForScaledResource:(NSString *)name
+								ofType:(NSString *)ext {
     if (name.length == 0) return nil;
     if ([name hasSuffix:@"/"]) return [self pathForResource:name ofType:ext];
     
     NSString *path = nil;
-    NSArray *scales = [NSBundle preferredScales];
+    NSArray *scales = [NSBundle kt_preferredScales];
     for (int s = 0; s < scales.count; s++) {
         CGFloat scale = ((NSNumber *)scales[s]).floatValue;
         NSString *scaledName = ext.length ? [name stringByAppendingNameScale:scale]
@@ -67,12 +67,14 @@ YYSYNTH_DUMMY_CLASS(NSBundle_YYAdd)
     return path;
 }
 
-- (NSString *)pathForScaledResource:(NSString *)name ofType:(NSString *)ext inDirectory:(NSString *)subpath {
+- (NSString *)kt_pathForScaledResource:(NSString *)name
+								ofType:(NSString *)ext
+						   inDirectory:(NSString *)subpath {
     if (name.length == 0) return nil;
     if ([name hasSuffix:@"/"]) return [self pathForResource:name ofType:ext];
     
     NSString *path = nil;
-    NSArray *scales = [NSBundle preferredScales];
+    NSArray *scales = [NSBundle kt_preferredScales];
     for (int s = 0; s < scales.count; s++) {
         CGFloat scale = ((NSNumber *)scales[s]).floatValue;
         NSString *scaledName = ext.length ? [name stringByAppendingNameScale:scale]
