@@ -22,7 +22,7 @@
 
 - (void)kt_postNotificationOnMainThread:(NSNotification *)notification waitUntilDone:(BOOL)wait {
     if (pthread_main_np()) return [self postNotification:notification];
-    [[self class] performSelectorOnMainThread:@selector(_yy_postNotification:) withObject:notification waitUntilDone:wait];
+    [[self class] performSelectorOnMainThread:@selector(_kt_postNotification:) withObject:notification waitUntilDone:wait];
 }
 
 - (void)kt_postNotificationOnMainThreadWithName:(NSString *)name object:(id)object {
@@ -41,14 +41,14 @@
     if (name) [info setObject:name forKey:@"name"];
     if (object) [info setObject:object forKey:@"object"];
     if (userInfo) [info setObject:userInfo forKey:@"userInfo"];
-    [[self class] performSelectorOnMainThread:@selector(_yy_postNotificationName:) withObject:info waitUntilDone:wait];
+    [[self class] performSelectorOnMainThread:@selector(_kt_postNotificationName:) withObject:info waitUntilDone:wait];
 }
 
-+ (void)_yy_postNotification:(NSNotification *)notification {
++ (void)_kt_postNotification:(NSNotification *)notification {
     [[self defaultCenter] postNotification:notification];
 }
 
-+ (void)_yy_postNotificationName:(NSDictionary *)info {
++ (void)_kt_postNotificationName:(NSDictionary *)info {
     NSString *name = [info objectForKey:@"name"];
     id object = [info objectForKey:@"object"];
     NSDictionary *userInfo = [info objectForKey:@"userInfo"];

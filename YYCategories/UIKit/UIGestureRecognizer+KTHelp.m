@@ -54,19 +54,19 @@ static const int block_key;
 - (void)kt_addActionBlock:(void (^)(id sender))block {
     _KTUIGestureRecognizerBlockTarget *target = [[_KTUIGestureRecognizerBlockTarget alloc] initWithBlock:block];
     [self addTarget:target action:@selector(invoke:)];
-    NSMutableArray *targets = [self _yy_allUIGestureRecognizerBlockTargets];
+    NSMutableArray *targets = [self _kt_allUIGestureRecognizerBlockTargets];
     [targets addObject:target];
 }
 
 - (void)kt_removeAllActionBlocks{
-    NSMutableArray *targets = [self _yy_allUIGestureRecognizerBlockTargets];
+    NSMutableArray *targets = [self _kt_allUIGestureRecognizerBlockTargets];
     [targets enumerateObjectsUsingBlock:^(id target, NSUInteger idx, BOOL *stop) {
         [self removeTarget:target action:@selector(invoke:)];
     }];
     [targets removeAllObjects];
 }
 
-- (NSMutableArray *)_yy_allUIGestureRecognizerBlockTargets {
+- (NSMutableArray *)_kt_allUIGestureRecognizerBlockTargets {
     NSMutableArray *targets = objc_getAssociatedObject(self, &block_key);
     if (!targets) {
         targets = [NSMutableArray array];

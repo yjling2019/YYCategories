@@ -314,11 +314,11 @@ YYSYNTH_DUMMY_CLASS(CALayer_KTHelp)
     transition.duration = duration;
     transition.timingFunction = [CAMediaTimingFunction functionWithName:mediaFunction];
     transition.type = kCATransitionFade;
-    [self addAnimation:transition forKey:@"yykit.fade"];
+    [self addAnimation:transition forKey:@"ktkit.fade"];
 }
 
 - (void)removePreviousFadeAnimation {
-    [self removeAnimationForKey:@"yykit.fade"];
+    [self removeAnimationForKey:@"ktkit.fade"];
 }
 
 @end

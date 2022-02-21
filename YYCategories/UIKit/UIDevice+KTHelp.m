@@ -146,7 +146,7 @@ typedef struct {
 } kt_net_interface_counter;
 
 
-static uint64_t yy_net_counter_add(uint64_t counter, uint64_t bytes) {
+static uint64_t kt_net_counter_add(uint64_t counter, uint64_t bytes) {
     if (bytes < (counter % 0xFFFFFFFF)) {
         counter += 0xFFFFFFFF - (counter % 0xFFFFFFFF);
         counter += bytes;
@@ -156,7 +156,7 @@ static uint64_t yy_net_counter_add(uint64_t counter, uint64_t bytes) {
     return counter;
 }
 
-static uint64_t yy_net_counter_get_by_type(kt_net_interface_counter *counter, KTNetworkTrafficType type) {
+static uint64_t kt_net_counter_get_by_type(kt_net_interface_counter *counter, KTNetworkTrafficType type) {
     uint64_t bytes = 0;
     if (type & KTNetworkTrafficTypeWWANSent) bytes += counter->pdp_ip_out;
     if (type & KTNetworkTrafficTypeWWANReceived) bytes += counter->pdp_ip_in;
@@ -190,11 +190,11 @@ static kt_net_interface_counter kt_get_net_interface_counter() {
                 NSString *name = cursor->ifa_name ? [NSString stringWithUTF8String:cursor->ifa_name] : nil;
                 if (name) {
                     uint64_t counter_in = ((NSNumber *)sharedInCounters[name]).unsignedLongLongValue;
-                    counter_in = yy_net_counter_add(counter_in, data->ifi_ibytes);
+                    counter_in = kt_net_counter_add(counter_in, data->ifi_ibytes);
                     sharedInCounters[name] = @(counter_in);
                     
                     uint64_t counter_out = ((NSNumber *)sharedOutCounters[name]).unsignedLongLongValue;
-                    counter_out = yy_net_counter_add(counter_out, data->ifi_obytes);
+                    counter_out = kt_net_counter_add(counter_out, data->ifi_obytes);
                     sharedOutCounters[name] = @(counter_out);
                     
                     if ([name hasPrefix:@"en"]) {
@@ -220,7 +220,7 @@ static kt_net_interface_counter kt_get_net_interface_counter() {
 
 - (uint64_t)kt_getNetworkTrafficBytes:(KTNetworkTrafficType)types {
     kt_net_interface_counter counter = kt_get_net_interface_counter();
-    return yy_net_counter_get_by_type(&counter, types);
+    return kt_net_counter_get_by_type(&counter, types);
 }
 
 - (NSString *)kt_machineModel {
