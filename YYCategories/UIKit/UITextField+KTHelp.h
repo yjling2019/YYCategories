@@ -21,14 +21,14 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Set all text selected.
  */
-- (void)selectAllText;
+- (void)kt_selectAllText;
 
 /**
  Set text in range selected.
  
  @param range  The range of selected text in a document.
  */
-- (void)setSelectedRange:(NSRange)range;
+- (void)kt_setSelectedRange:(NSRange)range;
 
 @end
 

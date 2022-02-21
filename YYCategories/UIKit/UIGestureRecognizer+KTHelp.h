@@ -35,12 +35,12 @@ NS_ASSUME_NONNULL_BEGIN
  
  @param block A block invoked by the action message. nil is not a valid value.
  */
-- (void)addActionBlock:(void (^)(id sender))block;
+- (void)kt_addActionBlock:(void (^)(id sender))block;
 
 /**
  Remove all action blocks.
  */
-- (void)removeAllActionBlocks;
+- (void)kt_removeAllActionBlocks;
 
 @end
 

@@ -77,11 +77,11 @@ YY_EXTERN_C_BEGIN
      
      #import <objc/runtime.h>
      @implementation NSObject (MyAdd)
-     YYSYNTH_DYNAMIC_PROPERTY_OBJECT(myColor, setMyColor, RETAIN, UIColor *)
+     KTSYNTH_DYNAMIC_PROPERTY_OBJECT(myColor, setMyColor, RETAIN, UIColor *)
      @end
  */
-#ifndef YYSYNTH_DYNAMIC_PROPERTY_OBJECT
-#define YYSYNTH_DYNAMIC_PROPERTY_OBJECT(_getter_, _setter_, _association_, _type_) \
+#ifndef KTSYNTH_DYNAMIC_PROPERTY_OBJECT
+#define KTSYNTH_DYNAMIC_PROPERTY_OBJECT(_getter_, _setter_, _association_, _type_) \
 - (void)_setter_ : (_type_)object { \
     [self willChangeValueForKey:@#_getter_]; \
     objc_setAssociatedObject(self, _cmd, object, OBJC_ASSOCIATION_ ## _association_); \

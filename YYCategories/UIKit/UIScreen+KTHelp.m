@@ -18,7 +18,7 @@ YYSYNTH_DUMMY_CLASS(UIScreen_KTHelp);
 
 @implementation UIScreen (KTHelp)
 
-+ (CGFloat)screenScale {
++ (CGFloat)kt_screenScale {
     static CGFloat screenScale = 0.0;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -34,12 +34,12 @@ YYSYNTH_DUMMY_CLASS(UIScreen_KTHelp);
 }
 
 #ifdef __IPHONE_OS_VERSION_MIN_REQUIRED
-- (CGRect)currentBounds {
-    return [self boundsForOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
+- (CGRect)kt_currentBounds {
+    return [self kt_boundsForOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
 }
 #endif
 
-- (CGRect)boundsForOrientation:(UIInterfaceOrientation)orientation {
+- (CGRect)kt_boundsForOrientation:(UIInterfaceOrientation)orientation {
     CGRect bounds = [self bounds];
     
     if (UIInterfaceOrientationIsLandscape(orientation)) {
@@ -50,11 +50,11 @@ YYSYNTH_DUMMY_CLASS(UIScreen_KTHelp);
     return bounds;
 }
 
-- (CGSize)sizeInPixel {
+- (CGSize)kt_sizeInPixel {
     CGSize size = CGSizeZero;
     
     if ([[UIScreen mainScreen] isEqual:self]) {
-        NSString *model = [UIDevice currentDevice].machineModel;
+        NSString *model = [UIDevice currentDevice].kt_machineModel;
         
         if ([model hasPrefix:@"iPhone"]) {
             if ([model isEqualToString:@"iPhone7,1"]) return CGSizeMake(1080, 1920);
@@ -85,7 +85,7 @@ YYSYNTH_DUMMY_CLASS(UIScreen_KTHelp);
     return size;
 }
 
-- (CGFloat)pixelsPerInch {
+- (CGFloat)kt_pixelsPerInch {
     if (![[UIScreen mainScreen] isEqual:self]) {
         return 326;
     }
@@ -163,7 +163,7 @@ YYSYNTH_DUMMY_CLASS(UIScreen_KTHelp);
             @"iPad6,7" : @264, //@"iPad Pro (12.9 inch)",
             @"iPad6,8" : @264, //@"iPad Pro (12.9 inch)",
             };
-        NSString *model = [UIDevice currentDevice].machineModel;
+        NSString *model = [UIDevice currentDevice].kt_machineModel;
         if (model) {
             ppi = dic[model].doubleValue;
         }

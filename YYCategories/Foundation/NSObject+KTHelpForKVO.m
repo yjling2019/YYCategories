@@ -61,7 +61,7 @@ static const int block_key;
 - (void)kt_addObserverBlockForKeyPath:(NSString *)keyPath block:(void (^)(__weak id obj, id oldVal, id newVal))block {
     if (!keyPath || !block) return;
     _YYNSObjectKVOBlockTarget *target = [[_YYNSObjectKVOBlockTarget alloc] initWithBlock:block];
-    NSMutableDictionary *dic = [self _yy_allNSObjectObserverBlocks];
+    NSMutableDictionary *dic = [self _kt_allNSObjectObserverBlocks];
     NSMutableArray *arr = dic[keyPath];
     if (!arr) {
         arr = [NSMutableArray new];
@@ -73,7 +73,7 @@ static const int block_key;
 
 - (void)kt_removeObserverBlocksForKeyPath:(NSString *)keyPath {
     if (!keyPath) return;
-    NSMutableDictionary *dic = [self _yy_allNSObjectObserverBlocks];
+    NSMutableDictionary *dic = [self _kt_allNSObjectObserverBlocks];
     NSMutableArray *arr = dic[keyPath];
     [arr enumerateObjectsUsingBlock: ^(id obj, NSUInteger idx, BOOL *stop) {
         [self removeObserver:obj forKeyPath:keyPath];
@@ -83,7 +83,7 @@ static const int block_key;
 }
 
 - (void)kt_removeObserverBlocks {
-    NSMutableDictionary *dic = [self _yy_allNSObjectObserverBlocks];
+    NSMutableDictionary *dic = [self _kt_allNSObjectObserverBlocks];
     [dic enumerateKeysAndObjectsUsingBlock: ^(NSString *key, NSArray *arr, BOOL *stop) {
         [arr enumerateObjectsUsingBlock: ^(id obj, NSUInteger idx, BOOL *stop) {
             [self removeObserver:obj forKeyPath:key];
@@ -93,7 +93,7 @@ static const int block_key;
     [dic removeAllObjects];
 }
 
-- (NSMutableDictionary *)_yy_allNSObjectObserverBlocks {
+- (NSMutableDictionary *)_kt_allNSObjectObserverBlocks {
     NSMutableDictionary *targets = objc_getAssociatedObject(self, &block_key);
     if (!targets) {
         targets = [NSMutableDictionary new];

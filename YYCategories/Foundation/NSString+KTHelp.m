@@ -83,16 +83,16 @@
             kt_hmacSHA512StringWithKey:key];
 }
 
-- (NSString *)base64EncodedString {
+- (NSString *)kt_base64EncodedString {
     return [[self dataUsingEncoding:NSUTF8StringEncoding] kt_base64EncodedString];
 }
 
-+ (NSString *)stringWithBase64EncodedString:(NSString *)base64EncodedString {
++ (NSString *)kt_stringWithBase64EncodedString:(NSString *)base64EncodedString {
     NSData *data = [NSData kt_dataWithBase64EncodedString:base64EncodedString];
     return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 }
 
-- (NSString *)stringByURLEncode {
+- (NSString *)kt_stringByURLEncode {
     if ([self respondsToSelector:@selector(stringByAddingPercentEncodingWithAllowedCharacters:)]) {
         /**
          AFNetworking/AFURLRequestSerialization.m
@@ -145,7 +145,7 @@
     }
 }
 
-- (NSString *)stringByURLDecode {
+- (NSString *)kt_stringByURLDecode {
     if ([self respondsToSelector:@selector(stringByRemovingPercentEncoding)]) {
         return [self stringByRemovingPercentEncoding];
     } else {
@@ -165,7 +165,7 @@
     }
 }
 
-- (NSString *)stringByEscapingHTML {
+- (NSString *)kt_stringByEscapingHTML {
     NSUInteger len = self.length;
     if (!len) return self;
     
@@ -195,7 +195,7 @@
     return result;
 }
 
-- (CGSize)sizeForFont:(UIFont *)font size:(CGSize)size mode:(NSLineBreakMode)lineBreakMode {
+- (CGSize)kt_sizeForFont:(UIFont *)font size:(CGSize)size mode:(NSLineBreakMode)lineBreakMode {
     CGSize result;
     if (!font) font = [UIFont systemFontOfSize:12];
     if ([self respondsToSelector:@selector(boundingRectWithSize:options:attributes:context:)]) {
@@ -219,23 +219,43 @@
     return result;
 }
 
-- (CGFloat)widthForFont:(UIFont *)font {
-    CGSize size = [self sizeForFont:font size:CGSizeMake(HUGE, HUGE) mode:NSLineBreakByWordWrapping];
+- (CGFloat)kt_widthForFont:(UIFont *)font {
+    CGSize size = [self kt_sizeForFont:font size:CGSizeMake(HUGE, HUGE) mode:NSLineBreakByWordWrapping];
     return size.width;
 }
 
-- (CGFloat)heightForFont:(UIFont *)font width:(CGFloat)width {
-    CGSize size = [self sizeForFont:font size:CGSizeMake(width, HUGE) mode:NSLineBreakByWordWrapping];
+- (CGFloat)kt_heightForFont:(UIFont *)font width:(CGFloat)width {
+    CGSize size = [self kt_sizeForFont:font size:CGSizeMake(width, HUGE) mode:NSLineBreakByWordWrapping];
     return size.height;
 }
 
-- (BOOL)matchesRegex:(NSString *)regex options:(NSRegularExpressionOptions)options {
+- (NSInteger)kt_lineCountForFont:(UIFont *)font width:(CGFloat)width {
+	if (self.length == 0) {
+		return 0;
+	}
+	
+	// 获取单行时候的内容的size
+	CGSize singleSize = [self sizeWithAttributes:@{NSFontAttributeName:font}];
+	// 获取多行时候,文字的size
+	CGSize textSize = [self boundingRectWithSize:CGSizeMake(width, MAXFLOAT)
+										 options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:font}
+										 context:nil].size;
+	// 返回计算的行数
+	return ceil(textSize.height / singleSize.height);
+}
+
+- (BOOL)kt_matchesRegex:(NSString *)regex {
+	NSPredicate *pre = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+	return [pre evaluateWithObject:self];
+}
+
+- (BOOL)kt_matchesRegex:(NSString *)regex options:(NSRegularExpressionOptions)options {
     NSRegularExpression *pattern = [NSRegularExpression regularExpressionWithPattern:regex options:options error:NULL];
     if (!pattern) return NO;
     return ([pattern numberOfMatchesInString:self options:0 range:NSMakeRange(0, self.length)] > 0);
 }
 
-- (void)enumerateRegexMatches:(NSString *)regex
+- (void)kt_enumerateRegexMatches:(NSString *)regex
                       options:(NSRegularExpressionOptions)options
                    usingBlock:(void (^)(NSString *match, NSRange matchRange, BOOL *stop))block {
     if (regex.length == 0 || !block) return;
@@ -246,7 +266,7 @@
     }];
 }
 
-- (NSString *)stringByReplacingRegex:(NSString *)regex
+- (NSString *)kt_stringByReplacingRegex:(NSString *)regex
                              options:(NSRegularExpressionOptions)options
                           withString:(NSString *)replacement; {
     NSRegularExpression *pattern = [NSRegularExpression regularExpressionWithPattern:regex options:options error:nil];
@@ -254,62 +274,100 @@
     return [pattern stringByReplacingMatchesInString:self options:0 range:NSMakeRange(0, [self length]) withTemplate:replacement];
 }
 
-- (char)charValue {
-    return self.numberValue.charValue;
+- (char)kt_charValue {
+    return self.kt_numberValue.charValue;
 }
 
-- (unsigned char) unsignedCharValue {
-    return self.numberValue.unsignedCharValue;
+- (unsigned char) kt_unsignedCharValue {
+    return self.kt_numberValue.unsignedCharValue;
 }
 
-- (short) shortValue {
-    return self.numberValue.shortValue;
+- (short) kt_shortValue {
+    return self.kt_numberValue.shortValue;
 }
 
-- (unsigned short) unsignedShortValue {
-    return self.numberValue.unsignedShortValue;
+- (unsigned short) kt_unsignedShortValue {
+    return self.kt_numberValue.unsignedShortValue;
 }
 
-- (unsigned int) unsignedIntValue {
-    return self.numberValue.unsignedIntValue;
+- (unsigned int) kt_unsignedIntValue {
+    return self.kt_numberValue.unsignedIntValue;
 }
 
-- (long) longValue {
-    return self.numberValue.longValue;
+- (long) kt_longValue {
+    return self.kt_numberValue.longValue;
 }
 
-- (unsigned long) unsignedLongValue {
-    return self.numberValue.unsignedLongValue;
+- (unsigned long) kt_unsignedLongValue {
+    return self.kt_numberValue.unsignedLongValue;
 }
 
-- (unsigned long long) unsignedLongLongValue {
-    return self.numberValue.unsignedLongLongValue;
+- (unsigned long long) kt_unsignedLongLongValue {
+    return self.kt_numberValue.unsignedLongLongValue;
 }
 
-- (NSUInteger) unsignedIntegerValue {
-    return self.numberValue.unsignedIntegerValue;
+- (NSUInteger) kt_unsignedIntegerValue {
+    return self.kt_numberValue.unsignedIntegerValue;
 }
 
+- (BOOL)kt_isHTMLStringWithString {
+	NSRegularExpression *regularExpression = [NSRegularExpression regularExpressionWithPattern:@"<[^>]+>" options:0 error:nil];
+	NSArray *matches = [regularExpression matchesInString:self options:NSMatchingReportProgress range:NSMakeRange(0, self.length)];
+	return matches.count > 0;
+}
 
-+ (NSString *)stringWithUUID {
+- (NSAttributedString *)kt_getHTMLAttributedString {
+	NSAttributedString *HTML = [[NSAttributedString alloc] initWithData:[self dataUsingEncoding:NSUnicodeStringEncoding]
+																options:@{NSDocumentTypeDocumentAttribute : NSHTMLTextDocumentType}
+													 documentAttributes:nil
+																  error:nil];
+	
+	NSMutableAttributedString *mutableHTML = [[NSMutableAttributedString alloc] initWithAttributedString:HTML];
+	NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+	style.lineBreakMode = NSLineBreakByTruncatingTail;
+	[mutableHTML addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, mutableHTML.length)];
+	return mutableHTML;
+}
+
+- (nullable NSURL *)kt_toUrl {
+	if (self.length == 0) {
+		return nil;
+	}
+	NSURL *url = [NSURL URLWithString:self];
+	return url;
+}
+
+- (nullable NSDictionary *)kt_getURLQueries {
+	if (self.length == 0) {
+		return nil;
+	}
+	NSMutableDictionary *params = [NSMutableDictionary dictionary];
+	NSURLComponents *components = [NSURLComponents componentsWithString:self];
+	[components.queryItems enumerateObjectsUsingBlock:^(NSURLQueryItem *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+		[params setValue:obj.value forKey:obj.name];
+	}];
+	return params.copy;
+}
+
++ (NSString *)kt_stringWithUUID {
     CFUUIDRef uuid = CFUUIDCreate(NULL);
     CFStringRef string = CFUUIDCreateString(NULL, uuid);
     CFRelease(uuid);
     return (__bridge_transfer NSString *)string;
 }
 
-+ (NSString *)stringWithUTF32Char:(UTF32Char)char32 {
++ (NSString *)kt_stringWithUTF32Char:(UTF32Char)char32 {
     char32 = NSSwapHostIntToLittle(char32);
     return [[NSString alloc] initWithBytes:&char32 length:4 encoding:NSUTF32LittleEndianStringEncoding];
 }
 
-+ (NSString *)stringWithUTF32Chars:(const UTF32Char *)char32 length:(NSUInteger)length {
++ (NSString *)kt_stringWithUTF32Chars:(const UTF32Char *)char32 length:(NSUInteger)length {
     return [[NSString alloc] initWithBytes:(const void *)char32
                                     length:length * 4
                                   encoding:NSUTF32LittleEndianStringEncoding];
 }
 
-- (void)enumerateUTF32CharInRange:(NSRange)range usingBlock:(void (^)(UTF32Char char32, NSRange range, BOOL *stop))block {
+- (void)kt_enumerateUTF32CharInRange:(NSRange)range usingBlock:(void (^)(UTF32Char char32, NSRange range, BOOL *stop))block {
     NSString *str = self;
     if (range.location != 0 || range.length != self.length) {
         str = [self substringWithRange:range];
@@ -332,17 +390,17 @@
     }
 }
 
-- (NSString *)stringByTrim {
+- (NSString *)kt_stringByTrim {
     NSCharacterSet *set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
     return [self stringByTrimmingCharactersInSet:set];
 }
 
-- (NSString *)stringByAppendingNameScale:(CGFloat)scale {
+- (NSString *)kt_stringByAppendingNameScale:(CGFloat)scale {
     if (fabs(scale - 1) <= __FLT_EPSILON__ || self.length == 0 || [self hasSuffix:@"/"]) return self.copy;
     return [self stringByAppendingFormat:@"@%@x", @(scale)];
 }
 
-- (NSString *)stringByAppendingPathScale:(CGFloat)scale {
+- (NSString *)kt_stringByAppendingPathScale:(CGFloat)scale {
     if (fabs(scale - 1) <= __FLT_EPSILON__ || self.length == 0 || [self hasSuffix:@"/"]) return self.copy;
     NSString *ext = self.pathExtension;
     NSRange extRange = NSMakeRange(self.length - ext.length, 0);
@@ -351,17 +409,17 @@
     return [self stringByReplacingCharactersInRange:extRange withString:scaleStr];
 }
 
-- (CGFloat)pathScale {
+- (CGFloat)kt_pathScale {
     if (self.length == 0 || [self hasSuffix:@"/"]) return 1;
     NSString *name = self.stringByDeletingPathExtension;
     __block CGFloat scale = 1;
-    [name enumerateRegexMatches:@"@[0-9]+\\.?[0-9]*x$" options:NSRegularExpressionAnchorsMatchLines usingBlock: ^(NSString *match, NSRange matchRange, BOOL *stop) {
+    [name kt_enumerateRegexMatches:@"@[0-9]+\\.?[0-9]*x$" options:NSRegularExpressionAnchorsMatchLines usingBlock: ^(NSString *match, NSRange matchRange, BOOL *stop) {
         scale = [match substringWithRange:NSMakeRange(1, match.length - 2)].doubleValue;
     }];
     return scale;
 }
 
-- (BOOL)isNotBlank {
+- (BOOL)kt_isNotBlank {
     NSCharacterSet *blank = [NSCharacterSet whitespaceAndNewlineCharacterSet];
     for (NSInteger i = 0; i < self.length; ++i) {
         unichar c = [self characterAtIndex:i];
@@ -372,33 +430,33 @@
     return NO;
 }
 
-- (BOOL)containsString:(NSString *)string {
-    if (string == nil) return NO;
-    return [self rangeOfString:string].location != NSNotFound;
-}
+//- (BOOL)containsString:(NSString *)string {
+//    if (string == nil) return NO;
+//    return [self rangeOfString:string].location != NSNotFound;
+//}
 
-- (BOOL)containsCharacterSet:(NSCharacterSet *)set {
+- (BOOL)kt_containsCharacterSet:(NSCharacterSet *)set {
     if (set == nil) return NO;
     return [self rangeOfCharacterFromSet:set].location != NSNotFound;
 }
 
-- (NSNumber *)numberValue {
+- (NSNumber *)kt_numberValue {
     return [NSNumber kt_numberWithString:self];
 }
 
-- (NSData *)dataValue {
+- (NSData *)kt_dataValue {
     return [self dataUsingEncoding:NSUTF8StringEncoding];
 }
 
-- (NSRange)rangeOfAll {
+- (NSRange)kt_rangeOfAll {
     return NSMakeRange(0, self.length);
 }
 
-- (id)jsonValueDecoded {
-    return [[self dataValue] kt_jsonValueDecoded];
+- (id)kt_jsonValueDecoded {
+    return [[self kt_dataValue] kt_jsonValueDecoded];
 }
 
-+ (NSString *)stringNamed:(NSString *)name {
++ (NSString *)kt_stringNamed:(NSString *)name {
     NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:@""];
     NSString *str = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:NULL];
     if (!str) {
@@ -406,6 +464,63 @@
         str = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:NULL];
     }
     return str;
+}
+
+- (NSString *)kt_removeDashSymbol {
+	if (self.length == 0) {
+		return self;
+	}
+	
+	NSError *error;
+	NSRegularExpression *espress = [NSRegularExpression regularExpressionWithPattern:@"#[0-9a-fA-F]{6}" options:NSRegularExpressionCaseInsensitive error:&error];
+	NSArray *arrayofRange = [espress matchesInString:self options:0 range:NSMakeRange(0, self.length)];
+	NSString *resultString = self.copy;
+	if (!error && arrayofRange.count != 0) {
+		for (NSTextCheckingResult *result in arrayofRange) {
+			NSString *colorSring = [self substringWithRange:result.range];
+			if ([colorSring hasPrefix:@"#"]) {
+				colorSring = [colorSring substringFromIndex:1];
+			}
+			resultString = [resultString stringByReplacingCharactersInRange:result.range withString:colorSring];
+		}
+	}
+	return resultString;
+}
+
+- (NSString *)kt_toArDateString {
+	NSDateFormatter *dateFormatter1 = [[NSDateFormatter alloc] init];
+	dateFormatter1.dateFormat = @"MM/dd";
+	NSDate *date1 = [dateFormatter1 dateFromString:self];
+	
+	NSDateFormatter *yearFormatter = [[NSDateFormatter alloc] init];
+	yearFormatter.dateFormat = @"MM/dd";
+	yearFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"ar"];
+	NSString *yearString = [yearFormatter stringFromDate:date1];
+	return yearString;
+}
+
+- (NSAttributedString *)kt_highLightedEmailWithColor:(UIColor *)color {
+	return [NSString kt_distinguishWithString:self pattern:kEmailRegex highLightColor:color];
+}
+
++ (NSAttributedString *)kt_distinguishWithString:(NSString *)string pattern:(NSString *)pattern highLightColor:(UIColor *)color {
+	NSError *error;
+	NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:string];
+	
+	NSRegularExpression *regexps = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:&error];
+	if (!error && regexps != nil) {
+		[regexps enumerateMatchesInString:string options:0 range:string.kt_rangeOfAll usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
+			NSRange stringRange = result.range;
+			//添加下划线
+			/**
+			 NSDictionary *attribtDic = @{NSUnderlineStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]};
+			 [str addAttributes:attribtDic range:stringRange];
+			 */
+			//设置相关富文本显示颜色
+			[str addAttribute:NSForegroundColorAttributeName value:color range:stringRange];
+		}];
+	}
+	return str.copy;
 }
 
 @end

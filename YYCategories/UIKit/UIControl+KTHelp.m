@@ -13,12 +13,9 @@
 #import "YYCategoriesMacro.h"
 #import <objc/runtime.h>
 
-YYSYNTH_DUMMY_CLASS(UIControl_KTHelp)
-
-
 static const int block_key;
 
-@interface _YYUIControlBlockTarget : NSObject
+@interface _KTUIControlBlockTarget : NSObject
 
 @property (nonatomic, copy) void (^block)(id sender);
 @property (nonatomic, assign) UIControlEvents events;
@@ -28,7 +25,7 @@ static const int block_key;
 
 @end
 
-@implementation _YYUIControlBlockTarget
+@implementation _KTUIControlBlockTarget
 
 - (id)initWithBlock:(void (^)(id sender))block events:(UIControlEvents)events {
     self = [super init];
@@ -49,14 +46,14 @@ static const int block_key;
 
 @implementation UIControl (KTHelp)
 
-- (void)removeAllTargets {
+- (void)kt_removeAllTargets {
     [[self allTargets] enumerateObjectsUsingBlock: ^(id object, BOOL *stop) {
         [self removeTarget:object action:NULL forControlEvents:UIControlEventAllEvents];
     }];
-    [[self _yy_allUIControlBlockTargets] removeAllObjects];
+    [[self _kt_allUIControlBlockTargets] removeAllObjects];
 }
 
-- (void)setTarget:(id)target action:(SEL)action forControlEvents:(UIControlEvents)controlEvents {
+- (void)kt_setTarget:(id)target action:(SEL)action forControlEvents:(UIControlEvents)controlEvents {
     if (!target || !action || !controlEvents) return;
     NSSet *targets = [self allTargets];
     for (id currentTarget in targets) {
@@ -69,28 +66,28 @@ static const int block_key;
     [self addTarget:target action:action forControlEvents:controlEvents];
 }
 
-- (void)addBlockForControlEvents:(UIControlEvents)controlEvents
+- (void)kt_addBlockForControlEvents:(UIControlEvents)controlEvents
                            block:(void (^)(id sender))block {
     if (!controlEvents) return;
-    _YYUIControlBlockTarget *target = [[_YYUIControlBlockTarget alloc]
+    _KTUIControlBlockTarget *target = [[_KTUIControlBlockTarget alloc]
                                        initWithBlock:block events:controlEvents];
     [self addTarget:target action:@selector(invoke:) forControlEvents:controlEvents];
-    NSMutableArray *targets = [self _yy_allUIControlBlockTargets];
+    NSMutableArray *targets = [self _kt_allUIControlBlockTargets];
     [targets addObject:target];
 }
 
-- (void)setBlockForControlEvents:(UIControlEvents)controlEvents
+- (void)kt_setBlockForControlEvents:(UIControlEvents)controlEvents
                            block:(void (^)(id sender))block {
-    [self removeAllBlocksForControlEvents:UIControlEventAllEvents];
-    [self addBlockForControlEvents:controlEvents block:block];
+    [self kt_removeAllBlocksForControlEvents:UIControlEventAllEvents];
+    [self kt_addBlockForControlEvents:controlEvents block:block];
 }
 
-- (void)removeAllBlocksForControlEvents:(UIControlEvents)controlEvents {
+- (void)kt_removeAllBlocksForControlEvents:(UIControlEvents)controlEvents {
     if (!controlEvents) return;
     
-    NSMutableArray *targets = [self _yy_allUIControlBlockTargets];
+    NSMutableArray *targets = [self _kt_allUIControlBlockTargets];
     NSMutableArray *removes = [NSMutableArray array];
-    for (_YYUIControlBlockTarget *target in targets) {
+    for (_KTUIControlBlockTarget *target in targets) {
         if (target.events & controlEvents) {
             UIControlEvents newEvent = target.events & (~controlEvents);
             if (newEvent) {
@@ -106,7 +103,7 @@ static const int block_key;
     [targets removeObjectsInArray:removes];
 }
 
-- (NSMutableArray *)_yy_allUIControlBlockTargets {
+- (NSMutableArray *)_kt_allUIControlBlockTargets {
     NSMutableArray *targets = objc_getAssociatedObject(self, &block_key);
     if (!targets) {
         targets = [NSMutableArray array];

@@ -20,12 +20,9 @@
 #import "YYCategoriesMacro.h"
 #import "NSString+KTHelp.h"
 
-YYSYNTH_DUMMY_CLASS(UIDevice_KTHelp)
-
-
 @implementation UIDevice (KTHelp)
 
-+ (double)systemVersion {
++ (double)kt_systemVersion {
     static double version;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -34,7 +31,7 @@ YYSYNTH_DUMMY_CLASS(UIDevice_KTHelp)
     return version;
 }
 
-- (BOOL)isPad {
+- (BOOL)kt_isPad {
     static dispatch_once_t one;
     static BOOL pad;
     dispatch_once(&one, ^{
@@ -43,7 +40,7 @@ YYSYNTH_DUMMY_CLASS(UIDevice_KTHelp)
     return pad;
 }
 
-- (BOOL)isSimulator {
+- (BOOL)kt_isSimulator {
     static dispatch_once_t one;
     static BOOL simu;
     dispatch_once(&one, ^{
@@ -52,8 +49,8 @@ YYSYNTH_DUMMY_CLASS(UIDevice_KTHelp)
     return simu;
 }
 
-- (BOOL)isJailbroken {
-    if ([self isSimulator]) return NO; // Dont't check simulator
+- (BOOL)kt_isJailbroken {
+    if ([self kt_isSimulator]) return NO; // Dont't check simulator
     
     // iOS9 URL Scheme query changed ...
     // NSURL *cydiaURL = [NSURL URLWithString:@"cydia://package"];
@@ -73,7 +70,7 @@ YYSYNTH_DUMMY_CLASS(UIDevice_KTHelp)
         return YES;
     }
     
-    NSString *path = [NSString stringWithFormat:@"/private/%@", [NSString stringWithUUID]];
+    NSString *path = [NSString stringWithFormat:@"/private/%@", [NSString kt_stringWithUUID]];
     if ([@"test" writeToFile : path atomically : YES encoding : NSUTF8StringEncoding error : NULL]) {
         [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
         return YES;
@@ -83,7 +80,7 @@ YYSYNTH_DUMMY_CLASS(UIDevice_KTHelp)
 }
 
 #ifdef __IPHONE_OS_VERSION_MIN_REQUIRED
-- (BOOL)canMakePhoneCalls {
+- (BOOL)kt_canMakePhoneCalls {
     __block BOOL can;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -93,7 +90,7 @@ YYSYNTH_DUMMY_CLASS(UIDevice_KTHelp)
 }
 #endif
 
-- (NSString *)ipAddressWithIfaName:(NSString *)name {
+- (NSString *)kt_ipAddressWithIfaName:(NSString *)name {
     if (name.length == 0) return nil;
     NSString *address = nil;
     struct ifaddrs *addrs = NULL;
@@ -130,12 +127,12 @@ YYSYNTH_DUMMY_CLASS(UIDevice_KTHelp)
     return address;
 }
 
-- (NSString *)ipAddressWIFI {
-    return [self ipAddressWithIfaName:@"en0"];
+- (NSString *)kt_ipAddressWIFI {
+    return [self kt_ipAddressWithIfaName:@"en0"];
 }
 
-- (NSString *)ipAddressCell {
-    return [self ipAddressWithIfaName:@"pdp_ip0"];
+- (NSString *)kt_ipAddressCell {
+    return [self kt_ipAddressWithIfaName:@"pdp_ip0"];
 }
 
 
@@ -146,7 +143,7 @@ typedef struct {
     uint64_t pdp_ip_out;
     uint64_t awdl_in;
     uint64_t awdl_out;
-} yy_net_interface_counter;
+} kt_net_interface_counter;
 
 
 static uint64_t yy_net_counter_add(uint64_t counter, uint64_t bytes) {
@@ -159,18 +156,18 @@ static uint64_t yy_net_counter_add(uint64_t counter, uint64_t bytes) {
     return counter;
 }
 
-static uint64_t yy_net_counter_get_by_type(yy_net_interface_counter *counter, YYNetworkTrafficType type) {
+static uint64_t yy_net_counter_get_by_type(kt_net_interface_counter *counter, KTNetworkTrafficType type) {
     uint64_t bytes = 0;
-    if (type & YYNetworkTrafficTypeWWANSent) bytes += counter->pdp_ip_out;
-    if (type & YYNetworkTrafficTypeWWANReceived) bytes += counter->pdp_ip_in;
-    if (type & YYNetworkTrafficTypeWIFISent) bytes += counter->en_out;
-    if (type & YYNetworkTrafficTypeWIFIReceived) bytes += counter->en_in;
-    if (type & YYNetworkTrafficTypeAWDLSent) bytes += counter->awdl_out;
-    if (type & YYNetworkTrafficTypeAWDLReceived) bytes += counter->awdl_in;
+    if (type & KTNetworkTrafficTypeWWANSent) bytes += counter->pdp_ip_out;
+    if (type & KTNetworkTrafficTypeWWANReceived) bytes += counter->pdp_ip_in;
+    if (type & KTNetworkTrafficTypeWIFISent) bytes += counter->en_out;
+    if (type & KTNetworkTrafficTypeWIFIReceived) bytes += counter->en_in;
+    if (type & KTNetworkTrafficTypeAWDLSent) bytes += counter->awdl_out;
+    if (type & KTNetworkTrafficTypeAWDLReceived) bytes += counter->awdl_in;
     return bytes;
 }
 
-static yy_net_interface_counter yy_get_net_interface_counter() {
+static kt_net_interface_counter kt_get_net_interface_counter() {
     static dispatch_semaphore_t lock;
     static NSMutableDictionary *sharedInCounters;
     static NSMutableDictionary *sharedOutCounters;
@@ -181,7 +178,7 @@ static yy_net_interface_counter yy_get_net_interface_counter() {
         lock = dispatch_semaphore_create(1);
     });
     
-    yy_net_interface_counter counter = {0};
+    kt_net_interface_counter counter = {0};
     struct ifaddrs *addrs;
     const struct ifaddrs *cursor;
     if (getifaddrs(&addrs) == 0) {
@@ -221,12 +218,12 @@ static yy_net_interface_counter yy_get_net_interface_counter() {
     return counter;
 }
 
-- (uint64_t)getNetworkTrafficBytes:(YYNetworkTrafficType)types {
-    yy_net_interface_counter counter = yy_get_net_interface_counter();
+- (uint64_t)kt_getNetworkTrafficBytes:(KTNetworkTrafficType)types {
+    kt_net_interface_counter counter = kt_get_net_interface_counter();
     return yy_net_counter_get_by_type(&counter, types);
 }
 
-- (NSString *)machineModel {
+- (NSString *)kt_machineModel {
     static dispatch_once_t one;
     static NSString *model;
     dispatch_once(&one, ^{
@@ -240,11 +237,11 @@ static yy_net_interface_counter yy_get_net_interface_counter() {
     return model;
 }
 
-- (NSString *)machineModelName {
+- (NSString *)kt_machineModelName {
     static dispatch_once_t one;
     static NSString *name;
     dispatch_once(&one, ^{
-        NSString *model = [self machineModel];
+        NSString *model = [self kt_machineModel];
         if (!model) return;
         NSDictionary *dic = @{
             @"Watch1,1" : @"Apple Watch 38mm",
@@ -330,12 +327,12 @@ static yy_net_interface_counter yy_get_net_interface_counter() {
     return name;
 }
 
-- (NSDate *)systemUptime {
+- (NSDate *)kt_systemUptime {
     NSTimeInterval time = [[NSProcessInfo processInfo] systemUptime];
     return [[NSDate alloc] initWithTimeIntervalSinceNow:(0 - time)];
 }
 
-- (int64_t)diskSpace {
+- (int64_t)kt_diskSpace {
     NSError *error = nil;
     NSDictionary *attrs = [[NSFileManager defaultManager] attributesOfFileSystemForPath:NSHomeDirectory() error:&error];
     if (error) return -1;
@@ -344,7 +341,7 @@ static yy_net_interface_counter yy_get_net_interface_counter() {
     return space;
 }
 
-- (int64_t)diskSpaceFree {
+- (int64_t)kt_diskSpaceFree {
     NSError *error = nil;
     NSDictionary *attrs = [[NSFileManager defaultManager] attributesOfFileSystemForPath:NSHomeDirectory() error:&error];
     if (error) return -1;
@@ -353,22 +350,22 @@ static yy_net_interface_counter yy_get_net_interface_counter() {
     return space;
 }
 
-- (int64_t)diskSpaceUsed {
-    int64_t total = self.diskSpace;
-    int64_t free = self.diskSpaceFree;
+- (int64_t)kt_diskSpaceUsed {
+    int64_t total = self.kt_diskSpace;
+    int64_t free = self.kt_diskSpaceFree;
     if (total < 0 || free < 0) return -1;
     int64_t used = total - free;
     if (used < 0) used = -1;
     return used;
 }
 
-- (int64_t)memoryTotal {
+- (int64_t)kt_memoryTotal {
     int64_t mem = [[NSProcessInfo processInfo] physicalMemory];
     if (mem < -1) mem = -1;
     return mem;
 }
 
-- (int64_t)memoryUsed {
+- (int64_t)kt_memoryUsed {
     mach_port_t host_port = mach_host_self();
     mach_msg_type_number_t host_size = sizeof(vm_statistics_data_t) / sizeof(integer_t);
     vm_size_t page_size;
@@ -382,7 +379,7 @@ static yy_net_interface_counter yy_get_net_interface_counter() {
     return page_size * (vm_stat.active_count + vm_stat.inactive_count + vm_stat.wire_count);
 }
 
-- (int64_t)memoryFree {
+- (int64_t)kt_memoryFree {
     mach_port_t host_port = mach_host_self();
     mach_msg_type_number_t host_size = sizeof(vm_statistics_data_t) / sizeof(integer_t);
     vm_size_t page_size;
@@ -396,7 +393,7 @@ static yy_net_interface_counter yy_get_net_interface_counter() {
     return vm_stat.free_count * page_size;
 }
 
-- (int64_t)memoryActive {
+- (int64_t)kt_memoryActive {
     mach_port_t host_port = mach_host_self();
     mach_msg_type_number_t host_size = sizeof(vm_statistics_data_t) / sizeof(integer_t);
     vm_size_t page_size;
@@ -410,7 +407,7 @@ static yy_net_interface_counter yy_get_net_interface_counter() {
     return vm_stat.active_count * page_size;
 }
 
-- (int64_t)memoryInactive {
+- (int64_t)kt_memoryInactive {
     mach_port_t host_port = mach_host_self();
     mach_msg_type_number_t host_size = sizeof(vm_statistics_data_t) / sizeof(integer_t);
     vm_size_t page_size;
@@ -424,7 +421,7 @@ static yy_net_interface_counter yy_get_net_interface_counter() {
     return vm_stat.inactive_count * page_size;
 }
 
-- (int64_t)memoryWired {
+- (int64_t)kt_memoryWired {
     mach_port_t host_port = mach_host_self();
     mach_msg_type_number_t host_size = sizeof(vm_statistics_data_t) / sizeof(integer_t);
     vm_size_t page_size;
@@ -438,7 +435,7 @@ static yy_net_interface_counter yy_get_net_interface_counter() {
     return vm_stat.wire_count * page_size;
 }
 
-- (int64_t)memoryPurgable {
+- (int64_t)kt_memoryPurgable {
     mach_port_t host_port = mach_host_self();
     mach_msg_type_number_t host_size = sizeof(vm_statistics_data_t) / sizeof(integer_t);
     vm_size_t page_size;
@@ -452,13 +449,13 @@ static yy_net_interface_counter yy_get_net_interface_counter() {
     return vm_stat.purgeable_count * page_size;
 }
 
-- (NSUInteger)cpuCount {
+- (NSUInteger)kt_cpuCount {
     return [NSProcessInfo processInfo].activeProcessorCount;
 }
 
-- (float)cpuUsage {
+- (float)kt_cpuUsage {
     float cpu = 0;
-    NSArray *cpus = [self cpuUsagePerProcessor];
+    NSArray *cpus = [self kt_cpuUsagePerProcessor];
     if (cpus.count == 0) return -1;
     for (NSNumber *n in cpus) {
         cpu += n.floatValue;
@@ -466,7 +463,7 @@ static yy_net_interface_counter yy_get_net_interface_counter() {
     return cpu;
 }
 
-- (NSArray *)cpuUsagePerProcessor {
+- (NSArray *)kt_cpuUsagePerProcessor {
     processor_info_array_t _cpuInfo, _prevCPUInfo = nil;
     mach_msg_type_number_t _numCPUInfo, _numPrevCPUInfo = 0;
     unsigned _numCPUs;

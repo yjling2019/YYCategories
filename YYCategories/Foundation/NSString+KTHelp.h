@@ -13,6 +13,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+// email正则
+static NSString * const kEmailRegex = @"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{1,}";
+// 邮编正则，必须以数字或者字母开头，且只能包含数字、字母、空格、和连号
+static NSString * const kZipCodeRegex = @"^([A-Za-z]|[0-9])([0-9]|[A-Za-z]|\\s|\\-){0,}";
+
 /**
  Provide hash, encrypt, encode and some common method for 'NSString'.
  */
@@ -113,31 +118,31 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Returns an NSString for base64 encoded.
  */
-- (nullable NSString *)base64EncodedString;
+- (nullable NSString *)kt_base64EncodedString;
 
 /**
  Returns an NSString from base64 encoded string.
  @param base64EncodedString The encoded string.
  */
-+ (nullable NSString *)stringWithBase64EncodedString:(NSString *)base64EncodedString;
++ (nullable NSString *)kt_stringWithBase64EncodedString:(NSString *)base64EncodedString;
 
 /**
  URL encode a string in utf-8.
  @return the encoded string.
  */
-- (NSString *)stringByURLEncode;
+- (NSString *)kt_stringByURLEncode;
 
 /**
  URL decode a string in utf-8.
  @return the decoded string.
  */
-- (NSString *)stringByURLDecode;
+- (NSString *)kt_stringByURLDecode;
 
 /**
  Escape commmon HTML to Entity.
  Example: "a>b" will be escape to "a&gt;b".
  */
-- (NSString *)stringByEscapingHTML;
+- (NSString *)kt_stringByEscapingHTML;
 
 #pragma mark - Drawing
 ///=============================================================================
@@ -158,7 +163,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return              The width and height of the resulting string's bounding box.
  These values may be rounded up to the nearest whole number.
  */
-- (CGSize)sizeForFont:(UIFont *)font size:(CGSize)size mode:(NSLineBreakMode)lineBreakMode;
+- (CGSize)kt_sizeForFont:(UIFont *)font size:(CGSize)size mode:(NSLineBreakMode)lineBreakMode;
 
 /**
  Returns the width of the string if it were to be rendered with the specified
@@ -169,7 +174,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return      The width of the resulting string's bounding box. These values may be
  rounded up to the nearest whole number.
  */
-- (CGFloat)widthForFont:(UIFont *)font;
+- (CGFloat)kt_widthForFont:(UIFont *)font;
 
 /**
  Returns the height of the string if it were rendered with the specified constraints.
@@ -182,13 +187,25 @@ NS_ASSUME_NONNULL_BEGIN
  @return       The height of the resulting string's bounding box. These values
  may be rounded up to the nearest whole number.
  */
-- (CGFloat)heightForFont:(UIFont *)font width:(CGFloat)width;
+- (CGFloat)kt_heightForFont:(UIFont *)font width:(CGFloat)width;
 
+/**
+ 返回字符串占用行数
+
+ @param font 字体
+ @param width 宽度
+ */
+- (NSInteger)kt_lineCountForFont:(UIFont *)font width:(CGFloat)width;
 
 #pragma mark - Regular Expression
 ///=============================================================================
 /// @name Regular Expression
 ///=============================================================================
+
+
+///  Whether it can match the regular expression
+/// @param regex The regular expression
+- (BOOL)kt_matchesRegex:(NSString *)regex;
 
 /**
  Whether it can match the regular expression
@@ -197,7 +214,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param options     The matching options to report.
  @return YES if can match the regex; otherwise, NO.
  */
-- (BOOL)matchesRegex:(NSString *)regex options:(NSRegularExpressionOptions)options;
+- (BOOL)kt_matchesRegex:(NSString *)regex options:(NSRegularExpressionOptions)options;
 
 /**
  Match the regular expression, and executes a given block using each object in the matches.
@@ -213,9 +230,9 @@ NS_ASSUME_NONNULL_BEGIN
          argument is an out-only argument. You should only ever set
          this Boolean to YES within the Block.
  */
-- (void)enumerateRegexMatches:(NSString *)regex
-                      options:(NSRegularExpressionOptions)options
-                   usingBlock:(void (^)(NSString *match, NSRange matchRange, BOOL *stop))block;
+- (void)kt_enumerateRegexMatches:(NSString *)regex
+						 options:(NSRegularExpressionOptions)options
+					  usingBlock:(void (^)(NSString *match, NSRange matchRange, BOOL *stop))block;
 
 /**
  Returns a new string containing matching regular expressions replaced with the template string.
@@ -226,9 +243,9 @@ NS_ASSUME_NONNULL_BEGIN
  
  @return A string with matching regular expressions replaced by the template string.
  */
-- (NSString *)stringByReplacingRegex:(NSString *)regex
-                             options:(NSRegularExpressionOptions)options
-                          withString:(NSString *)replacement;
+- (NSString *)kt_stringByReplacingRegex:(NSString *)regex
+								options:(NSRegularExpressionOptions)options
+							 withString:(NSString *)replacement;
 
 
 #pragma mark - NSNumber Compatible
@@ -237,16 +254,29 @@ NS_ASSUME_NONNULL_BEGIN
 ///=============================================================================
 
 // Now you can use NSString as a NSNumber.
-@property (readonly) char charValue;
-@property (readonly) unsigned char unsignedCharValue;
-@property (readonly) short shortValue;
-@property (readonly) unsigned short unsignedShortValue;
-@property (readonly) unsigned int unsignedIntValue;
-@property (readonly) long longValue;
-@property (readonly) unsigned long unsignedLongValue;
-@property (readonly) unsigned long long unsignedLongLongValue;
-@property (readonly) NSUInteger unsignedIntegerValue;
+@property (readonly) char kt_charValue;
+@property (readonly) unsigned char kt_unsignedCharValue;
+@property (readonly) short kt_shortValue;
+@property (readonly) unsigned short kt_unsignedShortValue;
+@property (readonly) unsigned int kt_unsignedIntValue;
+@property (readonly) long kt_longValue;
+@property (readonly) unsigned long kt_unsignedLongValue;
+@property (readonly) unsigned long long kt_unsignedLongLongValue;
+@property (readonly) NSUInteger kt_unsignedIntegerValue;
 
+#pragma mark - HTML
+/// 判断一个字符串是否为HTML格式的字符串
+- (BOOL)kt_isHTMLStringWithString;
+
+/// 获取HTML格式的属性字符串
+- (NSAttributedString *)kt_getHTMLAttributedString;
+
+#pragma mark - URL
+/// convert current string to NSURLl
+- (nullable NSURL *)kt_toUrl;
+
+///  获取url query
+- (nullable NSDictionary *)kt_getURLQueries;
 
 #pragma mark - Utilities
 ///=============================================================================
@@ -257,7 +287,7 @@ NS_ASSUME_NONNULL_BEGIN
  Returns a new UUID NSString
  e.g. "D1178E50-2A4D-4F1F-9BD3-F6AAB00E06B1"
  */
-+ (NSString *)stringWithUUID;
++ (NSString *)kt_stringWithUUID;
 
 /**
  Returns a string containing the characters in a given UTF32Char.
@@ -265,7 +295,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param char32 A UTF-32 character.
  @return A new string, or nil if the character is invalid.
  */
-+ (NSString *)stringWithUTF32Char:(UTF32Char)char32;
++ (NSString *)kt_stringWithUTF32Char:(UTF32Char)char32;
 
 /**
  Returns a string containing the characters in a given UTF32Char array.
@@ -274,7 +304,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param length The character count in array.
  @return A new string, or nil if an error occurs.
  */
-+ (NSString *)stringWithUTF32Chars:(const UTF32Char *)char32 length:(NSUInteger)length;
++ (NSString *)kt_stringWithUTF32Chars:(const UTF32Char *)char32 length:(NSUInteger)length;
 
 /**
  Enumerates the unicode characters (UTF-32) in the specified range of the string.
@@ -288,13 +318,13 @@ NS_ASSUME_NONNULL_BEGIN
     stop: A reference to a Boolean value that the block can use to stop the enumeration 
         by setting *stop = YES; it should not touch *stop otherwise.
  */
-- (void)enumerateUTF32CharInRange:(NSRange)range usingBlock:(void (^)(UTF32Char char32, NSRange range, BOOL *stop))block;
+- (void)kt_enumerateUTF32CharInRange:(NSRange)range usingBlock:(void (^)(UTF32Char char32, NSRange range, BOOL *stop))block;
 
 /**
  Trim blank characters (space and newline) in head and tail.
  @return the trimmed string.
  */
-- (NSString *)stringByTrim;
+- (NSString *)kt_stringByTrim;
 
 /**
  Add scale modifier to the file name (without path extension),
@@ -313,7 +343,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param scale Resource scale.
  @return String by add scale modifier, or just return if it's not end with file name.
  */
-- (NSString *)stringByAppendingNameScale:(CGFloat)scale;
+- (NSString *)kt_stringByAppendingNameScale:(CGFloat)scale;
 
 /**
  Add scale modifier to the file path (with path extension),
@@ -334,7 +364,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param scale Resource scale.
  @return String by add scale modifier, or just return if it's not end with file name.
  */
-- (NSString *)stringByAppendingPathScale:(CGFloat)scale;
+- (NSString *)kt_stringByAppendingPathScale:(CGFloat)scale;
 
 /**
  Return the path scale.
@@ -350,42 +380,42 @@ NS_ASSUME_NONNULL_BEGIN
  <tr><td>"icon@2x.png/"  </td><td>1     </td></tr>
  </table>
  */
-- (CGFloat)pathScale;
+- (CGFloat)kt_pathScale;
 
 /**
  nil, @"", @"  ", @"\n" will Returns NO; otherwise Returns YES.
  */
-- (BOOL)isNotBlank;
+- (BOOL)kt_isNotBlank;
 
-/**
- Returns YES if the target string is contained within the receiver.
- @param string A string to test the the receiver.
- 
- @discussion Apple has implemented this method in iOS8.
- */
-- (BOOL)containsString:(NSString *)string;
+///**
+// Returns YES if the target string is contained within the receiver.
+// @param string A string to test the the receiver.
+// 
+// @discussion Apple has implemented this method in iOS8.
+// */
+//- (BOOL)containsString:(NSString *)string;
 
 /**
  Returns YES if the target CharacterSet is contained within the receiver.
  @param set  A character set to test the the receiver.
  */
-- (BOOL)containsCharacterSet:(NSCharacterSet *)set;
+- (BOOL)kt_containsCharacterSet:(NSCharacterSet *)set;
 
 /**
  Try to parse this string and returns an `NSNumber`.
  @return Returns an `NSNumber` if parse succeed, or nil if an error occurs.
  */
-- (NSNumber *)numberValue;
+- (NSNumber *)kt_numberValue;
 
 /**
  Returns an NSData using UTF-8 encoding.
  */
-- (NSData *)dataValue;
+- (NSData *)kt_dataValue;
 
 /**
  Returns NSMakeRange(0, self.length).
  */
-- (NSRange)rangeOfAll;
+- (NSRange)kt_rangeOfAll;
 
 /**
  Returns an NSDictionary/NSArray which is decoded from receiver.
@@ -393,7 +423,7 @@ NS_ASSUME_NONNULL_BEGIN
  
  e.g. NSString: @"{"name":"a","count":2}"  => NSDictionary: @[@"name":@"a",@"count":@2]
  */
-- (id)jsonValueDecoded;
+- (id)kt_jsonValueDecoded;
 
 /**
  Create a string from the file in main bundle (similar to [UIImage imageNamed:]).
@@ -402,7 +432,27 @@ NS_ASSUME_NONNULL_BEGIN
  
  @return A new string create from the file in UTF-8 character encoding.
  */
-+ (NSString *)stringNamed:(NSString *)name;
++ (NSString *)kt_stringNamed:(NSString *)name;
+
+/// 去除 颜色字符串(#ffffff)中的#
+- (NSString *)kt_removeDashSymbol;
+
+/// 获取当前日期字符串对应的阿拉波日期字符串
+- (NSString *)kt_toArDateString;
+
+/**
+ 字符串中邮箱高亮
+ 
+ @param color 高亮颜色
+ @return 处理后的字符串
+ */
+- (NSAttributedString *)kt_highLightedEmailWithColor:(UIColor *)color;
+
+/// 依据正则，高亮相关的字符串
+/// @param string 原始的字符串
+/// @param pattern 正则
+/// @param color 高亮颜色
++ (NSAttributedString *)kt_distinguishWithString:(NSString *)string pattern:(NSString *)pattern highLightColor:(UIColor *)color;
 
 @end
 

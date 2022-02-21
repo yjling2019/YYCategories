@@ -13,28 +13,28 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern void YY_RGB2HSL(CGFloat r, CGFloat g, CGFloat b,
+extern void KT_RGB2HSL(CGFloat r, CGFloat g, CGFloat b,
                        CGFloat *h, CGFloat *s, CGFloat *l);
 
-extern void YY_HSL2RGB(CGFloat h, CGFloat s, CGFloat l,
+extern void KT_HSL2RGB(CGFloat h, CGFloat s, CGFloat l,
                        CGFloat *r, CGFloat *g, CGFloat *b);
 
-extern void YY_RGB2HSB(CGFloat r, CGFloat g, CGFloat b,
+extern void KT_RGB2HSB(CGFloat r, CGFloat g, CGFloat b,
                        CGFloat *h, CGFloat *s, CGFloat *v);
 
-extern void YY_HSB2RGB(CGFloat h, CGFloat s, CGFloat v,
+extern void KT_HSB2RGB(CGFloat h, CGFloat s, CGFloat v,
                        CGFloat *r, CGFloat *g, CGFloat *b);
 
-extern void YY_RGB2CMYK(CGFloat r, CGFloat g, CGFloat b,
+extern void KT_RGB2CMYK(CGFloat r, CGFloat g, CGFloat b,
                         CGFloat *c, CGFloat *m, CGFloat *y, CGFloat *k);
 
-extern void YY_CMYK2RGB(CGFloat c, CGFloat m, CGFloat y, CGFloat k,
+extern void KT_CMYK2RGB(CGFloat c, CGFloat m, CGFloat y, CGFloat k,
                         CGFloat *r, CGFloat *g, CGFloat *b);
 
-extern void YY_HSB2HSL(CGFloat h, CGFloat s, CGFloat b,
+extern void KT_HSB2HSL(CGFloat h, CGFloat s, CGFloat b,
                        CGFloat *hh, CGFloat *ss, CGFloat *ll);
 
-extern void YY_HSL2HSB(CGFloat h, CGFloat s, CGFloat l,
+extern void KT_HSL2HSB(CGFloat h, CGFloat s, CGFloat l,
                        CGFloat *hh, CGFloat *ss, CGFloat *bb);
 
 
@@ -96,10 +96,10 @@ extern void YY_HSL2HSB(CGFloat h, CGFloat s, CGFloat l,
  @return           The color object. The color information represented by this 
                    object is in the device RGB colorspace.
  */
-+ (UIColor *)colorWithHue:(CGFloat)hue
-               saturation:(CGFloat)saturation
-                lightness:(CGFloat)lightness
-                    alpha:(CGFloat)alpha;
++ (UIColor *)kt_colorWithHue:(CGFloat)hue
+				  saturation:(CGFloat)saturation
+				   lightness:(CGFloat)lightness
+					   alpha:(CGFloat)alpha;
 
 /**
  Creates and returns a color object using the specified opacity
@@ -123,11 +123,11 @@ extern void YY_HSL2HSB(CGFloat h, CGFloat s, CGFloat l,
  @return        The color object. The color information represented by this 
                 object is in the device RGB colorspace.
  */
-+ (UIColor *)colorWithCyan:(CGFloat)cyan
-                   magenta:(CGFloat)magenta
-                    yellow:(CGFloat)yellow
-                     black:(CGFloat)black
-                     alpha:(CGFloat)alpha;
++ (UIColor *)kt_colorWithCyan:(CGFloat)cyan
+					  magenta:(CGFloat)magenta
+					   yellow:(CGFloat)yellow
+						black:(CGFloat)black
+						alpha:(CGFloat)alpha;
 
 /**
  Creates and returns a color object using the hex RGB color values.
@@ -137,7 +137,7 @@ extern void YY_HSL2HSB(CGFloat h, CGFloat s, CGFloat l,
  @return          The color object. The color information represented by this
                   object is in the device RGB colorspace.
  */
-+ (UIColor *)colorWithRGB:(uint32_t)rgbValue;
++ (UIColor *)kt_colorWithRGB:(uint32_t)rgbValue;
 
 /**
  Creates and returns a color object using the hex RGBA color values.
@@ -147,7 +147,7 @@ extern void YY_HSL2HSB(CGFloat h, CGFloat s, CGFloat l,
  @return           The color object. The color information represented by this 
                    object is in the device RGB colorspace.
  */
-+ (UIColor *)colorWithRGBA:(uint32_t)rgbaValue;
++ (UIColor *)kt_colorWithRGBA:(uint32_t)rgbaValue;
 
 /**
  Creates and returns a color object using the specified opacity and RGB hex value.
@@ -160,7 +160,7 @@ extern void YY_HSL2HSB(CGFloat h, CGFloat s, CGFloat l,
  @return          The color object. The color information represented by this 
                   object is in the device RGB colorspace.
  */
-+ (UIColor *)colorWithRGB:(uint32_t)rgbValue alpha:(CGFloat)alpha;
++ (UIColor *)kt_colorWithRGB:(uint32_t)rgbValue alpha:(CGFloat)alpha;
 
 /**
  Creates and returns a color object from hex string.
@@ -177,7 +177,7 @@ extern void YY_HSL2HSB(CGFloat h, CGFloat s, CGFloat l,
  
  @return        An UIColor object from string, or nil if an error occurs.
  */
-+ (nullable UIColor *)colorWithHexString:(NSString *)hexStr;
++ (nullable UIColor *)kt_colorWithHexString:(NSString *)hexStr;
 
 /**
  Creates and returns a color object by add new color.
@@ -186,7 +186,7 @@ extern void YY_HSL2HSB(CGFloat h, CGFloat s, CGFloat l,
  
  @param blendMode  add color blend mode
  */
-- (UIColor *)colorByAddColor:(UIColor *)add blendMode:(CGBlendMode)blendMode;
+- (UIColor *)kt_colorByAddColor:(UIColor *)add blendMode:(CGBlendMode)blendMode;
 
 /**
  Creates and returns a color object by change components.
@@ -203,10 +203,10 @@ extern void YY_HSL2HSB(CGFloat h, CGFloat s, CGFloat l,
  @param alphaDelta       the alpha change delta specified as a value 
                          from -1.0 to 1.0. 0 means no change.
  */
-- (UIColor *)colorByChangeHue:(CGFloat)hueDelta
-                   saturation:(CGFloat)saturationDelta
-                   brightness:(CGFloat)brightnessDelta
-                        alpha:(CGFloat)alphaDelta;
+- (UIColor *)kt_colorByChangeHue:(CGFloat)hueDelta
+					  saturation:(CGFloat)saturationDelta
+					  brightness:(CGFloat)brightnessDelta
+						   alpha:(CGFloat)alphaDelta;
 
 
 #pragma mark - Get color's description
@@ -218,14 +218,14 @@ extern void YY_HSL2HSB(CGFloat h, CGFloat s, CGFloat l,
  Returns the rgb value in hex.
  @return hex value of RGB,such as 0x66ccff.
  */
-- (uint32_t)rgbValue;
+- (uint32_t)kt_rgbValue;
 
 /**
  Returns the rgba value in hex.
  
  @return hex value of RGBA,such as 0x66ccffff.
  */
-- (uint32_t)rgbaValue;
+- (uint32_t)kt_rgbaValue;
 
 /**
  Returns the color's RGB value as a hex string (lowercase).
@@ -235,7 +235,7 @@ extern void YY_HSL2HSB(CGFloat h, CGFloat s, CGFloat l,
  
  @return The color's value as a hex string.
  */
-- (nullable NSString *)hexString;
+- (nullable NSString *)kt_hexString;
 
 /**
  Returns the color's RGBA value as a hex string (lowercase).
@@ -245,7 +245,7 @@ extern void YY_HSL2HSB(CGFloat h, CGFloat s, CGFloat l,
  
  @return The color's value as a hex string.
  */
-- (nullable NSString *)hexStringWithAlpha;
+- (nullable NSString *)kt_hexStringWithAlpha;
 
 
 #pragma mark - Retrieving Color Information
@@ -270,10 +270,10 @@ extern void YY_HSL2HSB(CGFloat h, CGFloat s, CGFloat l,
  
  @return            YES if the color could be converted, NO otherwise.
  */
-- (BOOL)getHue:(CGFloat *)hue
-    saturation:(CGFloat *)saturation
-     lightness:(CGFloat *)lightness
-         alpha:(CGFloat *)alpha;
+- (BOOL)kt_getHue:(CGFloat *)hue
+		saturation:(CGFloat *)saturation
+		lightness:(CGFloat *)lightness
+			alpha:(CGFloat *)alpha;
 
 /**
  Returns the components that make up the color in the CMYK color space.
@@ -295,63 +295,63 @@ extern void YY_HSL2HSB(CGFloat h, CGFloat s, CGFloat l,
  
  @return         YES if the color could be converted, NO otherwise.
  */
-- (BOOL)getCyan:(CGFloat *)cyan
-        magenta:(CGFloat *)magenta
-         yellow:(CGFloat *)yellow
-          black:(CGFloat *)black
-          alpha:(CGFloat *)alpha;
+- (BOOL)kt_getCyan:(CGFloat *)cyan
+		   magenta:(CGFloat *)magenta
+			yellow:(CGFloat *)yellow
+			 black:(CGFloat *)black
+			 alpha:(CGFloat *)alpha;
 
 /**
  The color's red component value in RGB color space.
  The value of this property is a float in the range `0.0` to `1.0`.
  */
-@property (nonatomic, readonly) CGFloat red;
+@property (nonatomic, readonly) CGFloat kt_red;
 
 /**
  The color's green component value in RGB color space.
  The value of this property is a float in the range `0.0` to `1.0`.
  */
-@property (nonatomic, readonly) CGFloat green;
+@property (nonatomic, readonly) CGFloat kt_green;
 
 /**
  The color's blue component value in RGB color space.
  The value of this property is a float in the range `0.0` to `1.0`.
  */
-@property (nonatomic, readonly) CGFloat blue;
+@property (nonatomic, readonly) CGFloat kt_blue;
 
 /**
  The color's hue component value in HSB color space.
  The value of this property is a float in the range `0.0` to `1.0`.
  */
-@property (nonatomic, readonly) CGFloat hue;
+@property (nonatomic, readonly) CGFloat kt_hue;
 
 /**
  The color's saturation component value in HSB color space.
  The value of this property is a float in the range `0.0` to `1.0`.
  */
-@property (nonatomic, readonly) CGFloat saturation;
+@property (nonatomic, readonly) CGFloat kt_saturation;
 
 /**
  The color's brightness component value in HSB color space.
  The value of this property is a float in the range `0.0` to `1.0`.
  */
-@property (nonatomic, readonly) CGFloat brightness;
+@property (nonatomic, readonly) CGFloat kt_brightness;
 
 /**
  The color's alpha component value.
  The value of this property is a float in the range `0.0` to `1.0`.
  */
-@property (nonatomic, readonly) CGFloat alpha;
+@property (nonatomic, readonly) CGFloat kt_alpha;
 
 /**
  The color's colorspace model.
  */
-@property (nonatomic, readonly) CGColorSpaceModel colorSpaceModel;
+@property (nonatomic, readonly) CGColorSpaceModel kt_colorSpaceModel;
 
 /**
  Readable colorspace string.
  */
-@property (nullable, nonatomic, readonly) NSString *colorSpaceString;
+@property (nullable, nonatomic, readonly) NSString *kt_colorSpaceString;
 
 @end
 

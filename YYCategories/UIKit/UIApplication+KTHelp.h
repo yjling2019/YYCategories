@@ -19,40 +19,40 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UIApplication (KTHelp)
 
 /// "Documents" folder in this app's sandbox.
-@property (nonatomic, readonly) NSURL *documentsURL;
-@property (nonatomic, readonly) NSString *documentsPath;
+@property (nonatomic, readonly) NSURL *kt_documentsURL;
+@property (nonatomic, readonly) NSString *kt_documentsPath;
 
 /// "Caches" folder in this app's sandbox.
-@property (nonatomic, readonly) NSURL *cachesURL;
-@property (nonatomic, readonly) NSString *cachesPath;
+@property (nonatomic, readonly) NSURL *kt_cachesURL;
+@property (nonatomic, readonly) NSString *kt_cachesPath;
 
 /// "Library" folder in this app's sandbox.
-@property (nonatomic, readonly) NSURL *libraryURL;
-@property (nonatomic, readonly) NSString *libraryPath;
+@property (nonatomic, readonly) NSURL *kt_libraryURL;
+@property (nonatomic, readonly) NSString *kt_libraryPath;
 
 /// Application's Bundle Name (show in SpringBoard).
-@property (nullable, nonatomic, readonly) NSString *appBundleName;
+@property (nullable, nonatomic, readonly) NSString *kt_appBundleName;
 
 /// Application's Bundle ID.  e.g. "com.ibireme.MyApp"
-@property (nullable, nonatomic, readonly) NSString *appBundleID;
+@property (nullable, nonatomic, readonly) NSString *kt_appBundleID;
 
 /// Application's Version.  e.g. "1.2.0"
-@property (nullable, nonatomic, readonly) NSString *appVersion;
+@property (nullable, nonatomic, readonly) NSString *kt_appVersion;
 
 /// Application's Build number. e.g. "123"
-@property (nullable, nonatomic, readonly) NSString *appBuildVersion;
+@property (nullable, nonatomic, readonly) NSString *kt_appBuildVersion;
 
 /// Whether this app is priated (not install from appstore).
-@property (nonatomic, readonly) BOOL isPirated;
+@property (nonatomic, readonly) BOOL kt_isPirated;
 
 /// Whether this app is being debugged (debugger attached).
-@property (nonatomic, readonly) BOOL isBeingDebugged;
+@property (nonatomic, readonly) BOOL kt_isBeingDebugged;
 
 /// Current thread real memory used in byte. (-1 when error occurs)
-@property (nonatomic, readonly) int64_t memoryUsage;
+@property (nonatomic, readonly) int64_t kt_memoryUsage;
 
 /// Current thread CPU usage, 1.0 means 100%. (-1 when error occurs)
-@property (nonatomic, readonly) float cpuUsage;
+@property (nonatomic, readonly) float kt_cpuUsage;
 
 
 /**
@@ -62,7 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
  
  This method is thread safe.
  */
-- (void)incrementNetworkActivityCount;
+- (void)kt_incrementNetworkActivityCount;
 
 /**
  Decrements the number of active network requests. 
@@ -71,14 +71,14 @@ NS_ASSUME_NONNULL_BEGIN
  
  This method is thread safe.
  */
-- (void)decrementNetworkActivityCount;
+- (void)kt_decrementNetworkActivityCount;
 
 
 /// Returns YES in App Extension.
-+ (BOOL)isAppExtension;
++ (BOOL)kt_isAppExtension;
 
 /// Same as sharedApplication, but returns nil in App Extension.
-+ (nullable UIApplication *)sharedExtensionApplication;
++ (nullable UIApplication *)kt_sharedExtensionApplication;
 
 @end
 

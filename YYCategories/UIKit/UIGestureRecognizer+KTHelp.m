@@ -15,7 +15,7 @@
 
 static const int block_key;
 
-@interface _YYUIGestureRecognizerBlockTarget : NSObject
+@interface _KTUIGestureRecognizerBlockTarget : NSObject
 
 @property (nonatomic, copy) void (^block)(id sender);
 
@@ -24,7 +24,7 @@ static const int block_key;
 
 @end
 
-@implementation _YYUIGestureRecognizerBlockTarget
+@implementation _KTUIGestureRecognizerBlockTarget
 
 - (id)initWithBlock:(void (^)(id sender))block{
     self = [super init];
@@ -47,18 +47,18 @@ static const int block_key;
 
 - (instancetype)initWithActionBlock:(void (^)(id sender))block {
     self = [self init];
-    [self addActionBlock:block];
+    [self kt_addActionBlock:block];
     return self;
 }
 
-- (void)addActionBlock:(void (^)(id sender))block {
-    _YYUIGestureRecognizerBlockTarget *target = [[_YYUIGestureRecognizerBlockTarget alloc] initWithBlock:block];
+- (void)kt_addActionBlock:(void (^)(id sender))block {
+    _KTUIGestureRecognizerBlockTarget *target = [[_KTUIGestureRecognizerBlockTarget alloc] initWithBlock:block];
     [self addTarget:target action:@selector(invoke:)];
     NSMutableArray *targets = [self _yy_allUIGestureRecognizerBlockTargets];
     [targets addObject:target];
 }
 
-- (void)removeAllActionBlocks{
+- (void)kt_removeAllActionBlocks{
     NSMutableArray *targets = [self _yy_allUIGestureRecognizerBlockTargets];
     [targets enumerateObjectsUsingBlock:^(id target, NSUInteger idx, BOOL *stop) {
         [self removeTarget:target action:@selector(invoke:)];

@@ -16,7 +16,7 @@
 @implementation NSNumber (KTHelp)
 
 + (NSNumber *)kt_numberWithString:(NSString *)string {
-    NSString *str = [[string stringByTrim] lowercaseString];
+    NSString *str = [[string kt_stringByTrim] lowercaseString];
     if (!str || !str.length) {
         return nil;
     }

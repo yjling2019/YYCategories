@@ -13,12 +13,9 @@
 #import "YYCategoriesMacro.h"
 #import <objc/runtime.h>
 
-YYSYNTH_DUMMY_CLASS(UIBarButtonItem_KTHelp)
-
-
 static const int block_key;
 
-@interface _YYUIBarButtonItemBlockTarget : NSObject
+@interface _KTUIBarButtonItemBlockTarget : NSObject
 
 @property (nonatomic, copy) void (^block)(id sender);
 
@@ -27,7 +24,7 @@ static const int block_key;
 
 @end
 
-@implementation _YYUIBarButtonItemBlockTarget
+@implementation _KTUIBarButtonItemBlockTarget
 
 - (id)initWithBlock:(void (^)(id sender))block{
     self = [super init];
@@ -46,16 +43,16 @@ static const int block_key;
 
 @implementation UIBarButtonItem (KTHelp)
 
-- (void)setActionBlock:(void (^)(id sender))block {
-    _YYUIBarButtonItemBlockTarget *target = [[_YYUIBarButtonItemBlockTarget alloc] initWithBlock:block];
+- (void)setKt_actionBlock:(void (^)(id sender))block {
+    _KTUIBarButtonItemBlockTarget *target = [[_KTUIBarButtonItemBlockTarget alloc] initWithBlock:block];
     objc_setAssociatedObject(self, &block_key, target, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     
     [self setTarget:target];
     [self setAction:@selector(invoke:)];
 }
 
-- (void (^)(id)) actionBlock {
-    _YYUIBarButtonItemBlockTarget *target = objc_getAssociatedObject(self, &block_key);
+- (void (^)(id)) kt_actionBlock {
+    _KTUIBarButtonItemBlockTarget *target = objc_getAssociatedObject(self, &block_key);
     return target.block;
 }
 

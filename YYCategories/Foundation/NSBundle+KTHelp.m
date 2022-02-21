@@ -40,8 +40,8 @@
     NSArray *scales = [self kt_preferredScales];
     for (int s = 0; s < scales.count; s++) {
         CGFloat scale = ((NSNumber *)scales[s]).floatValue;
-        NSString *scaledName = ext.length ? [name stringByAppendingNameScale:scale]
-        : [name stringByAppendingPathScale:scale];
+        NSString *scaledName = ext.length ? [name kt_stringByAppendingNameScale:scale]
+        : [name kt_stringByAppendingPathScale:scale];
         path = [self pathForResource:scaledName ofType:ext inDirectory:bundlePath];
         if (path) break;
     }
@@ -58,8 +58,8 @@
     NSArray *scales = [NSBundle kt_preferredScales];
     for (int s = 0; s < scales.count; s++) {
         CGFloat scale = ((NSNumber *)scales[s]).floatValue;
-        NSString *scaledName = ext.length ? [name stringByAppendingNameScale:scale]
-        : [name stringByAppendingPathScale:scale];
+        NSString *scaledName = ext.length ? [name kt_stringByAppendingNameScale:scale]
+        : [name kt_stringByAppendingPathScale:scale];
         path = [self pathForResource:scaledName ofType:ext];
         if (path) break;
     }
@@ -77,8 +77,8 @@
     NSArray *scales = [NSBundle kt_preferredScales];
     for (int s = 0; s < scales.count; s++) {
         CGFloat scale = ((NSNumber *)scales[s]).floatValue;
-        NSString *scaledName = ext.length ? [name stringByAppendingNameScale:scale]
-        : [name stringByAppendingPathScale:scale];
+        NSString *scaledName = ext.length ? [name kt_stringByAppendingNameScale:scale]
+        : [name kt_stringByAppendingPathScale:scale];
         path = [self pathForResource:scaledName ofType:ext inDirectory:subpath];
         if (path) break;
     }

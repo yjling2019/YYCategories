@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
  
  @return screen's scale
  */
-+ (CGFloat)screenScale;
++ (CGFloat)kt_screenScale;
 
 /**
  Returns the bounds of the screen for the current device orientation.
@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return A rect indicating the bounds of the screen.
  @see    boundsForOrientation:
  */
-- (CGRect)currentBounds NS_EXTENSION_UNAVAILABLE_IOS("");
+- (CGRect)kt_currentBounds NS_EXTENSION_UNAVAILABLE_IOS("");
 
 /**
  Returns the bounds of the screen for a given device orientation.
@@ -42,21 +42,21 @@ NS_ASSUME_NONNULL_BEGIN
  @return A rect indicating the bounds of the screen.
  @see  currentBounds
  */
-- (CGRect)boundsForOrientation:(UIInterfaceOrientation)orientation;
+- (CGRect)kt_boundsForOrientation:(UIInterfaceOrientation)orientation;
 
 /**
  The screen's real size in pixel (width is always smaller than height).
  This value may not be very accurate in an unknown device, or simulator.
  e.g. (768,1024)
  */
-@property (nonatomic, readonly) CGSize sizeInPixel;
+@property (nonatomic, readonly) CGSize kt_sizeInPixel;
 
 /**
  The screen's PPI.
  This value may not be very accurate in an unknown device, or simulator.
  Default value is 96.
  */
-@property (nonatomic, readonly) CGFloat pixelsPerInch;
+@property (nonatomic, readonly) CGFloat kt_pixelsPerInch;
 
 @end
 

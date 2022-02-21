@@ -12,61 +12,58 @@
 #import "UIFont+KTHelp.h"
 #import "YYCategoriesMacro.h"
 
-YYSYNTH_DUMMY_CLASS(UIFont_KTHelp)
-
-
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wprotocol"
 // Apple has implemented UIFont<NSCoding>, but did not make it public.
 
 @implementation UIFont (KTHelp)
 
-- (BOOL)isBold {
+- (BOOL)kt_isBold {
     if (![self respondsToSelector:@selector(fontDescriptor)]) return NO;
     return (self.fontDescriptor.symbolicTraits & UIFontDescriptorTraitBold) > 0;
 }
 
-- (BOOL)isItalic {
+- (BOOL)kt_isItalic {
     if (![self respondsToSelector:@selector(fontDescriptor)]) return NO;
     return (self.fontDescriptor.symbolicTraits & UIFontDescriptorTraitItalic) > 0;
 }
 
-- (BOOL)isMonoSpace {
+- (BOOL)kt_isMonoSpace {
     if (![self respondsToSelector:@selector(fontDescriptor)]) return NO;
     return (self.fontDescriptor.symbolicTraits & UIFontDescriptorTraitMonoSpace) > 0;
 }
 
-- (BOOL)isColorGlyphs {
+- (BOOL)kt_isColorGlyphs {
     if (![self respondsToSelector:@selector(fontDescriptor)]) return NO;
     return (CTFontGetSymbolicTraits((__bridge CTFontRef)self) & kCTFontTraitColorGlyphs) != 0;
 }
 
-- (CGFloat)fontWeight {
+- (CGFloat)kt_fontWeight {
     NSDictionary *traits = [self.fontDescriptor objectForKey:UIFontDescriptorTraitsAttribute];
     return [traits[UIFontWeightTrait] floatValue];
 }
 
-- (UIFont *)fontWithBold {
+- (UIFont *)kt_fontWithBold {
     if (![self respondsToSelector:@selector(fontDescriptor)]) return nil;
     return [UIFont fontWithDescriptor:[self.fontDescriptor fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold] size:self.pointSize];
 }
 
-- (UIFont *)fontWithItalic {
+- (UIFont *)kt_fontWithItalic {
     if (![self respondsToSelector:@selector(fontDescriptor)]) return nil;
     return [UIFont fontWithDescriptor:[self.fontDescriptor fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitItalic] size:self.pointSize];
 }
 
-- (UIFont *)fontWithBoldItalic {
+- (UIFont *)kt_fontWithBoldItalic {
     if (![self respondsToSelector:@selector(fontDescriptor)]) return nil;
     return [UIFont fontWithDescriptor:[self.fontDescriptor fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold | UIFontDescriptorTraitItalic] size:self.pointSize];
 }
 
-- (UIFont *)fontWithNormal {
+- (UIFont *)kt_fontWithNormal {
     if (![self respondsToSelector:@selector(fontDescriptor)]) return nil;
     return [UIFont fontWithDescriptor:[self.fontDescriptor fontDescriptorWithSymbolicTraits:0] size:self.pointSize];
 }
 
-+ (UIFont *)fontWithCTFont:(CTFontRef)CTFont {
++ (UIFont *)kt_fontWithCTFont:(CTFontRef)CTFont {
     if (!CTFont) return nil;
     CFStringRef name = CTFontCopyPostScriptName(CTFont);
     if (!name) return nil;
@@ -76,7 +73,7 @@ YYSYNTH_DUMMY_CLASS(UIFont_KTHelp)
     return font;
 }
 
-+ (UIFont *)fontWithCGFont:(CGFontRef)CGFont size:(CGFloat)size {
++ (UIFont *)kt_fontWithCGFont:(CGFontRef)CGFont size:(CGFloat)size {
     if (!CGFont) return nil;
     CFStringRef name = CGFontCopyPostScriptName(CGFont);
     if (!name) return nil;
@@ -85,17 +82,17 @@ YYSYNTH_DUMMY_CLASS(UIFont_KTHelp)
     return font;
 }
 
-- (CTFontRef)CTFontRef CF_RETURNS_RETAINED {
+- (CTFontRef)kt_CTFontRef CF_RETURNS_RETAINED {
     CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)self.fontName, self.pointSize, NULL);
     return font;
 }
 
-- (CGFontRef)CGFontRef CF_RETURNS_RETAINED {
+- (CGFontRef)kt_CGFontRef CF_RETURNS_RETAINED {
     CGFontRef font = CGFontCreateWithFontName((__bridge CFStringRef)self.fontName);
     return font;
 }
 
-+ (BOOL)loadFontFromPath:(NSString *)path {
++ (BOOL)kt_loadFontFromPath:(NSString *)path {
     NSURL *url = [NSURL fileURLWithPath:path];
     CFErrorRef error;
     BOOL suc = CTFontManagerRegisterFontsForURL((__bridge CFTypeRef)url, kCTFontManagerScopeNone, &error);
@@ -105,12 +102,12 @@ YYSYNTH_DUMMY_CLASS(UIFont_KTHelp)
     return suc;
 }
 
-+ (void)unloadFontFromPath:(NSString *)path {
++ (void)kt_unloadFontFromPath:(NSString *)path {
     NSURL *url = [NSURL fileURLWithPath:path];
     CTFontManagerUnregisterFontsForURL((__bridge CFTypeRef)url, kCTFontManagerScopeNone, NULL);
 }
 
-+ (UIFont *)loadFontFromData:(NSData *)data {
++ (UIFont *)kt_loadFontFromData:(NSData *)data {
     CGDataProviderRef provider = CGDataProviderCreateWithCFData((__bridge CFDataRef)data);
     if (!provider) return nil;
     CGFontRef fontRef = CGFontCreateWithDataProvider(provider);
@@ -132,7 +129,7 @@ YYSYNTH_DUMMY_CLASS(UIFont_KTHelp)
     }
 }
 
-+ (BOOL)unloadFontFromData:(UIFont *)font {
++ (BOOL)kt_unloadFontFromData:(UIFont *)font {
     CGFontRef fontRef = CGFontCreateWithFontName((__bridge CFStringRef)font.fontName);
     if (!fontRef) return NO;
     CFErrorRef errorRef;
@@ -142,9 +139,9 @@ YYSYNTH_DUMMY_CLASS(UIFont_KTHelp)
     return suc;
 }
 
-+ (NSData *)dataFromFont:(UIFont *)font {
-    CGFontRef cgFont = font.CGFontRef;
-    NSData *data = [self dataFromCGFont:cgFont];
++ (NSData *)kt_dataFromFont:(UIFont *)font {
+    CGFontRef cgFont = font.kt_CGFontRef;
+    NSData *data = [self kt_dataFromCGFont:cgFont];
     CGFontRelease(cgFont);
     return data;
 }
@@ -175,7 +172,7 @@ static uint32_t CalcTableCheckSum(const uint32_t *table, uint32_t numberOfBytesI
 
 //Reference:
 //https://github.com/google/skia/blob/master/src%2Fports%2FSkFontHost_mac.cpp
-+ (NSData *)dataFromCGFont:(CGFontRef)cgFont {
++ (NSData *)kt_dataFromCGFont:(CGFontRef)cgFont {
     if (!cgFont) return nil;
     
     CFRetain(cgFont);

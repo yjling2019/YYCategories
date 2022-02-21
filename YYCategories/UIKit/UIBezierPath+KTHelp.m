@@ -14,13 +14,10 @@
 #import <CoreText/CoreText.h>
 #import "YYCategoriesMacro.h"
 
-YYSYNTH_DUMMY_CLASS(UIBezierPath_KTHelp)
-
-
 @implementation UIBezierPath (KTHelp)
 
-+ (UIBezierPath *)bezierPathWithText:(NSString *)text font:(UIFont *)font {
-    CTFontRef ctFont = font.CTFontRef;
++ (UIBezierPath *)kt_bezierPathWithText:(NSString *)text font:(UIFont *)font {
+    CTFontRef ctFont = font.kt_CTFontRef;
     if (!ctFont) return nil;
     NSDictionary *attrs = @{ (__bridge id)kCTFontAttributeName:(__bridge id)ctFont };
     NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:text attributes:attrs];

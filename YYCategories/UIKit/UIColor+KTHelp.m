@@ -13,12 +13,9 @@
 #import "NSString+KTHelp.h"
 #import "YYCategoriesMacro.h"
 
-YYSYNTH_DUMMY_CLASS(UIColor_KTHelp)
-
-
 #define CLAMP_COLOR_VALUE(v) (v) = (v) < 0 ? 0 : (v) > 1 ? 1 : (v)
 
-void YY_RGB2HSL(CGFloat r, CGFloat g, CGFloat b,
+void KT_RGB2HSL(CGFloat r, CGFloat g, CGFloat b,
                 CGFloat *h, CGFloat *s, CGFloat *l) {
     CLAMP_COLOR_VALUE(r);
     CLAMP_COLOR_VALUE(g);
@@ -42,7 +39,7 @@ void YY_RGB2HSL(CGFloat r, CGFloat g, CGFloat b,
     if (*h < 0) *h += 1;
 }
 
-void YY_HSL2RGB(CGFloat h, CGFloat s, CGFloat l,
+void KT_HSL2RGB(CGFloat h, CGFloat s, CGFloat l,
                 CGFloat *r, CGFloat *g, CGFloat *b) {
     CLAMP_COLOR_VALUE(h);
     CLAMP_COLOR_VALUE(s);
@@ -81,7 +78,7 @@ void YY_HSL2RGB(CGFloat h, CGFloat s, CGFloat l,
     }
 }
 
-void YY_RGB2HSB(CGFloat r, CGFloat g, CGFloat b,
+void KT_RGB2HSB(CGFloat r, CGFloat g, CGFloat b,
                 CGFloat *h, CGFloat *s, CGFloat *v) {
     CLAMP_COLOR_VALUE(r);
     CLAMP_COLOR_VALUE(g);
@@ -105,7 +102,7 @@ void YY_RGB2HSB(CGFloat r, CGFloat g, CGFloat b,
     if (*h < 0) *h += 1;
 }
 
-void YY_HSB2RGB(CGFloat h, CGFloat s, CGFloat v,
+void KT_HSB2RGB(CGFloat h, CGFloat s, CGFloat v,
                 CGFloat *r, CGFloat *g, CGFloat *b) {
     CLAMP_COLOR_VALUE(h);
     CLAMP_COLOR_VALUE(s);
@@ -134,7 +131,7 @@ void YY_HSB2RGB(CGFloat h, CGFloat s, CGFloat v,
     }
 }
 
-void YY_RGB2CMYK(CGFloat r, CGFloat g, CGFloat b,
+void KT_RGB2CMYK(CGFloat r, CGFloat g, CGFloat b,
                  CGFloat *c, CGFloat *m, CGFloat *y, CGFloat *k) {
     CLAMP_COLOR_VALUE(r);
     CLAMP_COLOR_VALUE(g);
@@ -154,7 +151,7 @@ void YY_RGB2CMYK(CGFloat r, CGFloat g, CGFloat b,
     }
 }
 
-void YY_CMYK2RGB(CGFloat c, CGFloat m, CGFloat y, CGFloat k,
+void KT_CMYK2RGB(CGFloat c, CGFloat m, CGFloat y, CGFloat k,
                  CGFloat *r, CGFloat *g, CGFloat *b) {
     CLAMP_COLOR_VALUE(c);
     CLAMP_COLOR_VALUE(m);
@@ -166,7 +163,7 @@ void YY_CMYK2RGB(CGFloat c, CGFloat m, CGFloat y, CGFloat k,
     *b = (1 - y) * (1 - k);
 }
 
-void YY_HSB2HSL(CGFloat h, CGFloat s, CGFloat b,
+void KT_HSB2HSL(CGFloat h, CGFloat s, CGFloat b,
                 CGFloat *hh, CGFloat *ss, CGFloat *ll) {
     CLAMP_COLOR_VALUE(h);
     CLAMP_COLOR_VALUE(s);
@@ -181,7 +178,7 @@ void YY_HSB2HSL(CGFloat h, CGFloat s, CGFloat b,
     }
 }
 
-void YY_HSL2HSB(CGFloat h, CGFloat s, CGFloat l,
+void KT_HSL2HSB(CGFloat h, CGFloat s, CGFloat l,
                 CGFloat *hh, CGFloat *ss, CGFloat *bb) {
     CLAMP_COLOR_VALUE(h);
     CLAMP_COLOR_VALUE(s);
@@ -199,46 +196,46 @@ void YY_HSL2HSB(CGFloat h, CGFloat s, CGFloat l,
 
 @implementation UIColor (KTHelp)
 
-+ (UIColor *)colorWithHue:(CGFloat)hue
-               saturation:(CGFloat)saturation
-                lightness:(CGFloat)lightness
-                    alpha:(CGFloat)alpha {
++ (UIColor *)kt_colorWithHue:(CGFloat)hue
+				  saturation:(CGFloat)saturation
+				   lightness:(CGFloat)lightness
+					   alpha:(CGFloat)alpha {
     CGFloat r, g, b;
-    YY_HSL2RGB(hue, saturation, lightness, &r, &g, &b);
+    KT_HSL2RGB(hue, saturation, lightness, &r, &g, &b);
     return [UIColor colorWithRed:r green:g blue:b alpha:alpha];
 }
-+ (UIColor *)colorWithCyan:(CGFloat)cyan
-                   magenta:(CGFloat)magenta
-                    yellow:(CGFloat)yellow
-                     black:(CGFloat)black
-                     alpha:(CGFloat)alpha {
++ (UIColor *)kt_colorWithCyan:(CGFloat)cyan
+					  magenta:(CGFloat)magenta
+					   yellow:(CGFloat)yellow
+						black:(CGFloat)black
+						alpha:(CGFloat)alpha {
     CGFloat r, g, b;
-    YY_CMYK2RGB(cyan, magenta, yellow, black, &r, &g, &b);
+    KT_CMYK2RGB(cyan, magenta, yellow, black, &r, &g, &b);
     return [UIColor colorWithRed:r green:g blue:b alpha:alpha];
 }
 
-+ (UIColor *)colorWithRGB:(uint32_t)rgbValue {
++ (UIColor *)kt_colorWithRGB:(uint32_t)rgbValue {
     return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16) / 255.0f
                            green:((rgbValue & 0xFF00) >> 8) / 255.0f
                             blue:(rgbValue & 0xFF) / 255.0f
                            alpha:1];
 }
 
-+ (UIColor *)colorWithRGBA:(uint32_t)rgbaValue {
++ (UIColor *)kt_colorWithRGBA:(uint32_t)rgbaValue {
     return [UIColor colorWithRed:((rgbaValue & 0xFF000000) >> 24) / 255.0f
                            green:((rgbaValue & 0xFF0000) >> 16) / 255.0f
                             blue:((rgbaValue & 0xFF00) >> 8) / 255.0f
                            alpha:(rgbaValue & 0xFF) / 255.0f];
 }
 
-+ (UIColor *)colorWithRGB:(uint32_t)rgbValue alpha:(CGFloat)alpha {
++ (UIColor *)kt_colorWithRGB:(uint32_t)rgbValue alpha:(CGFloat)alpha {
     return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16) / 255.0f
                            green:((rgbValue & 0xFF00) >> 8) / 255.0f
                             blue:(rgbValue & 0xFF) / 255.0f
                            alpha:alpha];
 }
 
-- (uint32_t)rgbValue {
+- (uint32_t)kt_rgbValue {
     CGFloat r = 0, g = 0, b = 0, a = 0;
     [self getRed:&r green:&g blue:&b alpha:&a];
     int8_t red = r * 255;
@@ -247,7 +244,7 @@ void YY_HSL2HSB(CGFloat h, CGFloat s, CGFloat l,
     return (red << 16) + (green << 8) + blue;
 }
 
-- (uint32_t)rgbaValue {
+- (uint32_t)kt_rgbaValue {
     CGFloat r = 0, g = 0, b = 0, a = 0;
     [self getRed:&r green:&g blue:&b alpha:&a];
     int8_t red = r * 255;
@@ -257,15 +254,15 @@ void YY_HSL2HSB(CGFloat h, CGFloat s, CGFloat l,
     return (red << 24) + (green << 16) + (blue << 8) + alpha;
 }
 
-static inline NSUInteger hexStrToInt(NSString *str) {
+static inline NSUInteger kt_hexStrToInt(NSString *str) {
     uint32_t result = 0;
     sscanf([str UTF8String], "%X", &result);
     return result;
 }
 
-static BOOL hexStrToRGBA(NSString *str,
+static BOOL kt_hexStrToRGBA(NSString *str,
                          CGFloat *r, CGFloat *g, CGFloat *b, CGFloat *a) {
-    str = [[str stringByTrim] uppercaseString];
+    str = [[str kt_stringByTrim] uppercaseString];
     if ([str hasPrefix:@"#"]) {
         str = [str substringFromIndex:1];
     } else if ([str hasPrefix:@"0X"]) {
@@ -280,38 +277,38 @@ static BOOL hexStrToRGBA(NSString *str,
     
     //RGB,RGBA,RRGGBB,RRGGBBAA
     if (length < 5) {
-        *r = hexStrToInt([str substringWithRange:NSMakeRange(0, 1)]) / 255.0f;
-        *g = hexStrToInt([str substringWithRange:NSMakeRange(1, 1)]) / 255.0f;
-        *b = hexStrToInt([str substringWithRange:NSMakeRange(2, 1)]) / 255.0f;
-        if (length == 4)  *a = hexStrToInt([str substringWithRange:NSMakeRange(3, 1)]) / 255.0f;
+        *r = kt_hexStrToInt([str substringWithRange:NSMakeRange(0, 1)]) / 255.0f;
+        *g = kt_hexStrToInt([str substringWithRange:NSMakeRange(1, 1)]) / 255.0f;
+        *b = kt_hexStrToInt([str substringWithRange:NSMakeRange(2, 1)]) / 255.0f;
+        if (length == 4)  *a = kt_hexStrToInt([str substringWithRange:NSMakeRange(3, 1)]) / 255.0f;
         else *a = 1;
     } else {
-        *r = hexStrToInt([str substringWithRange:NSMakeRange(0, 2)]) / 255.0f;
-        *g = hexStrToInt([str substringWithRange:NSMakeRange(2, 2)]) / 255.0f;
-        *b = hexStrToInt([str substringWithRange:NSMakeRange(4, 2)]) / 255.0f;
-        if (length == 8) *a = hexStrToInt([str substringWithRange:NSMakeRange(6, 2)]) / 255.0f;
+        *r = kt_hexStrToInt([str substringWithRange:NSMakeRange(0, 2)]) / 255.0f;
+        *g = kt_hexStrToInt([str substringWithRange:NSMakeRange(2, 2)]) / 255.0f;
+        *b = kt_hexStrToInt([str substringWithRange:NSMakeRange(4, 2)]) / 255.0f;
+        if (length == 8) *a = kt_hexStrToInt([str substringWithRange:NSMakeRange(6, 2)]) / 255.0f;
         else *a = 1;
     }
     return YES;
 }
 
-+ (instancetype)colorWithHexString:(NSString *)hexStr {
++ (instancetype)kt_colorWithHexString:(NSString *)hexStr {
     CGFloat r, g, b, a;
-    if (hexStrToRGBA(hexStr, &r, &g, &b, &a)) {
+    if (kt_hexStrToRGBA(hexStr, &r, &g, &b, &a)) {
         return [UIColor colorWithRed:r green:g blue:b alpha:a];
     }
     return nil;
 }
 
-- (NSString *)hexString {
-    return [self hexStringWithAlpha:NO];
+- (NSString *)kt_hexString {
+    return [self kt_hexStringWithAlpha:NO];
 }
 
-- (NSString *)hexStringWithAlpha {
-    return [self hexStringWithAlpha:YES];
+- (NSString *)kt_hexStringWithAlpha {
+    return [self kt_hexStringWithAlpha:YES];
 }
 
-- (NSString *)hexStringWithAlpha:(BOOL)withAlpha {
+- (NSString *)kt_hexStringWithAlpha:(BOOL)withAlpha {
     CGColorRef color = self.CGColor;
     size_t count = CGColorGetNumberOfComponents(color);
     const CGFloat *components = CGColorGetComponents(color);
@@ -329,12 +326,12 @@ static BOOL hexStrToRGBA(NSString *str,
     
     if (hex && withAlpha) {
         hex = [hex stringByAppendingFormat:@"%02lx",
-               (unsigned long)(self.alpha * 255.0 + 0.5)];
+               (unsigned long)(self.kt_alpha * 255.0 + 0.5)];
     }
     return hex;
 }
 
-- (UIColor *)colorByAddColor:(UIColor *)add blendMode:(CGBlendMode)blendMode {
+- (UIColor *)kt_colorByAddColor:(UIColor *)add blendMode:(CGBlendMode)blendMode {
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGBitmapInfo bitmapInfo = kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big;
     uint8_t pixel[4] = { 0 };
@@ -349,7 +346,10 @@ static BOOL hexStrToRGBA(NSString *str,
     return [UIColor colorWithRed:pixel[0] / 255.0f green:pixel[1] / 255.0f blue:pixel[2] / 255.0f alpha:pixel[3] / 255.0f];
 }
 
-- (UIColor *)colorByChangeHue:(CGFloat)h saturation:(CGFloat)s brightness:(CGFloat)b alpha:(CGFloat)a {
+- (UIColor *)kt_colorByChangeHue:(CGFloat)h
+					  saturation:(CGFloat)s
+					  brightness:(CGFloat)b
+						   alpha:(CGFloat)a {
     CGFloat hh, ss, bb, aa;
     if (![self getHue:&hh saturation:&ss brightness:&bb alpha:&aa]) {
         return self;
@@ -366,78 +366,78 @@ static BOOL hexStrToRGBA(NSString *str,
     return [UIColor colorWithHue:hh saturation:ss brightness:bb alpha:aa];
 }
 
-- (BOOL)getHue:(CGFloat *)hue
-    saturation:(CGFloat *)saturation
-     lightness:(CGFloat *)lightness
-         alpha:(CGFloat *)alpha {
+- (BOOL)kt_getHue:(CGFloat *)hue
+		saturation:(CGFloat *)saturation
+		lightness:(CGFloat *)lightness
+			alpha:(CGFloat *)alpha {
     CGFloat r, g, b, a;
     if (![self getRed:&r green:&g blue:&b alpha:&a]) {
         return NO;
     }
-    YY_RGB2HSL(r, g, b, hue, saturation, lightness);
+    KT_RGB2HSL(r, g, b, hue, saturation, lightness);
     *alpha = a;
     return YES;
 }
 
-- (BOOL)getCyan:(CGFloat *)cyan
-        magenta:(CGFloat *)magenta
-         yellow:(CGFloat *)yellow
-          black:(CGFloat *)black
-          alpha:(CGFloat *)alpha {
+- (BOOL)kt_getCyan:(CGFloat *)cyan
+		   magenta:(CGFloat *)magenta
+			yellow:(CGFloat *)yellow
+			 black:(CGFloat *)black
+			 alpha:(CGFloat *)alpha {
     CGFloat r, g, b, a;
     if (![self getRed:&r green:&g blue:&b alpha:&a]) {
         return NO;
     }
-    YY_RGB2CMYK(r, g, b, cyan, magenta, yellow, black);
+    KT_RGB2CMYK(r, g, b, cyan, magenta, yellow, black);
     *alpha = a;
     return YES;
 }
 
-- (CGFloat)red {
+- (CGFloat)kt_red {
     CGFloat r = 0, g, b, a;
     [self getRed:&r green:&g blue:&b alpha:&a];
     return r;
 }
 
-- (CGFloat)green {
+- (CGFloat)kt_green {
     CGFloat r, g = 0, b, a;
     [self getRed:&r green:&g blue:&b alpha:&a];
     return g;
 }
 
-- (CGFloat)blue {
+- (CGFloat)kt_blue {
     CGFloat r, g, b = 0, a;
     [self getRed:&r green:&g blue:&b alpha:&a];
     return b;
 }
 
-- (CGFloat)alpha {
+- (CGFloat)kt_alpha {
     return CGColorGetAlpha(self.CGColor);
 }
 
-- (CGFloat)hue {
+- (CGFloat)kt_hue {
     CGFloat h = 0, s, b, a;
     [self getHue:&h saturation:&s brightness:&b alpha:&a];
     return h;
 }
 
-- (CGFloat)saturation {
+- (CGFloat)kt_saturation {
     CGFloat h, s = 0, b, a;
     [self getHue:&h saturation:&s brightness:&b alpha:&a];
     return s;
 }
 
-- (CGFloat)brightness {
+- (CGFloat)kt_brightness {
     CGFloat h, s, b = 0, a;
     [self getHue:&h saturation:&s brightness:&b alpha:&a];
     return b;
 }
 
-- (CGColorSpaceModel)colorSpaceModel {
+- (CGColorSpaceModel)kt_colorSpaceModel {
     return CGColorSpaceGetModel(CGColorGetColorSpace(self.CGColor));
 }
 
-- (NSString *)colorSpaceString {
+- (NSString *)kt_colorSpaceString {
     CGColorSpaceModel model =  CGColorSpaceGetModel(CGColorGetColorSpace(self.CGColor));
     switch (model) {
         case kCGColorSpaceModelUnknown:

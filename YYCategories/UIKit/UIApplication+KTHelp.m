@@ -18,52 +18,50 @@
 #import <mach/mach.h>
 #import <objc/runtime.h>
 
-YYSYNTH_DUMMY_CLASS(UIApplication_KTHelp)
-
 #define kNetworkIndicatorDelay (1/30.0)
-@interface _YYUIApplicationNetworkIndicatorInfo : NSObject
+@interface _KTUIApplicationNetworkIndicatorInfo : NSObject
 @property (nonatomic, assign) NSInteger count;
 @property (nonatomic, strong) NSTimer *timer;
 @end
 
-@implementation _YYUIApplicationNetworkIndicatorInfo
+@implementation _KTUIApplicationNetworkIndicatorInfo
 @end
 
 
 @implementation UIApplication (KTHelp)
 
-- (NSURL *)documentsURL {
+- (NSURL *)kt_documentsURL {
     return [[[NSFileManager defaultManager]
              URLsForDirectory:NSDocumentDirectory
              inDomains:NSUserDomainMask] lastObject];
 }
 
-- (NSString *)documentsPath {
+- (NSString *)kt_documentsPath {
     return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
 }
 
-- (NSURL *)cachesURL {
+- (NSURL *)kt_cachesURL {
     return [[[NSFileManager defaultManager]
              URLsForDirectory:NSCachesDirectory
              inDomains:NSUserDomainMask] lastObject];
 }
 
-- (NSString *)cachesPath {
+- (NSString *)kt_cachesPath {
     return [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
 }
 
-- (NSURL *)libraryURL {
+- (NSURL *)kt_libraryURL {
     return [[[NSFileManager defaultManager]
              URLsForDirectory:NSLibraryDirectory
              inDomains:NSUserDomainMask] lastObject];
 }
 
-- (NSString *)libraryPath {
+- (NSString *)kt_libraryPath {
     return [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) firstObject];
 }
 
-- (BOOL)isPirated {
-    if ([[UIDevice currentDevice] isSimulator]) return YES; // Simulator is not from appstore
+- (BOOL)kt_isPirated {
+    if ([[UIDevice currentDevice] kt_isSimulator]) return YES; // Simulator is not from appstore
     
     if (getgid() <= 10) return YES; // process ID shouldn't be root
     
@@ -71,11 +69,11 @@ YYSYNTH_DUMMY_CLASS(UIApplication_KTHelp)
         return YES;
     }
     
-    if (![self _yy_fileExistInMainBundle:@"_CodeSignature"]) {
+    if (![self _kt_fileExistInMainBundle:@"_CodeSignature"]) {
         return YES;
     }
     
-    if (![self _yy_fileExistInMainBundle:@"SC_Info"]) {
+    if (![self _kt_fileExistInMainBundle:@"SC_Info"]) {
         return YES;
     }
     
@@ -84,29 +82,29 @@ YYSYNTH_DUMMY_CLASS(UIApplication_KTHelp)
     return NO;
 }
 
-- (BOOL)_yy_fileExistInMainBundle:(NSString *)name {
+- (BOOL)_kt_fileExistInMainBundle:(NSString *)name {
     NSString *bundlePath = [[NSBundle mainBundle] bundlePath];
     NSString *path = [NSString stringWithFormat:@"%@/%@", bundlePath, name];
     return [[NSFileManager defaultManager] fileExistsAtPath:path];
 }
 
-- (NSString *)appBundleName {
+- (NSString *)kt_appBundleName {
     return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"];
 }
 
-- (NSString *)appBundleID {
+- (NSString *)kt_appBundleID {
     return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"];
 }
 
-- (NSString *)appVersion {
+- (NSString *)kt_appVersion {
     return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
 }
 
-- (NSString *)appBuildVersion {
+- (NSString *)kt_appBuildVersion {
     return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
 }
 
-- (BOOL)isBeingDebugged {
+- (BOOL)kt_isBeingDebugged {
     size_t size = sizeof(struct kinfo_proc);
     struct kinfo_proc info;
     int ret = 0, name[4];
@@ -122,7 +120,7 @@ YYSYNTH_DUMMY_CLASS(UIApplication_KTHelp)
     return (info.kp_proc.p_flag & P_TRACED) ? YES : NO;
 }
 
-- (int64_t)memoryUsage {
+- (int64_t)kt_memoryUsage {
     struct task_basic_info info;
     mach_msg_type_number_t size = sizeof(info);
     kern_return_t kern = task_info(mach_task_self(), TASK_BASIC_INFO, (task_info_t)&info, &size);
@@ -130,7 +128,7 @@ YYSYNTH_DUMMY_CLASS(UIApplication_KTHelp)
     return info.resident_size;
 }
 
-- (float)cpuUsage {
+- (float)kt_cpuUsage {
     kern_return_t kr;
     task_info_data_t tinfo;
     mach_msg_type_number_t task_info_count;
@@ -182,9 +180,9 @@ YYSYNTH_DUMMY_CLASS(UIApplication_KTHelp)
     return tot_cpu;
 }
 
-YYSYNTH_DYNAMIC_PROPERTY_OBJECT(networkActivityInfo, setNetworkActivityInfo, RETAIN_NONATOMIC, _YYUIApplicationNetworkIndicatorInfo *);
+KTSYNTH_DYNAMIC_PROPERTY_OBJECT(networkActivityInfo, setNetworkActivityInfo, RETAIN_NONATOMIC, _KTUIApplicationNetworkIndicatorInfo *);
 
-- (void)_delaySetActivity:(NSTimer *)timer {
+- (void)_kt_delaySetActivity:(NSTimer *)timer {
     NSNumber *visiable = timer.userInfo;
     if (self.networkActivityIndicatorVisible != visiable.boolValue) {
         [self setNetworkActivityIndicatorVisible:visiable.boolValue];
@@ -192,33 +190,33 @@ YYSYNTH_DYNAMIC_PROPERTY_OBJECT(networkActivityInfo, setNetworkActivityInfo, RET
     [timer invalidate];
 }
 
-- (void)_changeNetworkActivityCount:(NSInteger)delta {
+- (void)_kt_changeNetworkActivityCount:(NSInteger)delta {
     @synchronized(self){
         dispatch_async_on_main_queue(^{
-            _YYUIApplicationNetworkIndicatorInfo *info = [self networkActivityInfo];
+            _KTUIApplicationNetworkIndicatorInfo *info = [self networkActivityInfo];
             if (!info) {
-                info = [_YYUIApplicationNetworkIndicatorInfo new];
+                info = [_KTUIApplicationNetworkIndicatorInfo new];
                 [self setNetworkActivityInfo:info];
             }
             NSInteger count = info.count;
             count += delta;
             info.count = count;
             [info.timer invalidate];
-            info.timer = [NSTimer timerWithTimeInterval:kNetworkIndicatorDelay target:self selector:@selector(_delaySetActivity:) userInfo:@(info.count > 0) repeats:NO];
+            info.timer = [NSTimer timerWithTimeInterval:kNetworkIndicatorDelay target:self selector:@selector(_kt_delaySetActivity:) userInfo:@(info.count > 0) repeats:NO];
             [[NSRunLoop mainRunLoop] addTimer:info.timer forMode:NSRunLoopCommonModes];
         });
     }
 }
 
-- (void)incrementNetworkActivityCount {
-    [self _changeNetworkActivityCount:1];
+- (void)kt_incrementNetworkActivityCount {
+    [self _kt_changeNetworkActivityCount:1];
 }
 
-- (void)decrementNetworkActivityCount {
-    [self _changeNetworkActivityCount:-1];
+- (void)kt_decrementNetworkActivityCount {
+    [self _kt_changeNetworkActivityCount:-1];
 }
 
-+ (BOOL)isAppExtension {
++ (BOOL)kt_isAppExtension {
     static BOOL isAppExtension = NO;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -229,10 +227,10 @@ YYSYNTH_DYNAMIC_PROPERTY_OBJECT(networkActivityInfo, setNetworkActivityInfo, RET
     return isAppExtension;
 }
 
-+ (UIApplication *)sharedExtensionApplication {
++ (UIApplication *)kt_sharedExtensionApplication {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
-    return [self isAppExtension] ? nil : [UIApplication performSelector:@selector(sharedApplication)];
+    return [self kt_isAppExtension] ? nil : [UIApplication performSelector:@selector(sharedApplication)];
 #pragma clang diagnostic pop
 }
 
