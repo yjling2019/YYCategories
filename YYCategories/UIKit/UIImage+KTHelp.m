@@ -496,6 +496,113 @@ static NSTimeInterval _kt_CGImageSourceGetGIFFrameDelayAtIndex(CGImageSourceRef 
     return [self _kt_flipHorizontal:YES vertical:NO];
 }
 
+- (UIImage *)kt_imageFlipHorizontalIfNeeded {
+	if ([UIApplication sharedApplication].userInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionRightToLeft) {
+		return [self kt_imageByFlipHorizontal];
+	} else {
+		return self;
+	}
+}
+
+- (UIImage *)kt_circleImage {
+	UIGraphicsBeginImageContextWithOptions(self.size, NO, 0.0f);
+	// 2.加入一个圆形路径到图形上下文
+	CGContextRef ctx = UIGraphicsGetCurrentContext();
+	CGRect rect = CGRectMake(0, 0, self.size.width, self.size.height);
+	CGContextAddEllipseInRect(ctx, rect);
+	// 3.裁剪
+	CGContextClip(ctx);
+	// 4.绘制图像
+	[self drawInRect:rect];
+	// 4.取得图像
+	UIImage *circleImage = UIGraphicsGetImageFromCurrentImageContext();
+	// 5.关闭上下文
+	UIGraphicsEndImageContext();
+	return circleImage;
+}
+
+- (UIImage *)kt_imageWithTintColor:(UIColor *)tintColor {
+	UIGraphicsBeginImageContextWithOptions(self.size, NO, 0.0f);
+	[tintColor setFill];
+	CGRect bounds = CGRectMake(0, 0, self.size.width, self.size.height);
+	UIRectFill(bounds);
+	//绘制一次
+	[self drawInRect:bounds blendMode:kCGBlendModeOverlay alpha:1.0f];
+	//再绘制一次
+	[self drawInRect:bounds blendMode:kCGBlendModeDestinationIn alpha:0.1f];
+	
+	UIImage *tintedImage = UIGraphicsGetImageFromCurrentImageContext();
+	UIGraphicsEndImageContext();
+	
+	return tintedImage;
+}
+
+- (UIImage *)kt_grayImage {
+	int width = self.size.width;
+	int height = self.size.height;
+	
+	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
+	CGContextRef context = CGBitmapContextCreate(nil, width, height, 8, 0, colorSpace, kCGImageAlphaNone);
+	CGColorSpaceRelease(colorSpace);
+	if (context == NULL) {
+		return nil;
+	}
+	CGContextDrawImage(context, CGRectMake(0, 0, width, height), self.CGImage);
+	CGImageRef cgimg = CGBitmapContextCreateImage(context);
+	UIImage *grayImage = [UIImage imageWithCGImage:cgimg];
+	CGContextRelease(context);
+	CGImageRelease(cgimg);
+	return grayImage;
+}
+
++ (UIImage *)kt_horizontallyImageWithColors:(NSArray *)colors
+									   size:(CGSize)size {
+	if (!colors.count) {
+		return nil;
+	}
+	NSMutableArray *ar = [NSMutableArray array];
+	for (UIColor *c in colors) {
+		[ar addObject:(id)c.CGColor];
+	}
+	UIGraphicsBeginImageContextWithOptions(size, YES, 1);
+	CGContextRef context = UIGraphicsGetCurrentContext();
+	CGContextSaveGState(context);
+	CGColorSpaceRef colorSpace = CGColorGetColorSpace([[colors lastObject] CGColor]);
+	CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (CFArrayRef)ar, NULL);
+	CGPoint start = CGPointMake(0.0, 0.0);
+	CGPoint end = CGPointMake(size.width, size.height);
+	CGContextDrawLinearGradient(context, gradient, start, end, kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
+	UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+	CGGradientRelease(gradient);
+	CGContextRestoreGState(context);
+	UIGraphicsEndImageContext();
+	return image;
+}
+
++ (UIImage *)kt_verticallyImageWithColors:(NSArray *)colors
+									 size:(CGSize)size {
+	if (!colors.count) {
+		return nil;
+	}
+	NSMutableArray *ar = [NSMutableArray array];
+	for (UIColor *c in colors) {
+		[ar addObject:(id)c.CGColor];
+	}
+	UIGraphicsBeginImageContextWithOptions(size, YES, 1);
+	CGContextRef context = UIGraphicsGetCurrentContext();
+	CGContextSaveGState(context);
+	CGColorSpaceRef colorSpace = CGColorGetColorSpace([[colors lastObject] CGColor]);
+	CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (CFArrayRef)ar, NULL);
+	CGPoint start = CGPointMake(0.5, 0);
+	CGPoint end = CGPointMake(0.5, size.height);
+	CGContextDrawLinearGradient(context, gradient, start, end, kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
+	UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+	CGGradientRelease(gradient);
+	CGContextRestoreGState(context);
+	UIGraphicsEndImageContext();
+	return image;
+}
+
 - (UIImage *)kt_imageByTintColor:(UIColor *)color {
     UIGraphicsBeginImageContextWithOptions(self.size, NO, self.scale);
     CGRect rect = CGRectMake(0, 0, self.size.width, self.size.height);

@@ -292,6 +292,49 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (nullable UIImage *)kt_imageByFlipHorizontal;
 
+/// 反向语言下图片自动翻转
+- (nullable UIImage *)kt_imageFlipHorizontalIfNeeded;
+
+/**
+ 图片转成圆形
+ 
+ @return 圆形图片
+ */
+- (UIImage *)kt_circleImage;
+
+/**
+ 修改图片的填充色
+ 
+ @param tintColor 新的填充色
+ @return 处理之后的图片
+ */
+- (UIImage *)kt_imageWithTintColor:(UIColor *)tintColor;
+
+/**
+ 彩色图片变黑白图片
+ 
+ @return 处理之后的图片
+ */
+- (UIImage *)kt_grayImage;
+
+#pragma mark - Image Gradient
+/**
+ 渐变颜色转水平渐变图片
+ 
+ @param colors 颜色数组
+ @param size 图片大小
+ @return 图片
+ */
++ (nullable UIImage *)kt_horizontallyImageWithColors:(NSArray <UIColor *> *)colors size:(CGSize)size;
+
+/**
+ 渐变颜色转垂直渐变图片
+ 
+ @param colors 颜色数组
+ @param size 图片大小
+ @return 图片
+ */
++ (nullable UIImage *)kt_verticallyImageWithColors:(NSArray <UIColor *> *)colors size:(CGSize)size;
 
 #pragma mark - Image Effect
 ///=============================================================================

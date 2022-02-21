@@ -48,7 +48,7 @@
 #define XMLPref @"_"
 
 - (void)textEnd {
-    _text = _text.stringByTrim.mutableCopy;
+    _text = _text.kt_stringByTrim.mutableCopy;
     if (_text.length) {
         NSMutableDictionary *top = _stack.lastObject;
         id existing = top[XMLText];
