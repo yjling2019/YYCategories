@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5DD77F3827C4B72000D26784 /* NSObject+KTHelpForKVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DD77F3627C4B72000D26784 /* NSObject+KTHelpForKVC.m */; };
+		5DD77F3927C4B72000D26784 /* NSObject+KTHelpForKVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DD77F3727C4B72000D26784 /* NSObject+KTHelpForKVC.h */; };
+		5DD77F3C27C4B8D200D26784 /* UIViewController+KTKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DD77F3A27C4B8D200D26784 /* UIViewController+KTKeyboard.m */; };
+		5DD77F3D27C4B8D200D26784 /* UIViewController+KTKeyboard.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DD77F3B27C4B8D200D26784 /* UIViewController+KTKeyboard.h */; };
 		D9A21C5F1F055F4000D937E1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9D584F21F055ED700CBBB61 /* CoreGraphics.framework */; };
 		D9A21C601F055F4000D937E1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9D584F11F055ED300CBBB61 /* QuartzCore.framework */; };
 		D9A21C611F055F4000D937E1 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9D584F01F055ECF00CBBB61 /* Accelerate.framework */; };
@@ -80,6 +84,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5DD77F3627C4B72000D26784 /* NSObject+KTHelpForKVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+KTHelpForKVC.m"; sourceTree = "<group>"; };
+		5DD77F3727C4B72000D26784 /* NSObject+KTHelpForKVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+KTHelpForKVC.h"; sourceTree = "<group>"; };
+		5DD77F3A27C4B8D200D26784 /* UIViewController+KTKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+KTKeyboard.m"; sourceTree = "<group>"; };
+		5DD77F3B27C4B8D200D26784 /* UIViewController+KTKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+KTKeyboard.h"; sourceTree = "<group>"; };
 		D9D5845F1F055E2200CBBB61 /* YYCategories.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = YYCategories.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9D584631F055E2200CBBB61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D9D5846C1F055E6A00CBBB61 /* NSArray+KTHelp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+KTHelp.h"; sourceTree = "<group>"; };
@@ -224,6 +232,8 @@
 				D9D5847B1F055E6A00CBBB61 /* NSNumber+KTHelp.m */,
 				D9D5847C1F055E6A00CBBB61 /* NSObject+KTHelp.h */,
 				D9D5847D1F055E6A00CBBB61 /* NSObject+KTHelp.m */,
+				5DD77F3727C4B72000D26784 /* NSObject+KTHelpForKVC.h */,
+				5DD77F3627C4B72000D26784 /* NSObject+KTHelpForKVC.m */,
 				D9D5847E1F055E6A00CBBB61 /* NSObject+KTHelpForARC.h */,
 				D9D5847F1F055E6A00CBBB61 /* NSObject+KTHelpForARC.m */,
 				D9D584801F055E6A00CBBB61 /* NSObject+KTHelpForKVO.h */,
@@ -280,6 +290,8 @@
 				D9D584A71F055E6A00CBBB61 /* UITextField+KTHelp.m */,
 				D9D584A81F055E6A00CBBB61 /* UIView+KTHelp.h */,
 				D9D584A91F055E6A00CBBB61 /* UIView+KTHelp.m */,
+				5DD77F3B27C4B8D200D26784 /* UIViewController+KTKeyboard.h */,
+				5DD77F3A27C4B8D200D26784 /* UIViewController+KTKeyboard.m */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -314,6 +326,8 @@
 				D9D584E01F055E6A00CBBB61 /* UIScrollView+KTHelp.h in Headers */,
 				D9D584B41F055E6A00CBBB61 /* NSDictionary+KTHelp.h in Headers */,
 				D9D584CC1F055E6A00CBBB61 /* UIApplication+KTHelp.h in Headers */,
+				5DD77F3D27C4B8D200D26784 /* UIViewController+KTKeyboard.h in Headers */,
+				5DD77F3927C4B72000D26784 /* NSObject+KTHelpForKVC.h in Headers */,
 				D9D584B21F055E6A00CBBB61 /* NSDate+KTHelp.h in Headers */,
 				D9D584D41F055E6A00CBBB61 /* UIControl+KTHelp.h in Headers */,
 				D9D584BC1F055E6A00CBBB61 /* NSObject+KTHelp.h in Headers */,
@@ -411,6 +425,7 @@
 			files = (
 				D9D584CF1F055E6A00CBBB61 /* UIBarButtonItem+KTHelp.m in Sources */,
 				D9D584D91F055E6A00CBBB61 /* UIFont+KTHelp.m in Sources */,
+				5DD77F3C27C4B8D200D26784 /* UIViewController+KTKeyboard.m in Sources */,
 				D9D584E11F055E6A00CBBB61 /* UIScrollView+KTHelp.m in Sources */,
 				D9D584AF1F055E6A00CBBB61 /* NSBundle+KTHelp.m in Sources */,
 				D9D584DF1F055E6A00CBBB61 /* UIScreen+KTHelp.m in Sources */,
@@ -436,6 +451,7 @@
 				D9D584B91F055E6A00CBBB61 /* NSNotificationCenter+KTHelp.m in Sources */,
 				D9D584B31F055E6A00CBBB61 /* NSDate+KTHelp.m in Sources */,
 				D9D584D11F055E6A00CBBB61 /* UIBezierPath+KTHelp.m in Sources */,
+				5DD77F3827C4B72000D26784 /* NSObject+KTHelpForKVC.m in Sources */,
 				D9D584BD1F055E6A00CBBB61 /* NSObject+KTHelp.m in Sources */,
 				D9D584CD1F055E6A00CBBB61 /* UIApplication+KTHelp.m in Sources */,
 				D9D584B11F055E6A00CBBB61 /* NSData+KTHelp.m in Sources */,

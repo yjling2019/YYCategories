@@ -300,6 +300,13 @@ static BOOL kt_hexStrToRGBA(NSString *str,
     return nil;
 }
 
++ (UIColor *)kt_randomColor {
+	CGFloat red = arc4random() % 255 / 255.f;
+	CGFloat green = arc4random() % 255 / 255.f;
+	CGFloat blue = arc4random() % 255 / 255.f;
+	return [UIColor colorWithRed: red green:green blue:blue alpha:1];
+}
+
 - (NSString *)kt_hexString {
     return [self kt_hexStringWithAlpha:NO];
 }
